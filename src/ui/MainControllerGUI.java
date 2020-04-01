@@ -194,5 +194,114 @@ public class MainControllerGUI {
 		mainPane.getChildren().add(addBranchOffice);
 	}
 
+	@FXML
+	void searchBranchOffice(ActionEvent event) throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("searchBranchOffice.fxml"));
+
+		fxmlLoader.setController(this);
+		Parent searchBranchOffice = fxmlLoader.load();
+
+		mainPane.getChildren().clear();
+		mainPane.getChildren().add(searchBranchOffice);
+	}
+
+	@FXML
+	void removeBranchOffice(ActionEvent event) throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("removeBranchOffice.fxml"));
+
+		fxmlLoader.setController(this);
+		Parent removeBranchOffice = fxmlLoader.load();
+
+		mainPane.getChildren().clear();
+		mainPane.getChildren().add(removeBranchOffice);
+	}
+
+	@FXML
+	void branchOfficesReport(ActionEvent event) throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("reportBranchOffice.fxml"));
+
+		fxmlLoader.setController(this);
+		Parent reportBranchOffice = fxmlLoader.load();
+
+		mainPane.getChildren().clear();
+		mainPane.getChildren().add(reportBranchOffice);
+	}
+
+	@FXML
+	void reportEmployees(ActionEvent event) throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("reportEmployee.fxml"));
+
+		fxmlLoader.setController(this);
+		Parent reportEmployee = fxmlLoader.load();
+
+		mainPane.getChildren().clear();
+		mainPane.getChildren().add(reportEmployee);
+	}
+
+	@FXML
+	void reportContract(ActionEvent event) throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("reportContract.fxml"));
+
+		fxmlLoader.setController(this);
+		Parent reportContract = fxmlLoader.load();
+
+		mainPane.getChildren().clear();
+		mainPane.getChildren().add(reportContract);
+	}
+
+	@FXML
+	void reportFinancial(ActionEvent event) throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("financialReport.fxml"));
+
+		fxmlLoader.setController(this);
+		Parent financialReport = fxmlLoader.load();
+
+		mainPane.getChildren().clear();
+		mainPane.getChildren().add(financialReport);
+	}
+
+	@FXML
+	void financialOpts(ActionEvent event) throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("financialOpts.fxml"));
+
+		fxmlLoader.setController(this);
+		Parent financialOpts = fxmlLoader.load();
+
+		mainPane.getChildren().clear();
+		mainPane.getChildren().add(financialOpts);
+	}
+
+	@FXML
+	void addCompany(ActionEvent event) throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addCompany.fxml"));
+
+		fxmlLoader.setController(this);
+		Parent addCompany = fxmlLoader.load();
+
+		mainPane.getChildren().clear();
+		mainPane.getChildren().add(addCompany);
+	}
+
+	@FXML
+	void removeCompany(ActionEvent event) throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("removeCompany.fxml"));
+
+		fxmlLoader.setController(this);
+		Parent removeCompany = fxmlLoader.load();
+
+		mainPane.getChildren().clear();
+		mainPane.getChildren().add(removeCompany);
+	}
+
+	@FXML
+	void sellCompany(ActionEvent event) throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("sellCompany.fxml"));
+
+		fxmlLoader.setController(this);
+		Parent sellCompany = fxmlLoader.load();
+
+		mainPane.getChildren().clear();
+		mainPane.getChildren().add(sellCompany);
+	}
 
 }
