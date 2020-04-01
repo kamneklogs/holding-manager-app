@@ -1,5 +1,10 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import customExceptions.NotFundBrandOfficeException;
+
 public class Company {
 
     private String name;
@@ -40,7 +45,7 @@ public class Company {
         }
 
     }
-    
+
     public Contract getLastContract() {
 
         Contract current;
@@ -61,6 +66,62 @@ public class Company {
         }
 
         return current;
+
+    }
+
+    public BranchOffice searchBrandOffice(String id) throws NotFundBrandOfficeException {
+
+        BranchOffice bO;
+
+        if (mainOffice.getId().equals(id)) {
+            bO = mainOffice;
+        } else {
+            if (searchBrandOffice(mainOffice, id) != null) {
+                bO = searchBrandOffice(mainOffice, id);
+            } else {
+                throw new NotFundBrandOfficeException();
+            }
+
+        }
+
+        return bO;
+    }
+
+    private BranchOffice searchBrandOffice(BranchOffice current, String id) {
+
+        if (current == null) {
+
+            return null;
+
+        } else if (current.getId().equals(id)) {
+
+            return current;
+
+        } else if (current.getId().compareTo(id) > 0) {
+
+            if (current.getLeft() == null) {
+
+                return null;
+
+            } else {
+
+                return searchBrandOffice(current.getLeft(), id);
+
+            }
+
+        } else {
+
+            if (current.getAddress().equals(id)) {
+
+                return current;
+
+            } else {
+
+                return searchBrandOffice(current.getRight(), id);
+
+            }
+        }
+
     }
 
     /**
@@ -158,7 +219,6 @@ public class Company {
     public String employeesList() {
         return "";
     }
-
 
     public String generateReport(Company c) {
         return "";

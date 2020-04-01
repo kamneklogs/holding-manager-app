@@ -1,19 +1,27 @@
 package ui;
 
 import java.io.IOException;
+import java.util.List;
 
+import customExceptions.NotFundBrandOfficeException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-
+import model.BranchOffice;
 import model.HoldingMasterClass;
 
 public class MainControllerGUI {
@@ -74,12 +82,41 @@ public class MainControllerGUI {
 	@FXML
 	private TextField jobNewEmpTF;
 
+	@FXML
+	private TextField idForSearchBranchOffice;
+
+	@FXML
+    private Label addressForSearchBrand;
+
+    @FXML
+    private Label idForSearchBrand;
+
+
 	/**
 	 * @param theHolding
 	 */
 	public MainControllerGUI(HoldingMasterClass theHolding) {
 		this.theHolding = theHolding;
 	}
+
+	@FXML
+	void runSearchBrandOffice(ActionEvent event) {
+		try {
+			 theHolding.searchBrandOffice(idForSearchBranchOffice.getText());
+			 addressForSearchBrand.setText(theHolding.searchBrandOffice(idForSearchBranchOffice.getText()).getAddress());
+			 idForSearchBranchOffice.setText(theHolding.searchBrandOffice(idForSearchBranchOffice.getText()).getId());
+			
+		} catch (NotFundBrandOfficeException e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Error.");
+			alert.setContentText("Sede inexistente");
+
+			alert.showAndWait();
+		}
+	}
+
+	
 
 	@FXML
 	void addEmployee(ActionEvent event) throws IOException {
