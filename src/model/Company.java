@@ -73,6 +73,10 @@ public class Company {
 
         BranchOffice bO;
 
+        if (mainOffice == null) {
+            throw new NotFundBrandOfficeException();
+        }
+
         if (mainOffice.getId().equals(id)) {
             bO = mainOffice;
         } else {
