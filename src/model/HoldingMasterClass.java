@@ -21,6 +21,8 @@ public class HoldingMasterClass extends Company {
             BranchOffice mainOffice, Company company) {
         super(name, nit, myLegarR, employee, firstContract, mainOffice);
         this.company = company;
+
+        
     }
 
     /**
@@ -50,7 +52,7 @@ public class HoldingMasterClass extends Company {
     }
 
     public void removeCompany(String nit){
-        
+
     }
 
 }
