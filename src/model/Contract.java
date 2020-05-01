@@ -12,6 +12,7 @@ public class Contract {
 	private Employee partB;
 	private int actualRenewals;
 	private int renewalsLimit;
+	private Contract right, left;
 
 	/**
 	 * @param name
@@ -179,6 +180,32 @@ public class Contract {
 		this.renewalsLimit = renewalsLimit;
 	}
 
-	
+	/**
+	 * @return the right
+	 */
+	public Contract getRight() {
+		return right;
+	}
+
+	/**
+	 * @param right the right to set
+	 */
+	public void setRight(Contract right) {
+		this.right = right;
+	}
+
+	/**
+	 * @return the left
+	 */
+	public Contract getLeft() {
+		return left;
+	}
+
+	/**
+	 * @param left the left to set
+	 */
+	public void setLeft(Contract left) {
+		this.left = left;
+	}
 
 }
