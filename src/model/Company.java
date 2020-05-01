@@ -7,29 +7,30 @@ public class Company {
     private String name;
     private String nit;
     private Employee myLegarR;
-    private Employee firstEmployee;
+
+    // binary three archS
+    private Employee employee;
+
+    // linked list arch
     private Contract firstContract;
     private BranchOffice mainOffice;
-    private ArrayList<BranchOffice> myBranchOffices;
 
     /**
      * @param name
      * @param nit
      * @param myLegarR
-     * @param firstEmployee
+     * @param employee
      * @param firstContract
      * @param mainOffice
-     * @param mBranchOffices
      */
-    public Company(String name, String nit, Employee myLegarR, Employee firstEmployee, Contract firstContract,
+    public Company(String name, String nit, Employee myLegarR, Employee employee, Contract firstContract,
             BranchOffice mainOffice) {
         this.name = name;
         this.nit = nit;
         this.myLegarR = myLegarR;
-        this.firstEmployee = firstEmployee;
+        this.employee = employee;
         this.firstContract = firstContract;
         this.mainOffice = mainOffice;
-        myBranchOffices = new ArrayList<BranchOffice>();
     }
 
     /**
@@ -75,17 +76,17 @@ public class Company {
     }
 
     /**
-     * @return the firstEmployee
+     * @return the employee
      */
-    public Employee getFirstEmployee() {
-        return firstEmployee;
+    public Employee getEmployee() {
+        return employee;
     }
 
     /**
-     * @param firstEmployee the firstEmployee to set
+     * @param employee the employee to set
      */
-    public void setFirstEmployee(Employee firstEmployee) {
-        this.firstEmployee = firstEmployee;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     /**
@@ -116,18 +117,33 @@ public class Company {
         this.mainOffice = mainOffice;
     }
 
-    /**
-     * @return the mBranchOffices
-     */
-    public ArrayList<BranchOffice> getMyBranchOffices() {
-        return myBranchOffices;
+    public void addEmployee(Employee e) {
+
     }
 
-    /**
-     * @param mBranchOffices the mBranchOffices to set
-     */
-    public void setMyBranchOffices(ArrayList<BranchOffice> myBranchOffices) {
-        this.myBranchOffices = myBranchOffices;
+    public void removeEmployee(String id) {
+
+    }
+
+    public String employeesList() {
+        return "";
+    }
+
+    // more info!!
+    public void createContract() {
+
+    }
+
+    public String generateReport(Company c) {
+        return "";
+    }
+
+    public String generateReport(Employee e) {
+        return "";
+    }
+
+    public String generateReport(Contract c) {
+        return "";
     }
 
 }
