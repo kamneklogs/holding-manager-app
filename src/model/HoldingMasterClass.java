@@ -12,17 +12,16 @@ public class HoldingMasterClass extends Company {
      * @param name
      * @param nit
      * @param myLegarR
+     * @param firstEmployee
+     * @param moneyValue
      * @param employee
-     * @param firstContract
      * @param mainOffice
      * @param company
      */
-    public HoldingMasterClass(String name, String nit, Employee myLegarR, Employee employee, Contract firstContract,
-            BranchOffice mainOffice, Company company) {
-        super(name, nit, myLegarR, employee, firstContract, mainOffice);
+    public HoldingMasterClass(String name, String nit, Employee myLegarR, Employee firstEmployee, double moneyValue,
+            Employee employee, BranchOffice mainOffice, Company company) {
+        super(name, nit, myLegarR, firstEmployee, moneyValue, employee, mainOffice);
         this.company = company;
-
-        
     }
 
     /**
@@ -39,19 +38,19 @@ public class HoldingMasterClass extends Company {
         this.company = company;
     }
 
-    private void loadCurrentState() {
+    private void loadFromFile() {
 
     }
 
-    public void addCompany(Company c){
+    public void addCompany(Company c) {
 
     }
 
-    public void sellCompany(String nit){
+    public void sellCompany(String nit) {
 
     }
 
-    public void removeCompany(String nit){
+    public void removeCompany(String nit) {
 
     }
 

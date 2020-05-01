@@ -1,12 +1,11 @@
 package model;
 
-
-
 public class Company {
 
     private String name;
     private String nit;
     private Employee myLegarR;
+    private double moneyValue;
 
     // binary three archS
     private Employee employee;
@@ -19,17 +18,16 @@ public class Company {
      * @param name
      * @param nit
      * @param myLegarR
-     * @param employee
-     * @param firstContract
+     * @param firstEmployee
      * @param mainOffice
      */
-    public Company(String name, String nit, Employee myLegarR, Employee employee, Contract firstContract,
-            BranchOffice mainOffice) {
+    public Company(String name, String nit, Employee myLegarR, Employee firstEmployee, double moneyValue,
+            Employee employee, BranchOffice mainOffice) {
         this.name = name;
         this.nit = nit;
         this.myLegarR = myLegarR;
+        this.moneyValue = moneyValue;
         this.employee = employee;
-        this.firstContract = firstContract;
         this.mainOffice = mainOffice;
     }
 
@@ -144,6 +142,20 @@ public class Company {
 
     public String generateReport(Contract c) {
         return "";
+    }
+
+    /**
+     * @return the moneyValue
+     */
+    public double getMoneyValue() {
+        return moneyValue;
+    }
+
+    /**
+     * @param moneyValue the moneyValue to set
+     */
+    public void setMoneyValue(double moneyValue) {
+        this.moneyValue = moneyValue;
     }
 
 }
