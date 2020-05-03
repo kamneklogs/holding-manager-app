@@ -18,6 +18,7 @@ public class Main extends Application {
 	private ThreadThree t3;
 
 	public Main() {
+	
 		theHolding = new HoldingMasterClass(HoldingMasterClass.NAME, "21232", null, null, 12000000, null, null, null);
 		theMainControllerGUI = new MainControllerGUI(theHolding);
 
