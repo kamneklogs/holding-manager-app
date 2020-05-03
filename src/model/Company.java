@@ -40,7 +40,7 @@ public class Company {
         }
 
     }
-
+    //Comentario de prueba BORRARRRR
     public Contract getLastContract() {
 
         Contract current;
