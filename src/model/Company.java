@@ -40,7 +40,7 @@ public class Company {
         }
 
     }
-    //Comentario de prueba BORRARRRR
+    
     public Contract getLastContract() {
 
         Contract current;
@@ -159,10 +159,6 @@ public class Company {
         return "";
     }
 
-    // more info!!
-    public void createContract() {
-
-    }
 
     public String generateReport(Company c) {
         return "";
