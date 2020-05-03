@@ -55,7 +55,7 @@
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
           <items>
-            <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+            <MenuItem mnemonicParsing="false" onAction="#showCredits" text="About" />
           </items>
         </Menu>
       </menus>
@@ -74,31 +74,40 @@
                                        <toggleGroup>
                                           <ToggleGroup fx:id="empleadosToggleGroup" />
                                        </toggleGroup></RadioButton>
-                                    <RadioButton mnemonicParsing="false" text="Eliminar" toggleGroup="$empleadosToggleGroup" />
-                                    <RadioButton mnemonicParsing="false" text="Buscar" toggleGroup="$empleadosToggleGroup" />
+                                    <RadioButton mnemonicParsing="false" onAction="#removeEmployee" text="Eliminar" toggleGroup="$empleadosToggleGroup" />
+                                    <RadioButton mnemonicParsing="false" onAction="#searchEmployee" text="Buscar" toggleGroup="$empleadosToggleGroup" />
                                  </children>
                               </VBox>
                            </content>
                       </TitledPane>
                       <TitledPane animated="false" text="Contratos">
                            <content>
-                              <VBox prefHeight="200.0" prefWidth="100.0">
+                              <VBox alignment="CENTER_LEFT" spacing="15.0">
                                  <children>
-                                    <RadioButton mnemonicParsing="false" text="Crear nuevo.">
+                                    <RadioButton mnemonicParsing="false" onAction="#addContract" text="Crear nuevo.">
                                        <toggleGroup>
                                           <ToggleGroup fx:id="contratosToggleGroup" />
-                                       </toggleGroup></RadioButton>
-                                    <RadioButton mnemonicParsing="false" text="Eliminar." toggleGroup="$contratosToggleGroup" />
-                                    <RadioButton mnemonicParsing="false" text="Buscar" toggleGroup="$contratosToggleGroup" />
+                                       </toggleGroup>
+                                    </RadioButton>
+                                    <RadioButton mnemonicParsing="false" onAction="#removeContract" text="Eliminar.">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="contratosToggleGroup" />
+                                       </toggleGroup>
+                                    </RadioButton>
+                                    <RadioButton mnemonicParsing="false" onAction="#searchContract" text="Buscar">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="contratosToggleGroup" />
+                                       </toggleGroup>
+                                    </RadioButton>
                                  </children>
                               </VBox>
                            </content>
                       </TitledPane>
                       <TitledPane animated="false" prefHeight="476.0" prefWidth="220.0" text="Sedes">
                            <content>
-                              <VBox prefHeight="200.0" prefWidth="100.0">
+                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
                                  <children>
-                                    <RadioButton mnemonicParsing="false" text="Agregar">
+                                    <RadioButton mnemonicParsing="false" onAction="#addBranchOffice" text="Agregar">
                                        <toggleGroup>
                                           <ToggleGroup fx:id="sedesToggleGroup" />
                                        </toggleGroup></RadioButton>
@@ -110,7 +119,7 @@
                       </TitledPane>
                         <TitledPane prefHeight="200.0" prefWidth="200.0" text="Reportes">
                            <content>
-                              <VBox prefHeight="200.0" prefWidth="100.0">
+                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
                                  <children>
                                     <RadioButton mnemonicParsing="false" text="Sedes">
                                        <toggleGroup>
@@ -125,7 +134,7 @@
                            </content></TitledPane>
                         <TitledPane prefHeight="200.0" prefWidth="200.0" text="Finanzas">
                            <content>
-                              <VBox prefHeight="200.0" prefWidth="100.0">
+                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
                                  <children>
                                     <RadioButton mnemonicParsing="false" text="Ingresos y Gastos">
                                        <toggleGroup>
@@ -137,7 +146,7 @@
                            </content></TitledPane>
                         <TitledPane animated="false" prefHeight="56.0" prefWidth="220.0" text="Administracion">
                            <content>
-                              <VBox prefHeight="200.0" prefWidth="100.0">
+                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
                                  <children>
                                     <RadioButton mnemonicParsing="false" text="Agregar empresa">
                                        <toggleGroup>
@@ -155,7 +164,7 @@
         </AnchorPane>
         <ScrollPane prefHeight="-1.0" prefWidth="-1.0">
           <content>
-            <AnchorPane id="Content" fx:id="mainPane" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
+            <AnchorPane id="Content" fx:id="mainPane" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="439.0">
               <children>
                 <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="525.0" prefWidth="380.0" style="&#10;" text="Bienvenido" textAlignment="CENTER" wrapText="false">
                            <font>

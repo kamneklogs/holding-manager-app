@@ -10,30 +10,37 @@ import thread.*;
 
 public class Main extends Application {
 
-    private HoldingMasterClass theHolding;
-    private MainControllerGUI theMainControllerGUI;
+	private HoldingMasterClass theHolding;
+	private MainControllerGUI theMainControllerGUI;
 
-    private ThreadOne t1;
-    private ThreadTwo t2;
-    private ThreadThree t3;
+	private ThreadOne t1;
+	private ThreadTwo t2;
+	private ThreadThree t3;
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+	public Main() {
+		theHolding = new HoldingMasterClass(HoldingMasterClass.NAME, "21232", null, null, 12000000, null, null, null);
+		theMainControllerGUI = new MainControllerGUI(theHolding);
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
+	}
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("mainWindow.fxml"));
+	public static void main(String[] args) {
 
-        fxmlLoader.setController(theMainControllerGUI);
+		launch(args);
+	}
 
-        Parent root = fxmlLoader.load();
+	@Override
+	public void start(Stage primaryStage) throws Exception {
 
-        Scene scene = new Scene(root);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("SEROS GROUP - MANAGER APP V.1");
-        primaryStage.show();
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("mainWindow.fxml"));
 
-    }
+		fxmlLoader.setController(theMainControllerGUI);
+
+		Parent root = fxmlLoader.load();
+
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.setTitle("SEROS GROUP - MANAGER APP V.1");
+		primaryStage.show();
+
+	}
 }
