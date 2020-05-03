@@ -31,6 +31,38 @@ public class Company {
         this.mainOffice = mainOffice;
     }
 
+    public void addContract(Contract newContract) {
+
+        if (getLastContract() == null) {
+            firstContract = newContract;
+        } else {
+            getLastContract().setNext(newContract);
+        }
+
+    }
+
+    public Contract getLastContract() {
+
+        Contract current;
+
+        if (firstContract == null) {
+
+            return null;
+
+        } else {
+
+            current = firstContract;
+
+            while (current.getNext() != null) {
+
+                current = current.getNext();
+
+            }
+        }
+
+        return current;
+    }
+
     /**
      * @return the name
      */

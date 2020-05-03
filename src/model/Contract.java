@@ -12,7 +12,7 @@ public class Contract {
 	private Employee partB;
 	private int actualRenewals;
 	private int renewalsLimit;
-	private Contract right, left;
+	private Contract prev, next;
 
 	/**
 	 * @param name
@@ -181,31 +181,31 @@ public class Contract {
 	}
 
 	/**
-	 * @return the right
+	 * @return the prev
 	 */
-	public Contract getRight() {
-		return right;
+	public Contract getPrev() {
+		return prev;
 	}
 
 	/**
-	 * @param right the right to set
+	 * @param prev the prev to set
 	 */
-	public void setRight(Contract right) {
-		this.right = right;
+	public void setPrev(Contract prev) {
+		this.prev = prev;
 	}
 
 	/**
-	 * @return the left
+	 * @return the last
 	 */
-	public Contract getLeft() {
-		return left;
+	public Contract getNext() {
+		return next;
 	}
 
 	/**
-	 * @param left the left to set
+	 * @param last the last to set
 	 */
-	public void setLeft(Contract left) {
-		this.left = left;
+	public void setNext(Contract next) {
+		this.next = next;
 	}
 
 }
