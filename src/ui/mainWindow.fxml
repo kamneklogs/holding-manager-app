@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
@@ -64,9 +65,9 @@
       <items>
         <AnchorPane>
           <children>
-                  <Accordion prefHeight="274.0" prefWidth="220.0">
+                  <Accordion blendMode="GREEN" prefHeight="274.0" prefWidth="220.0">
                     <panes>
-                      <TitledPane animated="false" text="Empleados">
+                      <TitledPane text="Empleados">
                            <content>
                               <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
                                  <children>
@@ -80,7 +81,7 @@
                               </VBox>
                            </content>
                       </TitledPane>
-                      <TitledPane animated="false" text="Contratos">
+                      <TitledPane text="Contratos">
                            <content>
                               <VBox alignment="CENTER_LEFT" spacing="15.0">
                                  <children>
@@ -103,7 +104,7 @@
                               </VBox>
                            </content>
                       </TitledPane>
-                      <TitledPane animated="false" prefHeight="476.0" prefWidth="220.0" text="Sedes">
+                      <TitledPane prefHeight="476.0" prefWidth="220.0" text="Sedes">
                            <content>
                               <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
                                  <children>
@@ -144,7 +145,7 @@
                                  </children>
                               </VBox>
                            </content></TitledPane>
-                        <TitledPane animated="false" prefHeight="56.0" prefWidth="220.0" text="Administracion">
+                        <TitledPane prefHeight="56.0" prefWidth="220.0" text="Administracion">
                            <content>
                               <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
                                  <children>
@@ -159,6 +160,9 @@
                               </VBox>
                            </content></TitledPane>
                     </panes>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
                   </Accordion>
           </children>
         </AnchorPane>
