@@ -16,12 +16,11 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import model.*;
+import model.Holding;
 
 public class MainControllerGUI {
 
 	private Holding theHolding;
-	private Company currentCompany;
 
 	@FXML
 	private ToggleGroup empleadosToggleGroup;
