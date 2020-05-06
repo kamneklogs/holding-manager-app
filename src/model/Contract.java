@@ -1,211 +1,169 @@
 package model;
 
-public class Contract {
+import java.time.LocalDate;
+import java.util.ArrayList;
+
+import javafx.scene.image.Image;
+
+public abstract class Contract implements Comparable<Contract> {
 
 	private String name;
-	private String startDate;
-	private String finishDate;
+	private String id;
 	private String description;
-	private String[] clauses;
-	private String amount;
-	private Company partA;
-	private Employee partB;
+	private ArrayList<String> clauses;
+	private double amount;
+	private LocalDate startDate;
+	private LocalDate finishDate;
+	private LocalDate radicationDate;
+	
+	private Company company;
+	private Employee employee;
+	
 	private int actualRenewals;
 	private int renewalsLimit;
-	private Contract prev, next;
-
+	private Image[] signatures;
+	
+	private Contract preContract, nextContract;
+	
 	/**
+	 * 
 	 * @param name
-	 * @param startDate
-	 * @param finishDate
+	 * @param id
 	 * @param description
 	 * @param clauses
 	 * @param amount
-	 * @param partA
-	 * @param partB
+	 * @param startDate
+	 * @param finishDate
+	 * @param radicationDate
+	 * @param company
+	 * @param employee
 	 * @param actualRenewals
 	 * @param renewalsLimit
+	 * @param signatures
 	 */
-	public Contract(String name, String startDate, String finishDate, String description, String[] clauses,
-			String amount, Company partA, Employee partB, int actualRenewals, int renewalsLimit) {
+	public Contract(String name, String id, String description, ArrayList<String> clauses, double amount,
+			LocalDate startDate, LocalDate finishDate, LocalDate radicationDate, Company company, Employee employee,
+			int renewalsLimit, Image[] signatures) {
 		this.name = name;
-		this.startDate = startDate;
-		this.finishDate = finishDate;
+		this.id = id;
 		this.description = description;
 		this.clauses = clauses;
 		this.amount = amount;
-		this.partA = partA;
-		this.partB = partB;
-		this.actualRenewals = actualRenewals;
+		this.startDate = startDate;
+		this.finishDate = finishDate;
+		this.radicationDate = radicationDate;
+		this.company = company;
+		this.employee = employee;
+		actualRenewals = 0;
 		this.renewalsLimit = renewalsLimit;
+		this.signatures = signatures;		
 	}
 
-	/**
-	 * @return the name
-	 */
+		
+	@Override
+	public int compareTo(Contract anotherContract) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
 	public String getName() {
 		return name;
 	}
 
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
+
+	public String getId() {
+		return id;
 	}
 
-	/**
-	 * @return the startDate
-	 */
-	public String getStartDate() {
-		return startDate;
-	}
 
-	/**
-	 * @param startDate the startDate to set
-	 */
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
-	}
-
-	/**
-	 * @return the finishDate
-	 */
-	public String getFinishDate() {
-		return finishDate;
-	}
-
-	/**
-	 * @param finishDate the finishDate to set
-	 */
-	public void setFinishDate(String finishDate) {
-		this.finishDate = finishDate;
-	}
-
-	/**
-	 * @return the description
-	 */
 	public String getDescription() {
 		return description;
 	}
 
-	/**
-	 * @param description the description to set
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
 
-	/**
-	 * @return the clauses
-	 */
-	public String[] getClauses() {
+	public ArrayList<String> getClauses() {
 		return clauses;
 	}
 
-	/**
-	 * @param clauses the clauses to set
-	 */
-	public void setClauses(String[] clauses) {
-		this.clauses = clauses;
-	}
 
-	/**
-	 * @return the amount
-	 */
-	public String getAmount() {
+	public double getAmount() {
 		return amount;
 	}
 
-	/**
-	 * @param amount the amount to set
-	 */
-	public void setAmount(String amount) {
-		this.amount = amount;
+
+	public LocalDate getStartDate() {
+		return startDate;
 	}
 
-	/**
-	 * @return the partA
-	 */
-	public Company getPartA() {
-		return partA;
+
+	public LocalDate getFinishDate() {
+		return finishDate;
 	}
 
-	/**
-	 * @param partA the partA to set
-	 */
-	public void setPartA(Company partA) {
-		this.partA = partA;
+
+	public LocalDate getRadicationDate() {
+		return radicationDate;
 	}
 
-	/**
-	 * @return the partB
-	 */
-	public Employee getPartB() {
-		return partB;
+
+	public Company getCompany() {
+		return company;
 	}
 
-	/**
-	 * @param partB the partB to set
-	 */
-	public void setPartB(Employee partB) {
-		this.partB = partB;
+
+	public Employee getEmployee() {
+		return employee;
 	}
 
-	/**
-	 * @return the actualRenewals
-	 */
+
 	public int getActualRenewals() {
 		return actualRenewals;
 	}
 
-	/**
-	 * @param actualRenewals the actualRenewals to set
-	 */
-	public void setActualRenewals(int actualRenewals) {
-		this.actualRenewals = actualRenewals;
-	}
 
-	/**
-	 * @return the renewalsLimit
-	 */
 	public int getRenewalsLimit() {
 		return renewalsLimit;
 	}
 
-	/**
-	 * @param renewalsLimit the renewalsLimit to set
-	 */
-	public void setRenewalsLimit(int renewalsLimit) {
-		this.renewalsLimit = renewalsLimit;
+
+	public Image[] getSignatures() {
+		return signatures;
 	}
 
-	/**
-	 * @return the prev
-	 */
-	public Contract getPrev() {
-		return prev;
+
+	public Contract getPreContract() {
+		return preContract;
 	}
 
-	/**
-	 * @param prev the prev to set
-	 */
-	public void setPrev(Contract prev) {
-		this.prev = prev;
+
+	public Contract getNextContract() {
+		return nextContract;
 	}
 
-	/**
-	 * @return the last
-	 */
-	public Contract getNext() {
-		return next;
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	/**
-	 * @param last the last to set
-	 */
-	public void setNext(Contract next) {
-		this.next = next;
+
+	public void setFinishDate(LocalDate finishDate) {
+		this.finishDate = finishDate;
+	}
+
+
+	public void setSignatures(Image[] signatures) {
+		this.signatures = signatures;
+	}
+
+
+	public void setPreContract(Contract preContract) {
+		this.preContract = preContract;
+	}
+
+
+	public void setNextContract(Contract nextContract) {
+		this.nextContract = nextContract;
 	}
 
 }

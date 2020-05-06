@@ -44,7 +44,7 @@ public class Company {
 
         } else {
 
-            getLastContract().setNext(newContract);
+            getLastContract().setNextContract(newContract);
             
         }
 
@@ -62,9 +62,9 @@ public class Company {
 
             current = firstContract;
 
-            while (current.getNext() != null) {
+            while (current.getNextContract() != null) {
 
-                current = current.getNext();
+                current = current.getNextContract();
 
             }
         }
