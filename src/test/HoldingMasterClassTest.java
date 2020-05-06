@@ -1,10 +1,10 @@
 package test;
 
-import model.HoldingMasterClass;
+import model.Holding;
 
 public class HoldingMasterClassTest {
 
-    private HoldingMasterClass theHolding;
+    private Holding theHolding;
 
     public HoldingMasterClassTest() {
     }

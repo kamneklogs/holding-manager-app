@@ -22,11 +22,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import model.BranchOffice;
-import model.HoldingMasterClass;
+import model.Holding;
 
 public class MainControllerGUI {
 
-	private HoldingMasterClass theHolding;
+	private Holding theHolding;
 
 	@FXML
 	private ToggleGroup empleadosToggleGroup;
@@ -95,7 +95,7 @@ public class MainControllerGUI {
 	/**
 	 * @param theHolding
 	 */
-	public MainControllerGUI(HoldingMasterClass theHolding) {
+	public MainControllerGUI(Holding theHolding) {
 		this.theHolding = theHolding;
 	}
 

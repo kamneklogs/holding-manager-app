@@ -10,7 +10,7 @@ import thread.*;
 
 public class Main extends Application {
 
-	private HoldingMasterClass theHolding;
+	private Holding theHolding;
 	private MainControllerGUI theMainControllerGUI;
 
 	private ThreadOne t1;
@@ -19,7 +19,7 @@ public class Main extends Application {
 
 	public Main() {
 	
-		theHolding = new HoldingMasterClass(HoldingMasterClass.NAME, "21232", null, null, 12000000, null, null, null);
+		theHolding = new Holding(Holding.NAME, "21232", null, null, 12000000, null, null, null);
 		theMainControllerGUI = new MainControllerGUI(theHolding);
 
 	}
