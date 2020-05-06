@@ -39,9 +39,13 @@ public class Company {
     public void addContract(Contract newContract) {
 
         if (getLastContract() == null) {
+
             firstContract = newContract;
+
         } else {
+
             getLastContract().setNext(newContract);
+            
         }
 
     }
@@ -74,16 +78,25 @@ public class Company {
         BranchOffice bO;
 
         if (mainOffice == null) {
+
             throw new NotFundBrandOfficeException();
+
         }
 
         if (mainOffice.getId().equals(id)) {
+
             bO = mainOffice;
+
         } else {
+
             if (searchBrandOffice(mainOffice, id) != null) {
+
                 bO = searchBrandOffice(mainOffice, id);
+
             } else {
+
                 throw new NotFundBrandOfficeException();
+
             }
 
         }
