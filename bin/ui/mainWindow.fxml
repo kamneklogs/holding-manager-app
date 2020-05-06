@@ -154,9 +154,8 @@
                                           <ToggleGroup fx:id="administracionToggleGroup" />
                                        </toggleGroup>
                                     </RadioButton>
-                                    <RadioButton mnemonicParsing="false" onAction="#removeCompany" text="Eliminar empresa" toggleGroup="$administracionToggleGroup" />
                                     <RadioButton mnemonicParsing="false" onAction="#sellCompany" text="Vender una empresa" toggleGroup="$administracionToggleGroup" />
-                                    <RadioButton mnemonicParsing="false" onAction="#changeCompany" text="Cambiar empresa actual" />
+                                    <RadioButton mnemonicParsing="false" onAction="#changeCompany" text="Cambiar empresa actual" toggleGroup="$administracionToggleGroup" />
                                  </children>
                               </VBox>
                            </content></TitledPane>

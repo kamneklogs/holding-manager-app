@@ -87,13 +87,12 @@ public class MainControllerGUI {
 
 	@FXML
 	private AnchorPane detailsPane;
-	
+
 	@FXML
-    private Label infoFoundCompanyLabel;
+	private Label infoFoundCompanyLabel;
 
-    @FXML
-    private Button changeCompanyButton;
-
+	@FXML
+	private Button changeCompanyButton;
 
 	/**
 	 * @param theHolding
@@ -101,7 +100,7 @@ public class MainControllerGUI {
 	 */
 	public MainControllerGUI(Holding theHolding) throws IOException {
 		this.theHolding = theHolding;
-		
+
 	}
 
 	@FXML
@@ -325,17 +324,6 @@ public class MainControllerGUI {
 	}
 
 	@FXML
-	void removeCompany(ActionEvent event) throws IOException {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("removeCompany.fxml"));
-
-		fxmlLoader.setController(this);
-		Parent removeCompany = fxmlLoader.load();
-
-		mainPane.getChildren().clear();
-		mainPane.getChildren().add(removeCompany);
-	}
-
-	@FXML
 	void sellCompany(ActionEvent event) throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("sellCompany.fxml"));
 
@@ -368,10 +356,9 @@ public class MainControllerGUI {
 		mainPane.getChildren().add(changeCurrentC);
 	}
 
-    @FXML
-    void runChangeCurrentCompany(ActionEvent event) {
+	@FXML
+	void runChangeCurrentCompany(ActionEvent event) {
 
-    }
-
+	}
 
 }

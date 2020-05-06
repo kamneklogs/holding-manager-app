@@ -15,6 +15,7 @@ public class Company {
     // linked list arch
     private Contract firstContract;
     private BranchOffice mainOffice;
+    private Company right, left, father;
 
     /**
      * @param name
@@ -303,7 +304,7 @@ public class Company {
 
     }
 
-    public void remove(String id) {
+    public void removeEmployee(String id) {
 
         Employee toRemove = searchEmployee(id);
 
@@ -404,6 +405,48 @@ public class Company {
      */
     public void setMoneyValue(double moneyValue) {
         this.moneyValue = moneyValue;
+    }
+
+    /**
+     * @return the right
+     */
+    public Company getRight() {
+        return right;
+    }
+
+    /**
+     * @param right the right to set
+     */
+    public void setRight(Company right) {
+        this.right = right;
+    }
+
+    /**
+     * @return the left
+     */
+    public Company getLeft() {
+        return left;
+    }
+
+    /**
+     * @param left the left to set
+     */
+    public void setLeft(Company left) {
+        this.left = left;
+    }
+
+    /**
+     * @return the father
+     */
+    public Company getFather() {
+        return father;
+    }
+
+    /**
+     * @param father the father to set
+     */
+    public void setFather(Company father) {
+        this.father = father;
     }
 
 }
