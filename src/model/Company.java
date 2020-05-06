@@ -42,7 +42,7 @@ public class Company {
         } else {
 
             getLastContract().setNextContract(newContract);
-            
+
         }
 
     }
@@ -255,7 +255,124 @@ public class Company {
         }
 
     }
-    public void removeEmployee(String id) {
+
+    public Employee searchEmployee(String id) {
+
+        if (employee.getId().equals(id)) {
+            return employee;
+        }
+
+        return searchEmployee(employee, id);
+
+    }
+
+    private Employee searchEmployee(Employee current, String id) {
+
+        if (current == null) {
+
+            return null;
+
+        } else if (current.getId().equals(id)) {
+
+            return current;
+
+        } else if (current.getId().compareTo(id) > 0) {
+
+            if (current.getLeft() == null) {
+
+                return null;
+
+            } else {
+
+                return searchEmployee(current.getLeft(), id);
+
+            }
+
+        } else {
+
+            if (current.getId().equals(id)) {
+
+                return current;
+
+            } else {
+
+                return searchEmployee(current.getRight(), id);
+
+            }
+        }
+
+    }
+
+    public void remove(String id) {
+
+        Employee toRemove = searchEmployee(id);
+
+        if (toRemove != null) {
+
+            if (toRemove.getRight() == null && toRemove.getLeft() == null) {
+                if (toRemove.getFather().getLeft() == toRemove) {
+                    toRemove.getFather().setLeft(null);
+                } else {
+                    toRemove.getFather().setRight(null);
+                }
+            } else if (toRemove.getRight() == null ^ toRemove.getLeft() == null) {
+
+                if (toRemove.getRight() != null) {
+                    if (toRemove.getFather().getRight() == toRemove) {
+                        toRemove.getRight().setFather(toRemove.getFather());
+                        toRemove.getFather().setRight(toRemove.getRight());
+                    } else {
+                        toRemove.getRight().setFather(toRemove.getFather());
+                        toRemove.getFather().setLeft(toRemove.getRight());
+                    }
+
+                } else {
+
+                    if (toRemove.getFather().getRight() == toRemove) {
+                        toRemove.getLeft().setFather(toRemove.getFather());
+                        toRemove.getFather().setRight(toRemove.getLeft());
+                    } else {
+                        toRemove.getLeft().setFather(toRemove.getFather());
+                        toRemove.getFather().setLeft(toRemove.getLeft());
+                    }
+
+                }
+
+            } else if (toRemove.getLeft() != null && toRemove.getRight() != null) {
+
+                Employee current = toRemove.getLeft();
+
+                while (current.getRight() != null) {
+
+                    current = current.getRight();
+
+                }
+
+                if (current.getFather().getRight() == current) {
+                    current.getFather().setRight(null);
+
+                } else {
+                    current.getFather().setLeft(null);
+                }
+
+                current.setFather(toRemove.getFather());
+                current.setLeft(toRemove.getLeft());
+                current.setRight(toRemove.getRight());
+                current.getRight().setFather(current);
+                current.getLeft().setFather(current);
+
+                if (toRemove.getFather().getRight() == toRemove) {
+                    current.getFather().setRight(current);
+
+                } else {
+                    current.getFather().setLeft(current);
+                }
+
+                current = null;
+
+            }
+
+        }
 
     }
 

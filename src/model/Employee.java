@@ -17,7 +17,6 @@ public class Employee {
     private Contract myContract;
     private Employee right, left, father;
 
-
     /**
      * @param name
      * @param id
