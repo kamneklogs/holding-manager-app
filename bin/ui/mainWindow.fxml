@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="Archivo">
+          <items>
+            <MenuItem mnemonicParsing="false" text="New" />
+            <MenuItem mnemonicParsing="false" text="Open…" />
+            <Menu mnemonicParsing="false" text="Open Recent" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Close" />
+            <MenuItem mnemonicParsing="false" text="Save" />
+            <MenuItem mnemonicParsing="false" text="Save As…" />
+            <MenuItem mnemonicParsing="false" text="Revert" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Preferences…" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Quit" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Editar">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Undo" />
+            <MenuItem mnemonicParsing="false" text="Redo" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Cut" />
+            <MenuItem mnemonicParsing="false" text="Copy" />
+            <MenuItem mnemonicParsing="false" text="Paste" />
+            <MenuItem mnemonicParsing="false" text="Delete" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Select All" />
+            <MenuItem mnemonicParsing="false" text="Unselect All" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Ayuda">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#showCredits" text="About" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <SplitPane dividerPositions="0.2505567928730512, 0.7505567928730512" focusTraversable="true" prefWidth="837.0" VBox.vgrow="ALWAYS">
+      <items>
+        <AnchorPane>
+          <children>
+                  <Accordion blendMode="GREEN" prefHeight="274.0" prefWidth="220.0">
+                    <panes>
+                      <TitledPane text="Empleados">
+                           <content>
+                              <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+                                 <children>
+                                    <RadioButton mnemonicParsing="false" onAction="#addEmployee" text="Añadir">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="empleadosToggleGroup" />
+                                       </toggleGroup></RadioButton>
+                                    <RadioButton mnemonicParsing="false" onAction="#removeEmployee" text="Eliminar" toggleGroup="$empleadosToggleGroup" />
+                                    <RadioButton mnemonicParsing="false" onAction="#searchEmployee" text="Buscar" toggleGroup="$empleadosToggleGroup" />
+                                 </children>
+                              </VBox>
+                           </content>
+                      </TitledPane>
+                      <TitledPane text="Contratos">
+                           <content>
+                              <VBox alignment="CENTER_LEFT" spacing="15.0">
+                                 <children>
+                                    <RadioButton mnemonicParsing="false" onAction="#addContract" text="Crear nuevo.">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="contratosToggleGroup" />
+                                       </toggleGroup>
+                                    </RadioButton>
+                                    <RadioButton mnemonicParsing="false" onAction="#removeContract" text="Eliminar.">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="contratosToggleGroup" />
+                                       </toggleGroup>
+                                    </RadioButton>
+                                    <RadioButton mnemonicParsing="false" onAction="#searchContract" text="Buscar">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="contratosToggleGroup" />
+                                       </toggleGroup>
+                                    </RadioButton>
+                                 </children>
+                              </VBox>
+                           </content>
+                      </TitledPane>
+                      <TitledPane prefHeight="476.0" prefWidth="220.0" text="Sedes">
+                           <content>
+                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+                                 <children>
+                                    <RadioButton mnemonicParsing="false" onAction="#addBranchOffice" text="Agregar">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="sedesToggleGroup" />
+                                       </toggleGroup></RadioButton>
+                                    <RadioButton mnemonicParsing="false" onAction="#removeBranchOffice" text="Eliminar" toggleGroup="$sedesToggleGroup" />
+                                    <RadioButton mnemonicParsing="false" onAction="#searchBranchOffice" text="Buscar" toggleGroup="$sedesToggleGroup" />
+                                 </children>
+                              </VBox>
+                           </content>
+                      </TitledPane>
+                        <TitledPane prefHeight="200.0" prefWidth="200.0" text="Reportes">
+                           <content>
+                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+                                 <children>
+                                    <RadioButton mnemonicParsing="false" onAction="#branchOfficesReport" text="Sedes">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="reportesToggleGroup" />
+                                       </toggleGroup>
+                                    </RadioButton>
+                                    <RadioButton mnemonicParsing="false" onAction="#reportEmployees" text="Empleados" toggleGroup="$reportesToggleGroup" />
+                                    <RadioButton mnemonicParsing="false" onAction="#reportContract" text="Contratos" toggleGroup="$reportesToggleGroup" />
+                                    <RadioButton mnemonicParsing="false" onAction="#reportFinancial" text="Financieros" toggleGroup="$reportesToggleGroup" />
+                                 </children>
+                              </VBox>
+                           </content></TitledPane>
+                        <TitledPane prefHeight="200.0" prefWidth="200.0" text="Finanzas">
+                           <content>
+                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+                                 <children>
+                                    <RadioButton mnemonicParsing="false" onAction="#financialOpts" text="Ingresos y Gastos">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="finanzasToggleGroup" />
+                                       </toggleGroup>
+                                    </RadioButton>
+                                 </children>
+                              </VBox>
+                           </content></TitledPane>
+                        <TitledPane prefHeight="56.0" prefWidth="220.0" text="Administracion">
+                           <content>
+                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+                                 <children>
+                                    <RadioButton mnemonicParsing="false" onAction="#addCompany" text="Agregar empresa">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="administracionToggleGroup" />
+                                       </toggleGroup>
+                                    </RadioButton>
+                                    <RadioButton mnemonicParsing="false" onAction="#removeCompany" text="Eliminar empresa" toggleGroup="$administracionToggleGroup" />
+                                    <RadioButton mnemonicParsing="false" onAction="#sellCompany" text="Vender una empresa" toggleGroup="$administracionToggleGroup" />
+                                 </children>
+                              </VBox>
+                           </content></TitledPane>
+                    </panes>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </Accordion>
+          </children>
+        </AnchorPane>
+        <ScrollPane prefHeight="-1.0" prefWidth="-1.0">
+          <content>
+            <AnchorPane id="Content" fx:id="mainPane" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="439.0">
+              <children>
+                <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="525.0" prefWidth="380.0" style="&#10;" text="Bienvenido" textAlignment="CENTER" wrapText="false">
+                           <font>
+                      <Font size="18.0" fx:id="x1" />
+                           </font>
+                           <textFill>
+                      <Color blue="0.624" green="0.624" red="0.624" fx:id="x2" />
+                           </textFill></Label>
+              </children>
+            </AnchorPane>
+          </content>
+        </ScrollPane>
+        <AnchorPane>
+          <children>
+            <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" prefHeight="519.0" prefWidth="208.0" style="&#10;" text="Detalles" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+          </children>
+        </AnchorPane>
+      </items>
+    </SplitPane>
+    <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
+      <children>
+        <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" HBox.hgrow="ALWAYS">
+          <font>
+            <Font size="11.0" fx:id="x3" />
+          </font>
+          <textFill>
+            <Color blue="0.625" green="0.625" red="0.625" fx:id="x4" />
+          </textFill>
+        </Label>
+        <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
+        <Label font="$x3" maxWidth="-1.0" textFill="$x4" HBox.hgrow="NEVER" />
+      </children>
+      <padding>
+        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+      </padding>
+    </HBox>
+  </children>
+</VBox>
