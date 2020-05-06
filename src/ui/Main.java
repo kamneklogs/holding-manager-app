@@ -19,7 +19,7 @@ public class Main extends Application {
 
 	public Main() {
 	
-		theHolding = new Holding(Holding.NAME, "21232", null, null, 12000000, null, null, null);
+		theHolding = new Holding(Holding.NAME, 12000000);
 		theMainControllerGUI = new MainControllerGUI(theHolding);
 
 	}

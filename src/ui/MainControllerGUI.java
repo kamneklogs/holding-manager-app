@@ -102,9 +102,9 @@ public class MainControllerGUI {
 	@FXML
 	void runSearchBrandOffice(ActionEvent event) {
 		try {
-			 theHolding.searchBrandOffice(idForSearchBranchOffice.getText());
-			 addressForSearchBrand.setText(theHolding.searchBrandOffice(idForSearchBranchOffice.getText()).getAddress());
-			 idForSearchBranchOffice.setText(theHolding.searchBrandOffice(idForSearchBranchOffice.getText()).getId());
+			 theHolding.getCurrentCompany().searchBrandOffice(idForSearchBranchOffice.getText());
+			 addressForSearchBrand.setText(theHolding.getCurrentCompany().searchBrandOffice(idForSearchBranchOffice.getText()).getAddress());
+			 idForSearchBranchOffice.setText(theHolding.getCurrentCompany().searchBrandOffice(idForSearchBranchOffice.getText()).getId());
 			
 		} catch (NotFundBrandOfficeException e) {
 			Alert alert = new Alert(AlertType.ERROR);

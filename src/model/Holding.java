@@ -170,4 +170,36 @@ public class Holding {
 	public void loadRelationsFromFile() {
 		
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public Company getCurrentCompany() {
+		return currentCompany;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public String getName() {
+		return name;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public double getValue() {
+		return value;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public Company getFirstCompany() {
+		return firstCompany;
+	}
 }
