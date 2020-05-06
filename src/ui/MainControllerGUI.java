@@ -1,32 +1,27 @@
 package ui;
 
 import java.io.IOException;
-import java.util.List;
 
 import customExceptions.NotFundBrandOfficeException;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import model.BranchOffice;
-import model.Holding;
+import model.*;
 
 public class MainControllerGUI {
 
 	private Holding theHolding;
+	private Company currentCompany;
 
 	@FXML
 	private ToggleGroup empleadosToggleGroup;
@@ -86,26 +81,39 @@ public class MainControllerGUI {
 	private TextField idForSearchBranchOffice;
 
 	@FXML
-    private Label addressForSearchBrand;
+	private Label addressForSearchBrand;
+
+	@FXML
+	private Label idForSearchBrand;
+
+	@FXML
+	private AnchorPane detailsPane;
+	
+	@FXML
+    private Label infoFoundCompanyLabel;
 
     @FXML
-    private Label idForSearchBrand;
+    private Button changeCompanyButton;
 
 
 	/**
 	 * @param theHolding
+	 * @throws IOException
 	 */
-	public MainControllerGUI(Holding theHolding) {
+	public MainControllerGUI(Holding theHolding) throws IOException {
 		this.theHolding = theHolding;
+		
 	}
 
 	@FXML
 	void runSearchBrandOffice(ActionEvent event) {
 		try {
-			 theHolding.getCurrentCompany().searchBrandOffice(idForSearchBranchOffice.getText());
-			 addressForSearchBrand.setText(theHolding.getCurrentCompany().searchBrandOffice(idForSearchBranchOffice.getText()).getAddress());
-			 idForSearchBranchOffice.setText(theHolding.getCurrentCompany().searchBrandOffice(idForSearchBranchOffice.getText()).getId());
-			
+			theHolding.getCurrentCompany().searchBrandOffice(idForSearchBranchOffice.getText());
+			addressForSearchBrand.setText(
+					theHolding.getCurrentCompany().searchBrandOffice(idForSearchBranchOffice.getText()).getAddress());
+			idForSearchBranchOffice.setText(
+					theHolding.getCurrentCompany().searchBrandOffice(idForSearchBranchOffice.getText()).getId());
+
 		} catch (NotFundBrandOfficeException e) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Error");
@@ -115,8 +123,6 @@ public class MainControllerGUI {
 			alert.showAndWait();
 		}
 	}
-
-	
 
 	@FXML
 	void addEmployee(ActionEvent event) throws IOException {
@@ -340,5 +346,33 @@ public class MainControllerGUI {
 		mainPane.getChildren().clear();
 		mainPane.getChildren().add(sellCompany);
 	}
+
+	@FXML
+	void changeCompany(ActionEvent event) throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("changeCurrentCompany.fxml"));
+
+		fxmlLoader.setController(this);
+		Parent changeCurrentC = fxmlLoader.load();
+
+		mainPane.getChildren().clear();
+		mainPane.getChildren().add(changeCurrentC);
+	}
+
+	@FXML
+	void changeCompany() throws IOException {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("changeCurrentCompany.fxml"));
+
+		fxmlLoader.setController(this);
+		Parent changeCurrentC = fxmlLoader.load();
+
+		mainPane.getChildren().clear();
+		mainPane.getChildren().add(changeCurrentC);
+	}
+
+    @FXML
+    void runChangeCurrentCompany(ActionEvent event) {
+
+    }
+
 
 }

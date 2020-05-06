@@ -65,7 +65,7 @@
       <items>
         <AnchorPane>
           <children>
-                  <Accordion blendMode="GREEN" prefHeight="274.0" prefWidth="220.0">
+                  <Accordion prefHeight="274.0" prefWidth="220.0">
                     <panes>
                       <TitledPane text="Empleados">
                            <content>
@@ -156,6 +156,7 @@
                                     </RadioButton>
                                     <RadioButton mnemonicParsing="false" onAction="#removeCompany" text="Eliminar empresa" toggleGroup="$administracionToggleGroup" />
                                     <RadioButton mnemonicParsing="false" onAction="#sellCompany" text="Vender una empresa" toggleGroup="$administracionToggleGroup" />
+                                    <RadioButton mnemonicParsing="false" onAction="#changeCompany" text="Cambiar empresa actual" />
                                  </children>
                               </VBox>
                            </content></TitledPane>
@@ -181,7 +182,7 @@
             </AnchorPane>
           </content>
         </ScrollPane>
-        <AnchorPane>
+        <AnchorPane fx:id="detailsPane">
           <children>
             <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" prefHeight="519.0" prefWidth="208.0" style="&#10;" text="Detalles" textAlignment="CENTER" textFill="$x2" wrapText="false" />
           </children>
