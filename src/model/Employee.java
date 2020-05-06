@@ -15,6 +15,8 @@ public class Employee {
     private double[] workingHours;
     private ArrayList<String> socialBenefits;
     private Contract myContract;
+    private Employee right, left, father;
+
 
     /**
      * @param name
@@ -164,6 +166,48 @@ public class Employee {
      */
     public void setMyContract(Contract myContract) {
         this.myContract = myContract;
+    }
+
+    /**
+     * @return the right
+     */
+    public Employee getRight() {
+        return right;
+    }
+
+    /**
+     * @param right the right to set
+     */
+    public void setRight(Employee right) {
+        this.right = right;
+    }
+
+    /**
+     * @return the left
+     */
+    public Employee getLeft() {
+        return left;
+    }
+
+    /**
+     * @param left the left to set
+     */
+    public void setLeft(Employee left) {
+        this.left = left;
+    }
+
+    /**
+     * @return the father
+     */
+    public Employee getFather() {
+        return father;
+    }
+
+    /**
+     * @param father the father to set
+     */
+    public void setFather(Employee father) {
+        this.father = father;
     }
 
 }

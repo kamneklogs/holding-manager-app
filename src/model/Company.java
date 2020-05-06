@@ -1,8 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import customExceptions.NotFundBrandOfficeException;
 
 public class Company {
@@ -227,8 +224,37 @@ public class Company {
 
     public void addEmployee(Employee e) {
 
+        if (employee == null) {
+            employee = e;
+        } else {
+
+            addEmployee(employee, e);
+
+        }
+
     }
 
+    private void addEmployee(Employee current, Employee e) {
+
+        if (e.getId().compareTo(current.getId()) <= 0) {
+            if (current.getLeft() == null) {
+                current.setLeft(e);
+                current.getLeft().setFather(current);
+            } else {
+                addEmployee(current.getLeft(), e);
+            }
+
+        } else {
+
+            if (current.getRight() == null) {
+                current.setRight(e);
+                current.getRight().setFather(current);
+            } else {
+                addEmployee(current.getRight(), e);
+            }
+        }
+
+    }
     public void removeEmployee(String id) {
 
     }

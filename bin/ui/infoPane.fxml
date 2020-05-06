@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="detailsPane" prefHeight="533.0" prefWidth="222.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label alignment="CENTER" layoutX="55.0" layoutY="40.0" style="&#10;" text="Empresa actual" textAlignment="CENTER" wrapText="false">
+         <font>
+            <Font name="System Bold" size="14.0" fx:id="x1" />
+         </font>
+      </Label>
+      <Label alignment="CENTER_RIGHT" layoutX="14.0" layoutY="129.0" prefHeight="20.0" prefWidth="65.0" style="&#10;" text="Nit:" textAlignment="CENTER" wrapText="false">
+         <font>
+            <Font size="16.0" fx:id="x11" />
+         </font>
+         <textFill>
+            <Color blue="0.624" green="0.624" red="0.624" fx:id="x21" />
+         </textFill>
+      </Label>
+      <Label alignment="CENTER_RIGHT" layoutX="8.0" layoutY="100.0" style="&#10;" text="Nombre:" textAlignment="CENTER" wrapText="false">
+         <font>
+            <Font size="16.0" fx:id="x12" />
+         </font>
+         <textFill>
+            <Color blue="0.624" green="0.624" red="0.624" fx:id="x22" />
+         </textFill>
+      </Label>
+      <Label alignment="TOP_LEFT" layoutX="15.0" layoutY="220.0" prefHeight="191.0" prefWidth="192.0" textFill="#0000006d" wrapText="true">
+         <effect>
+            <Blend />
+         </effect>
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="14.0" layoutY="198.0" style="&#10;" text="Mensajes:" textAlignment="CENTER" wrapText="false">
+         <textFill>
+            <Color blue="0.624" green="0.624" red="0.624" fx:id="x211" />
+         </textFill>
+      </Label>
+      <TextField editable="false" layoutX="82.0" layoutY="126.0" prefHeight="26.0" prefWidth="132.0" />
+      <TextField editable="false" layoutX="82.0" layoutY="97.0" prefHeight="26.0" prefWidth="132.0" />
+   </children>
+</AnchorPane>
