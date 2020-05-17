@@ -3,6 +3,7 @@ package ui;
 import java.io.IOException;
 
 import customExceptions.NotFundBrandOfficeException;
+import customExceptions.WithoutCurrentCompany;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,11 +17,13 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import model.Holding;
+import model.*;
 
 public class MainControllerGUI {
 
 	private Holding theHolding;
+
+	private Company currentCompany;
 
 	@FXML
 	private ToggleGroup empleadosToggleGroup;
@@ -125,13 +128,27 @@ public class MainControllerGUI {
 	@FXML
 	void addEmployee(ActionEvent event) throws IOException {
 
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addEmployee.fxml"));
+		try {
 
-		fxmlLoader.setController(this);
-		Parent addEmployee = fxmlLoader.load();
+			if (currentCompany == null) {
+				throw new WithoutCurrentCompany();
+			}
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addEmployee.fxml"));
 
-		mainPane.getChildren().clear();
-		mainPane.getChildren().add(addEmployee);
+			fxmlLoader.setController(this);
+			Parent addEmployee = fxmlLoader.load();
+
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(addEmployee);
+		} catch (WithoutCurrentCompany e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Sin empresa actual");
+			alert.setContentText("Para elegir una empresa actual dirigase a Administracion>>Cambiar empresa");
+
+			alert.showAndWait();
+		}
+
 	}
 
 	@FXML
