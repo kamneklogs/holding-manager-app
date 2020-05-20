@@ -1,6 +1,6 @@
 package model;
 
-public class EducationC extends Company {
+public class EducationCompany extends Company implements EducationTaxRelief{
 
     /**
      * @param name
@@ -11,9 +11,15 @@ public class EducationC extends Company {
      * @param employee
      * @param mainOffice
      */
-    public EducationC(String name, String nit, Employee myLegarR, Employee firstEmployee, double moneyValue,
+    public EducationCompany(String name, String nit, Employee myLegarR, Employee firstEmployee, double moneyValue,
             Employee employee, BranchOffice mainOffice) {
         super(name, nit, myLegarR, firstEmployee, moneyValue, employee, mainOffice);
     }
+
+	@Override
+	public void substractTaxes() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

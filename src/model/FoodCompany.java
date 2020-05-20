@@ -1,6 +1,6 @@
 package model;
 
-public class FoodCompany extends Company {
+public class FoodCompany extends Company implements FoodTaxRelief {
 
     /**
 	 * @param name
@@ -14,6 +14,12 @@ public class FoodCompany extends Company {
 	public FoodCompany(String name, String nit, Employee myLegarR, Employee firstEmployee, double moneyValue,
 			Employee employee, BranchOffice mainOffice) {
 		super(name, nit, myLegarR, firstEmployee, moneyValue, employee, mainOffice);
+	}
+
+	@Override
+	public void substractTaxes() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

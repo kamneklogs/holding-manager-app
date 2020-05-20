@@ -1,6 +1,6 @@
 package model;
 
-public class TechnologyC extends Company implements TechnologyTax {
+public class TechnologyCompany extends Company implements TechnologyTaxRelief {
 
     /**
      * @param name
@@ -11,7 +11,7 @@ public class TechnologyC extends Company implements TechnologyTax {
      * @param employee
      * @param mainOffice
      */
-    public TechnologyC(String name, String nit, Employee myLegarR, Employee firstEmployee, double moneyValue,
+    public TechnologyCompany(String name, String nit, Employee myLegarR, Employee firstEmployee, double moneyValue,
             Employee employee, BranchOffice mainOffice) {
         super(name, nit, myLegarR, firstEmployee, moneyValue, employee, mainOffice);
     }
