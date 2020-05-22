@@ -1,6 +1,7 @@
 package ui;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import customExceptions.NotFundBrandOfficeException;
 import customExceptions.WithoutCurrentCompany;
@@ -10,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
@@ -144,13 +146,24 @@ public class MainControllerGUI {
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(addEmployee);
 		} catch (WithoutCurrentCompany e) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error");
-			alert.setHeaderText(e.getMessage());
-			alert.setContentText("Para elegir una empresa actual dirigase a Administracion>>Cambiar empresa");
 
-			alert.showAndWait();
-			changeCompanyWindow();
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Advertencia");
+			alert.setHeaderText("Esta accion requiere una empresa actual.");
+			alert.setContentText("Elija una opccion:");
+
+			ButtonType buttonTypeOne = new ButtonType("Agregar nueva empresa");
+			ButtonType buttonTypeTwo = new ButtonType("Elegir una empresa existente");
+
+			alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == buttonTypeOne) {
+				addCompanyWindow(event);
+			} else if (result.get() == buttonTypeTwo) {
+				changeCompanyWindow();
+			}
+
 		}
 
 	}
@@ -188,13 +201,22 @@ public class MainControllerGUI {
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(removeEmployee);
 		} catch (WithoutCurrentCompany e) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error");
-			alert.setHeaderText(e.getMessage());
-			alert.setContentText("A continuacion asigne una emprea.");
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Advertencia");
+			alert.setHeaderText("Esta accion requiere una empresa actual.");
+			alert.setContentText("Elija una opccion:");
 
-			alert.showAndWait();
-			changeCompanyWindow();
+			ButtonType buttonTypeOne = new ButtonType("Agregar nueva empresa");
+			ButtonType buttonTypeTwo = new ButtonType("Elegir una empresa existente");
+
+			alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == buttonTypeOne) {
+				addCompanyWindow(event);
+			} else if (result.get() == buttonTypeTwo) {
+				changeCompanyWindow();
+			}
 
 		}
 
@@ -213,13 +235,23 @@ public class MainControllerGUI {
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(searchEmployee);
 		} catch (WithoutCurrentCompany e) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error");
-			alert.setHeaderText(e.getMessage());
-			alert.setContentText("Para elegir una empresa actual dirigase a Administracion>>Cambiar empresa");
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Advertencia");
+			alert.setHeaderText("Esta accion requiere una empresa actual.");
+			alert.setContentText("Elija una opccion:");
 
-			alert.showAndWait();
-			changeCompanyWindow();
+			ButtonType buttonTypeOne = new ButtonType("Agregar nueva empresa");
+			ButtonType buttonTypeTwo = new ButtonType("Elegir una empresa existente");
+
+			alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == buttonTypeOne) {
+				addCompanyWindow(event);
+			} else if (result.get() == buttonTypeTwo) {
+				changeCompanyWindow();
+			}
+
 		}
 	}
 
@@ -236,13 +268,23 @@ public class MainControllerGUI {
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(addContract);
 		} catch (WithoutCurrentCompany e) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error");
-			alert.setHeaderText(e.getMessage());
-			alert.setContentText("Para elegir una empresa actual dirigase a Administracion>>Cambiar empresa");
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Advertencia");
+			alert.setHeaderText("Esta accion requiere una empresa actual.");
+			alert.setContentText("Elija una opccion:");
 
-			alert.showAndWait();
-			changeCompanyWindow();
+			ButtonType buttonTypeOne = new ButtonType("Agregar nueva empresa");
+			ButtonType buttonTypeTwo = new ButtonType("Elegir una empresa existente");
+
+			alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == buttonTypeOne) {
+				addCompanyWindow(event);
+			} else if (result.get() == buttonTypeTwo) {
+				changeCompanyWindow();
+			}
+
 		}
 	}
 
@@ -270,13 +312,23 @@ public class MainControllerGUI {
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(removeContract);
 		} catch (WithoutCurrentCompany e) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error");
-			alert.setHeaderText(e.getMessage());
-			alert.setContentText("Para elegir una empresa actual dirigase a Administracion>>Cambiar empresa");
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Advertencia");
+			alert.setHeaderText("Esta accion requiere una empresa actual.");
+			alert.setContentText("Elija una opccion:");
 
-			alert.showAndWait();
-			changeCompanyWindow();
+			ButtonType buttonTypeOne = new ButtonType("Agregar nueva empresa");
+			ButtonType buttonTypeTwo = new ButtonType("Elegir una empresa existente");
+
+			alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == buttonTypeOne) {
+				addCompanyWindow(event);
+			} else if (result.get() == buttonTypeTwo) {
+				changeCompanyWindow();
+			}
+
 		}
 	}
 
@@ -293,13 +345,23 @@ public class MainControllerGUI {
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(searchContract);
 		} catch (WithoutCurrentCompany e) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error");
-			alert.setHeaderText(e.getMessage());
-			alert.setContentText("Para elegir una empresa actual dirigase a Administracion>>Cambiar empresa");
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Advertencia");
+			alert.setHeaderText("Esta accion requiere una empresa actual.");
+			alert.setContentText("Elija una opccion:");
 
-			alert.showAndWait();
-			changeCompanyWindow();
+			ButtonType buttonTypeOne = new ButtonType("Agregar nueva empresa");
+			ButtonType buttonTypeTwo = new ButtonType("Elegir una empresa existente");
+
+			alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == buttonTypeOne) {
+				addCompanyWindow(event);
+			} else if (result.get() == buttonTypeTwo) {
+				changeCompanyWindow();
+			}
+
 		}
 	}
 
@@ -316,13 +378,23 @@ public class MainControllerGUI {
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(addBranchOffice);
 		} catch (WithoutCurrentCompany e) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error");
-			alert.setHeaderText(e.getMessage());
-			alert.setContentText("Para elegir una empresa actual dirigase a Administracion>>Cambiar empresa");
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Advertencia");
+			alert.setHeaderText("Esta accion requiere una empresa actual.");
+			alert.setContentText("Elija una opccion:");
 
-			alert.showAndWait();
-			changeCompanyWindow();
+			ButtonType buttonTypeOne = new ButtonType("Agregar nueva empresa");
+			ButtonType buttonTypeTwo = new ButtonType("Elegir una empresa existente");
+
+			alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == buttonTypeOne) {
+				addCompanyWindow(event);
+			} else if (result.get() == buttonTypeTwo) {
+				changeCompanyWindow();
+			}
+
 		}
 	}
 
@@ -339,13 +411,23 @@ public class MainControllerGUI {
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(searchBranchOffice);
 		} catch (WithoutCurrentCompany e) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error");
-			alert.setHeaderText(e.getMessage());
-			alert.setContentText("Para elegir una empresa actual dirigase a Administracion>>Cambiar empresa");
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Advertencia");
+			alert.setHeaderText("Esta accion requiere una empresa actual.");
+			alert.setContentText("Elija una opccion:");
 
-			alert.showAndWait();
-			changeCompanyWindow();
+			ButtonType buttonTypeOne = new ButtonType("Agregar nueva empresa");
+			ButtonType buttonTypeTwo = new ButtonType("Elegir una empresa existente");
+
+			alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == buttonTypeOne) {
+				addCompanyWindow(event);
+			} else if (result.get() == buttonTypeTwo) {
+				changeCompanyWindow();
+			}
+
 		}
 	}
 
@@ -362,13 +444,23 @@ public class MainControllerGUI {
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(removeBranchOffice);
 		} catch (WithoutCurrentCompany e) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error");
-			alert.setHeaderText(e.getMessage());
-			alert.setContentText("Para elegir una empresa actual dirigase a Administracion>>Cambiar empresa");
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Advertencia");
+			alert.setHeaderText("Esta accion requiere una empresa actual.");
+			alert.setContentText("Elija una opccion:");
 
-			alert.showAndWait();
-			changeCompanyWindow();
+			ButtonType buttonTypeOne = new ButtonType("Agregar nueva empresa");
+			ButtonType buttonTypeTwo = new ButtonType("Elegir una empresa existente");
+
+			alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == buttonTypeOne) {
+				addCompanyWindow(event);
+			} else if (result.get() == buttonTypeTwo) {
+				changeCompanyWindow();
+			}
+
 		}
 	}
 
@@ -385,13 +477,23 @@ public class MainControllerGUI {
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(reportBranchOffice);
 		} catch (WithoutCurrentCompany e) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error");
-			alert.setHeaderText(e.getMessage());
-			alert.setContentText("Para elegir una empresa actual dirigase a Administracion>>Cambiar empresa");
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Advertencia");
+			alert.setHeaderText("Esta accion requiere una empresa actual.");
+			alert.setContentText("Elija una opccion:");
 
-			alert.showAndWait();
-			changeCompanyWindow();
+			ButtonType buttonTypeOne = new ButtonType("Agregar nueva empresa");
+			ButtonType buttonTypeTwo = new ButtonType("Elegir una empresa existente");
+
+			alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == buttonTypeOne) {
+				addCompanyWindow(event);
+			} else if (result.get() == buttonTypeTwo) {
+				changeCompanyWindow();
+			}
+
 		}
 	}
 
@@ -419,13 +521,23 @@ public class MainControllerGUI {
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(reportContract);
 		} catch (WithoutCurrentCompany e) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error");
-			alert.setHeaderText(e.getMessage());
-			alert.setContentText("Para elegir una empresa actual dirigase a Administracion>>Cambiar empresa");
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Advertencia");
+			alert.setHeaderText("Esta accion requiere una empresa actual.");
+			alert.setContentText("Elija una opccion:");
 
-			alert.showAndWait();
-			changeCompanyWindow();
+			ButtonType buttonTypeOne = new ButtonType("Agregar nueva empresa");
+			ButtonType buttonTypeTwo = new ButtonType("Elegir una empresa existente");
+
+			alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == buttonTypeOne) {
+				addCompanyWindow(event);
+			} else if (result.get() == buttonTypeTwo) {
+				changeCompanyWindow();
+			}
+
 		}
 	}
 
@@ -442,13 +554,23 @@ public class MainControllerGUI {
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(financialReport);
 		} catch (WithoutCurrentCompany e) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error");
-			alert.setHeaderText(e.getMessage());
-			alert.setContentText("Para elegir una empresa actual dirigase a Administracion>>Cambiar empresa");
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Advertencia");
+			alert.setHeaderText("Esta accion requiere una empresa actual.");
+			alert.setContentText("Elija una opccion:");
 
-			alert.showAndWait();
-			changeCompanyWindow();
+			ButtonType buttonTypeOne = new ButtonType("Agregar nueva empresa");
+			ButtonType buttonTypeTwo = new ButtonType("Elegir una empresa existente");
+
+			alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == buttonTypeOne) {
+				addCompanyWindow(event);
+			} else if (result.get() == buttonTypeTwo) {
+				changeCompanyWindow();
+			}
+
 		}
 	}
 
@@ -465,13 +587,23 @@ public class MainControllerGUI {
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(financialOpts);
 		} catch (WithoutCurrentCompany e) {
-			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error");
-			alert.setHeaderText(e.getMessage());
-			alert.setContentText("Para elegir una empresa actual dirigase a Administracion>>Cambiar empresa");
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Advertencia");
+			alert.setHeaderText("Esta accion requiere una empresa actual.");
+			alert.setContentText("Elija una opccion:");
 
-			alert.showAndWait();
-			changeCompanyWindow();
+			ButtonType buttonTypeOne = new ButtonType("Agregar nueva empresa");
+			ButtonType buttonTypeTwo = new ButtonType("Elegir una empresa existente");
+
+			alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == buttonTypeOne) {
+				addCompanyWindow(event);
+			} else if (result.get() == buttonTypeTwo) {
+				changeCompanyWindow();
+			}
+
 		}
 	}
 

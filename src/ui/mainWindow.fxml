@@ -88,18 +88,9 @@
                                     <RadioButton mnemonicParsing="false" onAction="#addContractWindow" text="Crear nuevo.">
                                        <toggleGroup>
                                           <ToggleGroup fx:id="contratosToggleGroup" />
-                                       </toggleGroup>
-                                    </RadioButton>
-                                    <RadioButton mnemonicParsing="false" onAction="#removeContractWindow" text="Eliminar.">
-                                       <toggleGroup>
-                                          <ToggleGroup fx:id="contratosToggleGroup" />
-                                       </toggleGroup>
-                                    </RadioButton>
-                                    <RadioButton mnemonicParsing="false" onAction="#searchContractWindow" text="Buscar">
-                                       <toggleGroup>
-                                          <ToggleGroup fx:id="contratosToggleGroup" />
-                                       </toggleGroup>
-                                    </RadioButton>
+                                       </toggleGroup></RadioButton>
+                                    <RadioButton mnemonicParsing="false" onAction="#removeContractWindow" text="Eliminar." ToggleGroup="$contratosToggleGroup" />
+                                    <RadioButton mnemonicParsing="false" onAction="#searchContractWindow" text="Buscar" ToggleGroup="$contratosToggleGroup" />
                                  </children>
                               </VBox>
                            </content>
