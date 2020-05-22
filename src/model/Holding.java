@@ -16,14 +16,8 @@ public class Holding {
   private Company currentCompany;
 
   /**
-   * @param name
-   * @param nit
-   * @param myLegarR
-   * @param firstEmployee
-   * @param moneyValue
-   * @param employee
-   * @param mainOffice
-   * @param company
+   * @param n
+   * @param v
    */
   public Holding(String n, double v) {
     name = n;
@@ -70,7 +64,9 @@ public class Holding {
 
   public Company searchCompany(String nit) {
 
-    if (firstCompany.getNit().equals(nit)) {
+    if (firstCompany == null) {
+      return null;
+    } else if (firstCompany.getNit().equals(nit)) {
       return firstCompany;
     }
 
@@ -347,5 +343,9 @@ public class Holding {
    */
   public Company getFirstCompany() {
     return firstCompany;
+  }
+
+  public void setCurrentCompany(Company currentCompany) {
+    this.currentCompany = currentCompany;
   }
 }

@@ -89,8 +89,8 @@
                                        <toggleGroup>
                                           <ToggleGroup fx:id="contratosToggleGroup" />
                                        </toggleGroup></RadioButton>
-                                    <RadioButton mnemonicParsing="false" onAction="#removeContractWindow" text="Eliminar." ToggleGroup="$contratosToggleGroup" />
-                                    <RadioButton mnemonicParsing="false" onAction="#searchContractWindow" text="Buscar" ToggleGroup="$contratosToggleGroup" />
+                                    <RadioButton ToggleGroup="$contratosToggleGroup" mnemonicParsing="false" onAction="#removeContractWindow" text="Eliminar." />
+                                    <RadioButton ToggleGroup="$contratosToggleGroup" mnemonicParsing="false" onAction="#searchContractWindow" text="Buscar" />
                                  </children>
                               </VBox>
                            </content>

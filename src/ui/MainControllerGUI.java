@@ -13,6 +13,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -99,6 +101,33 @@ public class MainControllerGUI {
 	@FXML
 	private Button changeCompanyButton;
 
+	@FXML
+	private TextField newCompanyName;
+
+	@FXML
+	private TextField newCompanyNIT;
+
+	@FXML
+	private RadioButton alimentosTypeRadioButton;
+
+	@FXML
+	private RadioButton tecnologiaTypeRadioButton;
+
+	@FXML
+	private RadioButton educacionTypeRadioButton;
+
+	@FXML
+	private ToggleGroup newCompanyTypeToggleGroup;
+
+	@FXML
+	private TextField searchParameterCompany;
+
+	@FXML
+	private RadioButton aeRadioButton;
+
+	@FXML
+	private RadioButton ceaRadioButton;
+
 	/**
 	 * @param theHolding
 	 * @throws IOException
@@ -109,7 +138,7 @@ public class MainControllerGUI {
 	}
 
 	public void ccObject() throws WithoutCurrentCompany {
-		if (currentCompany == null) {
+		if (theHolding.getCurrentCompany() == null) {
 			throw new WithoutCurrentCompany();
 		}
 	}
@@ -619,6 +648,39 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	void saveNewCompany(ActionEvent event) {
+
+		if (newCompanyTypeToggleGroup.getSelectedToggle() != null && newCompanyName.getText() != null
+				&& newCompanyName.getText() != "" && newCompanyNIT.getText() != null && newCompanyNIT.getText() != "") {
+			FoodCompany nC = null;
+			if (alimentosTypeRadioButton.isSelected()) {
+				nC = new FoodCompany(newCompanyName.getText(), newCompanyNIT.getText(), null, null, 0, null, null);
+
+			} else if (tecnologiaTypeRadioButton.isSelected()) {
+
+			} else if (educacionTypeRadioButton.isSelected()) {
+
+			}
+			theHolding.addCompany(nC);
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Confirmacion");
+			alert.setHeaderText("Compañia agregada exitosamente");
+			alert.setContentText("Ahora puede gestionar todos los procesos de esta compañia");
+
+			alert.showAndWait();
+
+		} else {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Parametros incompletos");
+			alert.setContentText("Complete todos los parametros del formulario.");
+
+			alert.showAndWait();
+		}
+
+	}
+
+	@FXML
 	void sellCompanyWindow(ActionEvent event) throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("sellCompany.fxml"));
 
@@ -652,8 +714,29 @@ public class MainControllerGUI {
 	}
 
 	@FXML
-	void runChangeCurrentCompany(ActionEvent event) {
+	void searchCompany(ActionEvent event) {
+		Company result = theHolding.searchCompany(searchParameterCompany.getText());
+		infoFoundCompanyLabel.setVisible(true);
+		infoFoundCompanyLabel.setOpacity(1);
+		if (result != null) {
+			infoFoundCompanyLabel
+					.setText("Empresa encontrada!\n\nNombre: " + result.getName() + "\nNit: " + result.getNit());
 
+			changeCompanyButton.setDisable(false);
+		}
+	}
+
+	@FXML
+	void runChangeCurrentCompany(ActionEvent event) {
+		Company newCurrentCompany = theHolding.searchCompany(searchParameterCompany.getText());
+		theHolding.setCurrentCompany(newCurrentCompany);
+
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmacion");
+		alert.setHeaderText("Compañia cambiada exitosamente");
+		alert.setContentText("Nueva compañia:\n\n     " + theHolding.getCurrentCompany().getName());
+
+		alert.showAndWait();
 	}
 
 }

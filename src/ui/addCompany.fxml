@@ -3,17 +3,18 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="430.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="430.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane prefHeight="62.0" prefWidth="430.0">
          <children>
@@ -52,24 +53,48 @@
                   <Insets right="20.0" />
                </GridPane.margin>
             </Label>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <TextField fx:id="newCompanyName" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="30.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <TextField fx:id="newCompanyNIT" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets right="30.0" />
                </GridPane.margin>
             </TextField>
-            <Button mnemonicParsing="false" onAction="#saveNewEmployee" prefHeight="33.0" prefWidth="88.0" text="Guardar" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <MenuButton mnemonicParsing="false" text="Seleccionar" GridPane.columnIndex="1" GridPane.rowIndex="3">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Tecnologica" />
-                  <MenuItem mnemonicParsing="false" text="Alimentos" />
-                <MenuItem mnemonicParsing="false" text="Educacion" />
-              </items>
-            </MenuButton>
+            <Button mnemonicParsing="false" onAction="#saveNewCompany" prefHeight="33.0" prefWidth="88.0" text="Guardar" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <children>
+                  <RadioButton fx:id="alimentosTypeRadioButton" mnemonicParsing="false" text="Alimentos">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <VBox.margin>
+                        <Insets left="30.0" top="10.0" />
+                     </VBox.margin>
+                     <toggleGroup>
+                        <ToggleGroup fx:id="newCompanyTypeToggleGroup" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="tecnologiaTypeRadioButton" mnemonicParsing="false" text="Tecnologia" toggleGroup="$newCompanyTypeToggleGroup">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <VBox.margin>
+                        <Insets left="30.0" top="10.0" />
+                     </VBox.margin>
+                  </RadioButton>
+                  <RadioButton fx:id="educacionTypeRadioButton" mnemonicParsing="false" text="Educacion" toggleGroup="$newCompanyTypeToggleGroup">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <VBox.margin>
+                        <Insets left="30.0" top="10.0" />
+                     </VBox.margin>
+                  </RadioButton>
+               </children>
+            </VBox>
          </children>
       </GridPane>
    </children>
