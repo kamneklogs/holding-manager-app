@@ -20,7 +20,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -71,12 +71,12 @@
                            <content>
                               <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
                                  <children>
-                                    <RadioButton mnemonicParsing="false" onAction="#addEmployee" text="Añadir">
+                                    <RadioButton mnemonicParsing="false" onAction="#addEmployeeWindow" text="Añadir">
                                        <toggleGroup>
                                           <ToggleGroup fx:id="empleadosToggleGroup" />
                                        </toggleGroup></RadioButton>
-                                    <RadioButton mnemonicParsing="false" onAction="#removeEmployee" text="Eliminar" toggleGroup="$empleadosToggleGroup" />
-                                    <RadioButton mnemonicParsing="false" onAction="#searchEmployee" text="Buscar" toggleGroup="$empleadosToggleGroup" />
+                                    <RadioButton mnemonicParsing="false" onAction="#removeEmployeeWindow" text="Eliminar" toggleGroup="$empleadosToggleGroup" />
+                                    <RadioButton mnemonicParsing="false" onAction="#searchEmployeeWindow" text="Buscar" toggleGroup="$empleadosToggleGroup" />
                                  </children>
                               </VBox>
                            </content>
@@ -85,17 +85,17 @@
                            <content>
                               <VBox alignment="CENTER_LEFT" spacing="15.0">
                                  <children>
-                                    <RadioButton mnemonicParsing="false" onAction="#addContract" text="Crear nuevo.">
+                                    <RadioButton mnemonicParsing="false" onAction="#addContractWindow" text="Crear nuevo.">
                                        <toggleGroup>
                                           <ToggleGroup fx:id="contratosToggleGroup" />
                                        </toggleGroup>
                                     </RadioButton>
-                                    <RadioButton mnemonicParsing="false" onAction="#removeContract" text="Eliminar.">
+                                    <RadioButton mnemonicParsing="false" onAction="#removeContractWindow" text="Eliminar.">
                                        <toggleGroup>
                                           <ToggleGroup fx:id="contratosToggleGroup" />
                                        </toggleGroup>
                                     </RadioButton>
-                                    <RadioButton mnemonicParsing="false" onAction="#searchContract" text="Buscar">
+                                    <RadioButton mnemonicParsing="false" onAction="#searchContractWindow" text="Buscar">
                                        <toggleGroup>
                                           <ToggleGroup fx:id="contratosToggleGroup" />
                                        </toggleGroup>
@@ -108,12 +108,12 @@
                            <content>
                               <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
                                  <children>
-                                    <RadioButton mnemonicParsing="false" onAction="#addBranchOffice" text="Agregar">
+                                    <RadioButton mnemonicParsing="false" onAction="#addBranchOfficeWindow" text="Agregar">
                                        <toggleGroup>
                                           <ToggleGroup fx:id="sedesToggleGroup" />
                                        </toggleGroup></RadioButton>
-                                    <RadioButton mnemonicParsing="false" onAction="#removeBranchOffice" text="Eliminar" toggleGroup="$sedesToggleGroup" />
-                                    <RadioButton mnemonicParsing="false" onAction="#searchBranchOffice" text="Buscar" toggleGroup="$sedesToggleGroup" />
+                                    <RadioButton mnemonicParsing="false" onAction="#removeBranchOfficeWindow" text="Eliminar" toggleGroup="$sedesToggleGroup" />
+                                    <RadioButton mnemonicParsing="false" onAction="#searchBranchOfficeWindow" text="Buscar" toggleGroup="$sedesToggleGroup" />
                                  </children>
                               </VBox>
                            </content>
@@ -122,14 +122,14 @@
                            <content>
                               <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
                                  <children>
-                                    <RadioButton mnemonicParsing="false" onAction="#branchOfficesReport" text="Sedes">
+                                    <RadioButton mnemonicParsing="false" onAction="#branchOfficesReportWindow" text="Sedes">
                                        <toggleGroup>
                                           <ToggleGroup fx:id="reportesToggleGroup" />
                                        </toggleGroup>
                                     </RadioButton>
-                                    <RadioButton mnemonicParsing="false" onAction="#reportEmployees" text="Empleados" toggleGroup="$reportesToggleGroup" />
-                                    <RadioButton mnemonicParsing="false" onAction="#reportContract" text="Contratos" toggleGroup="$reportesToggleGroup" />
-                                    <RadioButton mnemonicParsing="false" onAction="#reportFinancial" text="Financieros" toggleGroup="$reportesToggleGroup" />
+                                    <RadioButton mnemonicParsing="false" onAction="#reportEmployeesWindow" text="Empleados" toggleGroup="$reportesToggleGroup" />
+                                    <RadioButton mnemonicParsing="false" onAction="#reportContractWindow" text="Contratos" toggleGroup="$reportesToggleGroup" />
+                                    <RadioButton mnemonicParsing="false" onAction="#reportFinancialWindow" text="Financieros" toggleGroup="$reportesToggleGroup" />
                                  </children>
                               </VBox>
                            </content></TitledPane>
@@ -137,7 +137,7 @@
                            <content>
                               <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
                                  <children>
-                                    <RadioButton mnemonicParsing="false" onAction="#financialOpts" text="Ingresos y Gastos">
+                                    <RadioButton mnemonicParsing="false" onAction="#financialOptsWindow" text="Ingresos y Gastos">
                                        <toggleGroup>
                                           <ToggleGroup fx:id="finanzasToggleGroup" />
                                        </toggleGroup>
@@ -149,13 +149,13 @@
                            <content>
                               <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
                                  <children>
-                                    <RadioButton mnemonicParsing="false" onAction="#addCompany" text="Agregar empresa">
+                                    <RadioButton mnemonicParsing="false" onAction="#addCompanyWindow" text="Agregar empresa">
                                        <toggleGroup>
                                           <ToggleGroup fx:id="administracionToggleGroup" />
                                        </toggleGroup>
                                     </RadioButton>
-                                    <RadioButton mnemonicParsing="false" onAction="#sellCompany" text="Vender una empresa" toggleGroup="$administracionToggleGroup" />
-                                    <RadioButton mnemonicParsing="false" onAction="#changeCompany" text="Cambiar empresa actual" toggleGroup="$administracionToggleGroup" />
+                                    <RadioButton mnemonicParsing="false" onAction="#sellCompanyWindow" text="Vender una empresa" toggleGroup="$administracionToggleGroup" />
+                                    <RadioButton mnemonicParsing="false" onAction="#changeCompanyWindow" text="Cambiar empresa actual" toggleGroup="$administracionToggleGroup" />
                                  </children>
                               </VBox>
                            </content></TitledPane>

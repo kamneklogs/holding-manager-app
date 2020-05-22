@@ -106,6 +106,12 @@ public class MainControllerGUI {
 
 	}
 
+	public void ccObject() throws WithoutCurrentCompany {
+		if (currentCompany == null) {
+			throw new WithoutCurrentCompany();
+		}
+	}
+
 	@FXML
 	void runSearchBrandOffice(ActionEvent event) {
 		try {
@@ -126,13 +132,10 @@ public class MainControllerGUI {
 	}
 
 	@FXML
-	void addEmployee(ActionEvent event) throws IOException {
+	void addEmployeeWindow(ActionEvent event) throws IOException {
 
 		try {
-
-			if (currentCompany == null) {
-				throw new WithoutCurrentCompany();
-			}
+			ccObject();
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addEmployee.fxml"));
 
 			fxmlLoader.setController(this);
@@ -143,10 +146,11 @@ public class MainControllerGUI {
 		} catch (WithoutCurrentCompany e) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Error");
-			alert.setHeaderText("Sin empresa actual");
+			alert.setHeaderText(e.getMessage());
 			alert.setContentText("Para elegir una empresa actual dirigase a Administracion>>Cambiar empresa");
 
 			alert.showAndWait();
+			changeCompanyWindow();
 		}
 
 	}
@@ -172,39 +176,74 @@ public class MainControllerGUI {
 	}
 
 	@FXML
-	void removeEmployee(ActionEvent event) throws IOException {
+	void removeEmployeeWindow(ActionEvent event) throws IOException {
 
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("removeEmployee.fxml"));
+		try {
+			ccObject();
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("removeEmployee.fxml"));
 
-		fxmlLoader.setController(this);
-		Parent removeEmployee = fxmlLoader.load();
+			fxmlLoader.setController(this);
+			Parent removeEmployee = fxmlLoader.load();
 
-		mainPane.getChildren().clear();
-		mainPane.getChildren().add(removeEmployee);
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(removeEmployee);
+		} catch (WithoutCurrentCompany e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText(e.getMessage());
+			alert.setContentText("A continuacion asigne una emprea.");
+
+			alert.showAndWait();
+			changeCompanyWindow();
+
+		}
 
 	}
 
 	@FXML
-	void searchEmployee(ActionEvent event) throws IOException {
+	void searchEmployeeWindow(ActionEvent event) throws IOException {
 
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("searchEmployee.fxml"));
+		try {
+			ccObject();
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("searchEmployee.fxml"));
 
-		fxmlLoader.setController(this);
-		Parent searchEmployee = fxmlLoader.load();
+			fxmlLoader.setController(this);
+			Parent searchEmployee = fxmlLoader.load();
 
-		mainPane.getChildren().clear();
-		mainPane.getChildren().add(searchEmployee);
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(searchEmployee);
+		} catch (WithoutCurrentCompany e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText(e.getMessage());
+			alert.setContentText("Para elegir una empresa actual dirigase a Administracion>>Cambiar empresa");
+
+			alert.showAndWait();
+			changeCompanyWindow();
+		}
 	}
 
 	@FXML
-	void addContract(ActionEvent event) throws IOException {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addContract.fxml"));
+	void addContractWindow(ActionEvent event) throws IOException {
 
-		fxmlLoader.setController(this);
-		Parent addContract = fxmlLoader.load();
+		try {
+			ccObject();
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addContract.fxml"));
 
-		mainPane.getChildren().clear();
-		mainPane.getChildren().add(addContract);
+			fxmlLoader.setController(this);
+			Parent addContract = fxmlLoader.load();
+
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(addContract);
+		} catch (WithoutCurrentCompany e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText(e.getMessage());
+			alert.setContentText("Para elegir una empresa actual dirigase a Administracion>>Cambiar empresa");
+
+			alert.showAndWait();
+			changeCompanyWindow();
+		}
 	}
 
 	@FXML
@@ -220,73 +259,144 @@ public class MainControllerGUI {
 	}
 
 	@FXML
-	void removeContract(ActionEvent event) throws IOException {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("removeContract.fxml"));
+	void removeContractWindow(ActionEvent event) throws IOException {
 
-		fxmlLoader.setController(this);
-		Parent removeContract = fxmlLoader.load();
+		try {
+			ccObject();
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("removeContract.fxml"));
+			fxmlLoader.setController(this);
+			Parent removeContract = fxmlLoader.load();
 
-		mainPane.getChildren().clear();
-		mainPane.getChildren().add(removeContract);
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(removeContract);
+		} catch (WithoutCurrentCompany e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText(e.getMessage());
+			alert.setContentText("Para elegir una empresa actual dirigase a Administracion>>Cambiar empresa");
+
+			alert.showAndWait();
+			changeCompanyWindow();
+		}
 	}
 
 	@FXML
-	void searchContract(ActionEvent event) throws IOException {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("searchContract.fxml"));
+	void searchContractWindow(ActionEvent event) throws IOException {
 
-		fxmlLoader.setController(this);
-		Parent searchContract = fxmlLoader.load();
+		try {
+			ccObject();
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("searchContract.fxml"));
 
-		mainPane.getChildren().clear();
-		mainPane.getChildren().add(searchContract);
+			fxmlLoader.setController(this);
+			Parent searchContract = fxmlLoader.load();
+
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(searchContract);
+		} catch (WithoutCurrentCompany e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText(e.getMessage());
+			alert.setContentText("Para elegir una empresa actual dirigase a Administracion>>Cambiar empresa");
+
+			alert.showAndWait();
+			changeCompanyWindow();
+		}
 	}
 
 	@FXML
-	void addBranchOffice(ActionEvent event) throws IOException {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addBranchOffice.fxml"));
+	void addBranchOfficeWindow(ActionEvent event) throws IOException {
 
-		fxmlLoader.setController(this);
-		Parent addBranchOffice = fxmlLoader.load();
+		try {
+			ccObject();
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addBranchOffice.fxml"));
 
-		mainPane.getChildren().clear();
-		mainPane.getChildren().add(addBranchOffice);
+			fxmlLoader.setController(this);
+			Parent addBranchOffice = fxmlLoader.load();
+
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(addBranchOffice);
+		} catch (WithoutCurrentCompany e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText(e.getMessage());
+			alert.setContentText("Para elegir una empresa actual dirigase a Administracion>>Cambiar empresa");
+
+			alert.showAndWait();
+			changeCompanyWindow();
+		}
 	}
 
 	@FXML
-	void searchBranchOffice(ActionEvent event) throws IOException {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("searchBranchOffice.fxml"));
+	void searchBranchOfficeWindow(ActionEvent event) throws IOException {
 
-		fxmlLoader.setController(this);
-		Parent searchBranchOffice = fxmlLoader.load();
+		try {
+			ccObject();
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("searchBranchOffice.fxml"));
 
-		mainPane.getChildren().clear();
-		mainPane.getChildren().add(searchBranchOffice);
+			fxmlLoader.setController(this);
+			Parent searchBranchOffice = fxmlLoader.load();
+
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(searchBranchOffice);
+		} catch (WithoutCurrentCompany e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText(e.getMessage());
+			alert.setContentText("Para elegir una empresa actual dirigase a Administracion>>Cambiar empresa");
+
+			alert.showAndWait();
+			changeCompanyWindow();
+		}
 	}
 
 	@FXML
-	void removeBranchOffice(ActionEvent event) throws IOException {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("removeBranchOffice.fxml"));
+	void removeBranchOfficeWindow(ActionEvent event) throws IOException {
 
-		fxmlLoader.setController(this);
-		Parent removeBranchOffice = fxmlLoader.load();
+		try {
+			ccObject();
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("removeBranchOffice.fxml"));
 
-		mainPane.getChildren().clear();
-		mainPane.getChildren().add(removeBranchOffice);
+			fxmlLoader.setController(this);
+			Parent removeBranchOffice = fxmlLoader.load();
+
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(removeBranchOffice);
+		} catch (WithoutCurrentCompany e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText(e.getMessage());
+			alert.setContentText("Para elegir una empresa actual dirigase a Administracion>>Cambiar empresa");
+
+			alert.showAndWait();
+			changeCompanyWindow();
+		}
 	}
 
 	@FXML
-	void branchOfficesReport(ActionEvent event) throws IOException {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("reportBranchOffice.fxml"));
+	void branchOfficesReportWindow(ActionEvent event) throws IOException {
 
-		fxmlLoader.setController(this);
-		Parent reportBranchOffice = fxmlLoader.load();
+		try {
+			ccObject();
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("reportBranchOffice.fxml"));
 
-		mainPane.getChildren().clear();
-		mainPane.getChildren().add(reportBranchOffice);
+			fxmlLoader.setController(this);
+			Parent reportBranchOffice = fxmlLoader.load();
+
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(reportBranchOffice);
+		} catch (WithoutCurrentCompany e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText(e.getMessage());
+			alert.setContentText("Para elegir una empresa actual dirigase a Administracion>>Cambiar empresa");
+
+			alert.showAndWait();
+			changeCompanyWindow();
+		}
 	}
 
 	@FXML
-	void reportEmployees(ActionEvent event) throws IOException {
+	void reportEmployeesWindow(ActionEvent event) throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("reportEmployee.fxml"));
 
 		fxmlLoader.setController(this);
@@ -297,40 +407,76 @@ public class MainControllerGUI {
 	}
 
 	@FXML
-	void reportContract(ActionEvent event) throws IOException {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("reportContract.fxml"));
+	void reportContractWindow(ActionEvent event) throws IOException {
 
-		fxmlLoader.setController(this);
-		Parent reportContract = fxmlLoader.load();
+		try {
+			ccObject();
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("reportContract.fxml"));
 
-		mainPane.getChildren().clear();
-		mainPane.getChildren().add(reportContract);
+			fxmlLoader.setController(this);
+			Parent reportContract = fxmlLoader.load();
+
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(reportContract);
+		} catch (WithoutCurrentCompany e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText(e.getMessage());
+			alert.setContentText("Para elegir una empresa actual dirigase a Administracion>>Cambiar empresa");
+
+			alert.showAndWait();
+			changeCompanyWindow();
+		}
 	}
 
 	@FXML
-	void reportFinancial(ActionEvent event) throws IOException {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("financialReport.fxml"));
+	void reportFinancialWindow(ActionEvent event) throws IOException {
 
-		fxmlLoader.setController(this);
-		Parent financialReport = fxmlLoader.load();
+		try {
+			ccObject();
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("financialReport.fxml"));
 
-		mainPane.getChildren().clear();
-		mainPane.getChildren().add(financialReport);
+			fxmlLoader.setController(this);
+			Parent financialReport = fxmlLoader.load();
+
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(financialReport);
+		} catch (WithoutCurrentCompany e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText(e.getMessage());
+			alert.setContentText("Para elegir una empresa actual dirigase a Administracion>>Cambiar empresa");
+
+			alert.showAndWait();
+			changeCompanyWindow();
+		}
 	}
 
 	@FXML
-	void financialOpts(ActionEvent event) throws IOException {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("financialOpts.fxml"));
+	void financialOptsWindow(ActionEvent event) throws IOException {
 
-		fxmlLoader.setController(this);
-		Parent financialOpts = fxmlLoader.load();
+		try {
+			ccObject();
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("financialOpts.fxml"));
 
-		mainPane.getChildren().clear();
-		mainPane.getChildren().add(financialOpts);
+			fxmlLoader.setController(this);
+			Parent financialOpts = fxmlLoader.load();
+
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(financialOpts);
+		} catch (WithoutCurrentCompany e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText(e.getMessage());
+			alert.setContentText("Para elegir una empresa actual dirigase a Administracion>>Cambiar empresa");
+
+			alert.showAndWait();
+			changeCompanyWindow();
+		}
 	}
 
 	@FXML
-	void addCompany(ActionEvent event) throws IOException {
+	void addCompanyWindow(ActionEvent event) throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addCompany.fxml"));
 
 		fxmlLoader.setController(this);
@@ -341,7 +487,7 @@ public class MainControllerGUI {
 	}
 
 	@FXML
-	void sellCompany(ActionEvent event) throws IOException {
+	void sellCompanyWindow(ActionEvent event) throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("sellCompany.fxml"));
 
 		fxmlLoader.setController(this);
@@ -363,7 +509,7 @@ public class MainControllerGUI {
 	}
 
 	@FXML
-	void changeCompany() throws IOException {
+	void changeCompanyWindow() throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("changeCurrentCompany.fxml"));
 
 		fxmlLoader.setController(this);
