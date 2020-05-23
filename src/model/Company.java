@@ -1,44 +1,50 @@
 package model;
 
+import customExceptions.ContractAlreadyExistException;
+import customExceptions.ContractNotFoundException;
 import customExceptions.NotFundBrandOfficeException;
 
 public class Company {
 
     private String name;
     private String nit;
-    private Employee myLegarR;
-    private double moneyValue;
-
-    // binary three archS
-    private Employee employee;
-
-    // linked list arch
-    private Contract firstContract;
-    private BranchOffice mainOffice;
-    private Company right, left, father;
+    private double income;
+    private double outcome;
+    private double taxes;
+    private double value;    
+    
+    private Employee firstEmployee;//Binary search tree
+    private LegalRepresentative legalRepresentative;//Direct relation
+   
+    private Contract firstContract;//Double linked list
+    private BranchOffice firstOffice;//Double linked list
+    
+    private Company father, left, right;
 
     /**
+     * 
      * @param name
      * @param nit
-     * @param myLegarR
-     * @param firstEmployee
-     * @param mainOffice
+     * @param income
+     * @param outcome
+     * @param taxes
+     * @param value
      */
-    public Company(String name, String nit, Employee myLegarR, Employee firstEmployee, double moneyValue,
-            Employee employee, BranchOffice mainOffice) {
+    public Company(String name, String nit, double income, double outcome, double taxes, double value) {
         this.name = name;
         this.nit = nit;
-        this.myLegarR = myLegarR;
-        this.moneyValue = moneyValue;
-        this.employee = employee;
-        this.mainOffice = mainOffice;
+        this.income = income;
+        this.outcome = outcome;
+        this.taxes = taxes;
+        this.value = value;
     }    
     
     /**
      * Adds a previously created contract.
      * @param newContract Contract to add.
+     * @throws ContractAlreadyExistException 
      */
-    public void addContract(Contract newContract) {//Must throw exception if id already exist
+    public void addContract(Contract newContract) throws ContractAlreadyExistException {
 
         Contract current;
 
@@ -60,18 +66,19 @@ public class Company {
             newContract.setPreContract(current);
         }
         else {          
-            //throw new ContractALreadyExistException            
+            throw new ContractAlreadyExistException(newContract.getId());           
         }
     }
 
     /**
      * Remove a contract given its id
      * @param id Contract id
+     * @throws ContractNotFoundException 
      */
-    public void removeContract(String id) {//Must throw exception if not found
+    public void removeContract(String id) throws ContractNotFoundException {
     	Contract current;
     	if (firstContract == null) {
-    		//throws exception
+    		throw new ContractNotFoundException(id);
         } 
         else {
         	current = firstContract;
@@ -98,7 +105,7 @@ public class Company {
             	}
             }
             else {
-            	//throws exception
+            	throw new ContractNotFoundException(id);
             }           
         }
     }
@@ -277,99 +284,15 @@ public class Company {
             }
         }
 
-    }*/
-
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * @return the nit
-     */
-    public String getNit() {
-        return nit;
-    }
-
-    /**
-     * @param nit the nit to set
-     */
-    public void setNit(String nit) {
-        this.nit = nit;
-    }
-
-    /**
-     * @return the myLegarR
-     */
-    public Employee getMyLegarR() {
-        return myLegarR;
-    }
-
-    /**
-     * @param myLegarR the myLegarR to set
-     */
-    public void setMyLegarR(Employee myLegarR) {
-        this.myLegarR = myLegarR;
-    }
-
-    /**
-     * @return the employee
-     */
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    /**
-     * @param employee the employee to set
-     */
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-
-    /**
-     * @return the firstContract
-     */
-    public Contract getFirstContract() {
-        return firstContract;
-    }
-
-    /**
-     * @param firstContract the firstContract to set
-     */
-    public void setFirstContract(Contract firstContract) {
-        this.firstContract = firstContract;
-    }
-
-    /**
-     * @return the mainOffice
-     */
-    public BranchOffice getMainOffice() {
-        return mainOffice;
-    }
-
-    /**
-     * @param mainOffice the mainOffice to set
-     */
-    public void setMainOffice(BranchOffice mainOffice) {
-        this.mainOffice = mainOffice;
-    }
+    }*/    
 
     public void addEmployee(Employee e) {
 
-        if (employee == null) {
-            employee = e;
+        if (firstEmployee == null) {
+            firstEmployee = e;
         } else {
 
-            addEmployee(employee, e);
+            addEmployee(firstEmployee, e);
 
         }
 
@@ -399,11 +322,11 @@ public class Company {
 
     public Employee searchEmployee(String id) {
 
-        if (employee.getId().equals(id)) {
-            return employee;
+        if (firstEmployee.getId().equals(id)) {
+            return firstEmployee;
         }
 
-        return searchEmployee(employee, id);
+        return searchEmployee(firstEmployee, id);
 
     }
 
@@ -519,34 +442,82 @@ public class Company {
 
     public String employeesList() {
         return "";
-    }
+    }     
 
-    public String generateReport(Company c) {
-        return "";
-    }
-
-    public String generateReport(Employee e) {
-        return "";
-    }
-
-    public String generateReport(Contract c) {
-        return "";
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
     }
 
     /**
-     * @return the moneyValue
+     * @param name the name to set
      */
-    public double getMoneyValue() {
-        return moneyValue;
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
-     * @param moneyValue the moneyValue to set
+     * @return the nit
      */
-    public void setMoneyValue(double moneyValue) {
-        this.moneyValue = moneyValue;
+    public String getNit() {
+        return nit;
     }
 
+    /**
+     * @param nit the nit to set
+     */
+    public void setNit(String nit) {
+        this.nit = nit;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public LegalRepresentative getLegalRepresentative() {
+        return legalRepresentative;
+    }
+
+    /**
+     * 
+     * @param legalRepresentative
+     */
+    public void setLegalRepresentative(LegalRepresentative legalRepresentative) {
+    	this.legalRepresentative = legalRepresentative;    	
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public Employee getFirstEmployee() {
+        return firstEmployee;
+    }
+
+    /**
+     * 
+     * @param firstEmployee
+     */
+    public void setFirstEmployee(Employee firstEmployee) {
+        this.firstEmployee = firstEmployee;
+    }
+
+    /**
+     * @return the firstContract
+     */
+    public Contract getFirstContract() {
+        return firstContract;
+    }
+
+    /**
+     * @param firstContract the firstContract to set
+     */
+    public void setFirstContract(Contract firstContract) {
+        this.firstContract = firstContract;
+    } 
+    
     /**
      * @return the right
      */
@@ -588,5 +559,25 @@ public class Company {
     public void setFather(Company father) {
         this.father = father;
     }
+    
+    public double getIncome() {
+		return income;
+	}
+
+	public double getOutcome() {
+		return outcome;
+	}
+
+	public double getTaxes() {
+		return taxes;
+	}
+
+	public double getValue() {
+		return value;
+	}
+
+	public BranchOffice getFirstOffice() {
+		return firstOffice;
+	}
 
 }

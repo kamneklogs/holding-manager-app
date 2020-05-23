@@ -654,8 +654,7 @@ public class MainControllerGUI {
 				&& newCompanyName.getText() != "" && newCompanyNIT.getText() != null && newCompanyNIT.getText() != "") {
 			FoodCompany nC = null;
 			if (alimentosTypeRadioButton.isSelected()) {
-				nC = new FoodCompany(newCompanyName.getText(), newCompanyNIT.getText(), null, null, 0, null, null);
-
+				nC = new FoodCompany(newCompanyName.getText(), newCompanyNIT.getText(), 0, 0, 0, 0);//Add fields for income,outcome,taxes and value
 			} else if (tecnologiaTypeRadioButton.isSelected()) {
 
 			} else if (educacionTypeRadioButton.isSelected()) {

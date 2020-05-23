@@ -117,7 +117,7 @@ public class Holding {
    */
   public void sellCompany(String nit) {
 
-    value -= searchCompany(nit).getMoneyValue();
+    value -= searchCompany(nit).getValue();
 
     removeCompany(searchCompany(nit));
 

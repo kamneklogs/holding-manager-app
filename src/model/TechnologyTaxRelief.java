@@ -2,6 +2,6 @@ package model;
 
 public interface TechnologyTaxRelief{
 
-    public void subtractTaxes();
+    public void substractTaxes();
     
 }
