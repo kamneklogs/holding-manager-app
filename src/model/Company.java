@@ -1,8 +1,13 @@
 package model;
 
+import java.util.Random;
+
+import customExceptions.BranchOfficeAlreadyExistException;
+import customExceptions.BranchOfficeNotFoundException;
 import customExceptions.ContractAlreadyExistException;
 import customExceptions.ContractNotFoundException;
-import customExceptions.NotFundBrandOfficeException;
+import customExceptions.EmployeeAlreadyExistsException;
+import customExceptions.EmployeeNotFoundException;
 
 public class Company {
 
@@ -17,7 +22,7 @@ public class Company {
     private LegalRepresentative legalRepresentative;//Direct relation
    
     private Contract firstContract;//Double linked list
-    private BranchOffice firstOffice;//Double linked list
+    private BranchOffice firstBranchOffice;//Double linked list
     
     private Company father, left, right;
 
@@ -218,86 +223,277 @@ public class Company {
     }
     
     
-	/*public BranchOffice searchBrandOffice(String id) throws NotFundBrandOfficeException {
+    /**
+     * 
+     * @param newBranchOffice
+     * @throws BranchOfficeAlreadyExistException
+     */
+    public void addBranchOffice(BranchOffice newBranchOffice) throws BranchOfficeAlreadyExistException {
 
-        BranchOffice bO;
+        BranchOffice current;
 
-        if (mainOffice == null) {
+        if (firstBranchOffice == null) {
 
-            throw new NotFundBrandOfficeException();
+        	firstBranchOffice = newBranchOffice;
 
-        }
+        } 
+        else if(findBranchOffice(newBranchOffice.getId()) == null) {
+        	current = firstBranchOffice;
 
-        if (mainOffice.getId().equals(id)) {
+            while (current.getNextOffice() != null) {
 
-            bO = mainOffice;
-
-        } else {
-
-            if (searchBrandOffice(mainOffice, id) != null) {
-
-                bO = searchBrandOffice(mainOffice, id);
-
-            } else {
-
-                throw new NotFundBrandOfficeException();
+                current = current.getNextOffice();
 
             }
-
+            
+            current.setNextOffice(newBranchOffice);
+            newBranchOffice.setPreOffice(current);
         }
-
-        return bO;
+        else {          
+            throw new BranchOfficeAlreadyExistException(newBranchOffice.getId());           
+        }
     }
 
-    private BranchOffice searchBrandOffice(BranchOffice current, String id) {
+    /**
+     * 
+     * @param id
+     * @throws BracnhOfficeNotFoundException
+     */
+    public void removeBranchOffice(String id) throws BranchOfficeNotFoundException {
+    	BranchOffice current;
+    	if (firstBranchOffice == null) {
+    		throw new BranchOfficeNotFoundException(id);
+        } 
+        else {
+        	current = firstBranchOffice;
+
+            while (current.getNextOffice() != null && !current.getId().equals(id)) {
+                current = current.getNextOffice();
+            }
+            
+            if(current.getId().equals(id)) {
+            	if(current == firstBranchOffice) {
+            		firstBranchOffice = current.getNextOffice();
+            		current.setNextOffice(null);
+            		firstBranchOffice.setPreOffice(null);
+            	}
+            	else if(current.getNextOffice() == null) {
+            		current.getPreOffice().setNextOffice(null);
+            		current.setPreOffice(null);
+            	}
+            	else {
+            		current.getPreOffice().setNextOffice(current.getNextOffice());
+            		current.getNextOffice().setPreOffice(current.getPreOffice());
+            		current.setNextOffice(null);
+            		current.setPreOffice(null);
+            	}
+            }
+            else {
+            	throw new BranchOfficeNotFoundException(id);
+            }           
+        }
+    }
+   
+    /**
+     * 
+     * @param id
+     * @return
+     */
+    public BranchOffice findBranchOffice(String id) {
+    	   	
+    	if(new Random().nextInt() > 0) {
+    		insertionSortBranchOffices();
+    	}
+    	else {
+    		selectionSortBranchOffices();
+    	}	
     	
-        if (current == null) {
+    	if(firstBranchOffice == null) {
+    		return null;
+    	}
+    	else {
+    		int length = 1;
+    		BranchOffice current = firstBranchOffice;
+    		
+    		while(current.getNextOffice() != null) {
+    			length++;
+    			current.getNextOffice();
+    		}
+    		
+    		int middleLength = length/2;   		
+    		
+    		BranchOffice middleOffice = firstBranchOffice;
+    		int low = 0;
+    		int mid = middleLength;
+    		int high = length;    		
+    		
+    		while(low<=high) {    			
+    			mid = (low + high)/2;
+    			for (int i = low; i < mid; i++) {
+    				middleOffice = middleOffice.getNextOffice();
+    			} 
+    			
+    			if(id.compareTo(middleOffice.getId()) == 0) {
+    				return middleOffice;			
+    			}
+    			else if(id.compareTo(middleOffice.getId()) < 0){
+    				high = mid-1;
+    			}
+    			else {
+    				low = mid+1;			
+    			}	    			
+    		}
+    		return null;
+    	}    	
+	}
 
-            return null;
-
-        } else if (current.getId().equals(id)) {
-
-            return current;
-
-        } else if (current.getId().compareTo(id) > 0) {
-
-            if (current.getLeft() == null) {
-
-                return null;
-
-            } else {
-
-                return searchBrandOffice(current.getLeft(), id);
-
-            }
-
-        } else {
-
-            if (current.getAddress().equals(id)) {
-
-                return current;
-
-            } else {
-
-                return searchBrandOffice(current.getRight(), id);
-
-            }
-        }
-
-    }*/    
-
-    public void addEmployee(Employee e) {
-
-        if (firstEmployee == null) {
+    /**
+     * 
+     */
+    public void insertionSortBranchOffices() {
+    	if(firstBranchOffice != null && firstBranchOffice.getNextOffice() != null) {
+    		BranchOffice current = firstBranchOffice;
+    		while(current.getNextOffice() != null) {   	
+    			BranchOffice toInsert = current;
+    			BranchOffice next = current.getNextOffice();
+    			BranchOffice temp = current;
+    			while(temp.getPreOffice() != null && temp.compareTo(temp.getPreOffice()) < 0) {
+    				temp = temp.getPreOffice();
+    			}
+    			
+    			if(temp == firstBranchOffice) {
+    				if(toInsert.getNextOffice() == null) {
+    					toInsert.getPreOffice().setNextOffice(null);    					   					   					
+    				}
+    				else {
+    					toInsert.getPreOffice().setNextOffice(toInsert.getNextOffice());
+    					toInsert.getNextOffice().setPreOffice(toInsert.getPreOffice());    					 					
+    				}
+    				toInsert.setPreOffice(null);  
+    				toInsert.setNextOffice(firstBranchOffice);
+					firstBranchOffice.setPreOffice(toInsert);
+					
+					firstBranchOffice = toInsert; 
+    			}
+    			else {
+    				if(toInsert.getNextOffice() == null) {
+    					toInsert.getPreOffice().setNextOffice(null);    					   					   					
+    				}
+    				else {
+    					toInsert.getPreOffice().setNextOffice(toInsert.getNextOffice());
+    					toInsert.getNextOffice().setPreOffice(toInsert.getPreOffice());    					 					
+    				}
+    				toInsert.setPreOffice(temp.getPreOffice()); 
+    				toInsert.setNextOffice(temp);
+    				temp.setPreOffice(toInsert);
+    				toInsert.getPreOffice().setNextOffice(toInsert);
+    			}   			   			  		    			
+    			current = next;
+    		}
+    	}
+    }
+    
+    /**
+     * 
+     */
+    public void selectionSortBranchOffices() {
+    	if(firstBranchOffice != null && firstBranchOffice.getNextOffice() != null) {
+    		BranchOffice current = firstBranchOffice;
+    		while(current.getNextOffice() != null) {   	
+    			BranchOffice min = current;
+    			BranchOffice temp = current;
+    			while(temp.getNextOffice() != null) {
+    				if(temp.compareTo(min) < 0) {
+    					min = temp;
+    				}    				
+    			}
+    			
+    			if(min != current) {
+    				if(min.getNextOffice() == null) {
+    					if(current == firstBranchOffice) {    
+    						current.getNextOffice().setPreOffice(min);
+    						min.getPreOffice().setNextOffice(current);
+    						
+    						min.setNextOffice(current.getNextOffice());   
+    						current.setPreOffice(min.getPreOffice());
+    						
+    						min.setPreOffice(null);
+    						current.setNextOffice(null);    
+    						
+    						firstBranchOffice = min;    						
+    					}
+    					else {
+    						current.getPreOffice().setNextOffice(min);
+    						current.getNextOffice().setPreOffice(min);
+    						min.getPreOffice().setNextOffice(current);
+    						
+    						min.setNextOffice(current.getNextOffice());   
+    						min.setPreOffice(current.getPreOffice());
+    						current.setPreOffice(min.getPreOffice());
+    						
+    						current.setNextOffice(null);
+    					}	    					
+    				}
+    				else {
+    					if(current == firstBranchOffice) {
+    						current.getNextOffice().setPreOffice(min);
+    						min.getPreOffice().setNextOffice(current);
+    						min.getNextOffice().setPreOffice(current);
+    						
+    						BranchOffice minNextOffice = min.getNextOffice();    						
+    						min.setNextOffice(current.getNextOffice());   
+    						current.setNextOffice(minNextOffice);
+    						
+    						BranchOffice minPreOffice = min.getPreOffice();    
+    						min.setPreOffice(null);
+    						current.setPreOffice(minPreOffice);   
+    						
+    						firstBranchOffice = min;    						
+    					}
+    					else {
+    						current.getPreOffice().setNextOffice(min);
+    						current.getNextOffice().setPreOffice(min);
+    						min.getPreOffice().setNextOffice(current);
+    						min.getNextOffice().setPreOffice(current);
+    						
+    						BranchOffice minNextOffice = min.getNextOffice();    						
+    						min.setNextOffice(current.getNextOffice());   
+    						current.setNextOffice(minNextOffice);
+    						
+    						BranchOffice minPreOffice = min.getPreOffice();    
+    						min.setPreOffice(current.getPreOffice());
+    						current.setPreOffice(minPreOffice);    						   						
+    					}	
+    				}
+    			}    		    			
+    			current = min.getNextOffice();
+    		}
+    	}
+    }
+ 
+    /**
+     * 
+     * @param e
+     * @throws EmployeeAlreadyExistsException
+     */
+    public void addEmployee(Employee e) throws EmployeeAlreadyExistsException{
+        
+    	if (firstEmployee == null) {
             firstEmployee = e;
-        } else {
-
+        } else if(findEmployee(e.getId()) == null){
             addEmployee(firstEmployee, e);
-
         }
-
+        else {
+        	throw new EmployeeAlreadyExistsException(e.getId());
+        }
+    	
     }
 
+    /**
+     * 
+     * @param current
+     * @param e
+     */
     private void addEmployee(Employee current, Employee e) {
 
         if (e.getId().compareTo(current.getId()) <= 0) {
@@ -320,56 +516,13 @@ public class Company {
 
     }
 
-    public Employee searchEmployee(String id) {
+    /**
+     * 
+     * @param id
+     */
+    public void removeEmployee(String id) throws EmployeeNotFoundException{
 
-        if (firstEmployee.getId().equals(id)) {
-            return firstEmployee;
-        }
-
-        return searchEmployee(firstEmployee, id);
-
-    }
-
-    private Employee searchEmployee(Employee current, String id) {
-
-        if (current == null) {
-
-            return null;
-
-        } else if (current.getId().equals(id)) {
-
-            return current;
-
-        } else if (current.getId().compareTo(id) > 0) {
-
-            if (current.getLeft() == null) {
-
-                return null;
-
-            } else {
-
-                return searchEmployee(current.getLeft(), id);
-
-            }
-
-        } else {
-
-            if (current.getId().equals(id)) {
-
-                return current;
-
-            } else {
-
-                return searchEmployee(current.getRight(), id);
-
-            }
-        }
-
-    }
-
-    public void removeEmployee(String id) {
-
-        Employee toRemove = searchEmployee(id);
+        Employee toRemove = findEmployee(id);
 
         if (toRemove != null) {
 
@@ -437,147 +590,213 @@ public class Company {
             }
 
         }
+        else {
+        	throw new EmployeeNotFoundException(id);
+        }
 
     }
-
-    public String employeesList() {
-        return "";
-    }     
-
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * @return the nit
-     */
-    public String getNit() {
-        return nit;
-    }
-
-    /**
-     * @param nit the nit to set
-     */
-    public void setNit(String nit) {
-        this.nit = nit;
-    }
-
-    /**
-     * 
-     * @return
-     */
-    public LegalRepresentative getLegalRepresentative() {
-        return legalRepresentative;
-    }
-
-    /**
-     * 
-     * @param legalRepresentative
-     */
-    public void setLegalRepresentative(LegalRepresentative legalRepresentative) {
-    	this.legalRepresentative = legalRepresentative;    	
-    }
-
-    /**
-     * 
-     * @return
-     */
-    public Employee getFirstEmployee() {
-        return firstEmployee;
-    }
-
-    /**
-     * 
-     * @param firstEmployee
-     */
-    public void setFirstEmployee(Employee firstEmployee) {
-        this.firstEmployee = firstEmployee;
-    }
-
-    /**
-     * @return the firstContract
-     */
-    public Contract getFirstContract() {
-        return firstContract;
-    }
-
-    /**
-     * @param firstContract the firstContract to set
-     */
-    public void setFirstContract(Contract firstContract) {
-        this.firstContract = firstContract;
-    } 
     
     /**
-     * @return the right
+     * 
+     * @param id
+     * @return
      */
-    public Company getRight() {
-        return right;
+    public Employee findEmployee(String id) {
+
+        if (firstEmployee.getId().equals(id)) {
+            return firstEmployee;
+        }
+        else {
+        	return findEmployee(firstEmployee, id);
+        }       
+
     }
 
     /**
-     * @param right the right to set
+     * 
+     * @param current
+     * @param id
+     * @return
      */
-    public void setRight(Company right) {
-        this.right = right;
+    private Employee findEmployee(Employee current, String id) {
+
+        if (current == null) {
+
+            return null;
+
+        } else if (current.getId().equals(id)) {
+
+            return current;
+
+        } else if (current.getId().compareTo(id) > 0) {
+
+            if (current.getLeft() == null) {
+
+                return null;
+
+            } else {
+
+                return findEmployee(current.getLeft(), id);
+
+            }
+
+        } else {
+
+            if (current.getId().equals(id)) {
+
+                return current;
+
+            } else {
+
+                return findEmployee(current.getRight(), id);
+
+            }
+        }
+
     }
 
-    /**
-     * @return the left
-     */
-    public Company getLeft() {
-        return left;
-    }
-
-    /**
-     * @param left the left to set
-     */
-    public void setLeft(Company left) {
-        this.left = left;
-    }
-
-    /**
-     * @return the father
+    
+    
+/**
+     * 
+     * @return
      */
     public Company getFather() {
-        return father;
-    }
-
-    /**
-     * @param father the father to set
-     */
-    public void setFather(Company father) {
-        this.father = father;
-    }
+		return father;
+	}
     
-    public double getIncome() {
+    /**
+     * 
+     * @param father
+     */
+
+	public void setFather(Company father) {
+		this.father = father;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+
+	public Company getLeft() {
+		return left;
+	}
+	
+	/**
+	 * 
+	 * @param left
+	 */
+
+	public void setLeft(Company left) {
+		this.left = left;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+
+	public Company getRight() {
+		return right;
+	}
+	
+	/**
+	 * 
+	 * @param right
+	 */
+
+	public void setRight(Company right) {
+		this.right = right;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+
+	public String getName() {
+		return name;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+
+	public String getNit() {
+		return nit;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+
+	public double getIncome() {
 		return income;
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
 
 	public double getOutcome() {
 		return outcome;
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
 
 	public double getTaxes() {
 		return taxes;
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
 
 	public double getValue() {
 		return value;
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
 
-	public BranchOffice getFirstOffice() {
-		return firstOffice;
+	public Employee getFirstEmployee() {
+		return firstEmployee;
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */	
 
+	public LegalRepresentative getLegalRepresentative() {
+		return legalRepresentative;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+
+	public Contract getFirstContract() {
+		return firstContract;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+
+	public BranchOffice getFirstBranchOffice() {
+		return firstBranchOffice;
+	}   
 }

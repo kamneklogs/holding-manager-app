@@ -2,9 +2,7 @@ package ui;
 
 import java.io.IOException;
 import java.util.Optional;
-
-import customExceptions.NotFundBrandOfficeException;
-import customExceptions.WithoutCurrentCompany;
+import customExceptions.WithoutCurrentCompanyException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +12,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -135,9 +132,9 @@ public class MainControllerGUI {
 
 	}
 
-	public void ccObject() throws WithoutCurrentCompany {
+	public void ccObject() throws WithoutCurrentCompanyException {
 		if (theHolding.getCurrentCompany() == null) {
-			throw new WithoutCurrentCompany();
+			throw new WithoutCurrentCompanyException();
 		}
 	}
 
@@ -174,7 +171,7 @@ public class MainControllerGUI {
 
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(addEmployee);
-		} catch (WithoutCurrentCompany e) {
+		} catch (WithoutCurrentCompanyException e) {
 
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Advertencia");
@@ -229,7 +226,7 @@ public class MainControllerGUI {
 
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(removeEmployee);
-		} catch (WithoutCurrentCompany e) {
+		} catch (WithoutCurrentCompanyException e) {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Advertencia");
 			alert.setHeaderText("Esta accion requiere una empresa actual.");
@@ -263,7 +260,7 @@ public class MainControllerGUI {
 
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(searchEmployee);
-		} catch (WithoutCurrentCompany e) {
+		} catch (WithoutCurrentCompanyException e) {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Advertencia");
 			alert.setHeaderText("Esta accion requiere una empresa actual.");
@@ -296,7 +293,7 @@ public class MainControllerGUI {
 
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(addContract);
-		} catch (WithoutCurrentCompany e) {
+		} catch (WithoutCurrentCompanyException e) {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Advertencia");
 			alert.setHeaderText("Esta accion requiere una empresa actual.");
@@ -340,7 +337,7 @@ public class MainControllerGUI {
 
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(removeContract);
-		} catch (WithoutCurrentCompany e) {
+		} catch (WithoutCurrentCompanyException e) {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Advertencia");
 			alert.setHeaderText("Esta accion requiere una empresa actual.");
@@ -373,7 +370,7 @@ public class MainControllerGUI {
 
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(searchContract);
-		} catch (WithoutCurrentCompany e) {
+		} catch (WithoutCurrentCompanyException e) {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Advertencia");
 			alert.setHeaderText("Esta accion requiere una empresa actual.");
@@ -406,7 +403,7 @@ public class MainControllerGUI {
 
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(addBranchOffice);
-		} catch (WithoutCurrentCompany e) {
+		} catch (WithoutCurrentCompanyException e) {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Advertencia");
 			alert.setHeaderText("Esta accion requiere una empresa actual.");
@@ -439,7 +436,7 @@ public class MainControllerGUI {
 
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(searchBranchOffice);
-		} catch (WithoutCurrentCompany e) {
+		} catch (WithoutCurrentCompanyException e) {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Advertencia");
 			alert.setHeaderText("Esta accion requiere una empresa actual.");
@@ -472,7 +469,7 @@ public class MainControllerGUI {
 
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(removeBranchOffice);
-		} catch (WithoutCurrentCompany e) {
+		} catch (WithoutCurrentCompanyException e) {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Advertencia");
 			alert.setHeaderText("Esta accion requiere una empresa actual.");
@@ -505,7 +502,7 @@ public class MainControllerGUI {
 
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(reportBranchOffice);
-		} catch (WithoutCurrentCompany e) {
+		} catch (WithoutCurrentCompanyException e) {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Advertencia");
 			alert.setHeaderText("Esta accion requiere una empresa actual.");
@@ -549,7 +546,7 @@ public class MainControllerGUI {
 
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(reportContract);
-		} catch (WithoutCurrentCompany e) {
+		} catch (WithoutCurrentCompanyException e) {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Advertencia");
 			alert.setHeaderText("Esta accion requiere una empresa actual.");
@@ -582,7 +579,7 @@ public class MainControllerGUI {
 
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(financialReport);
-		} catch (WithoutCurrentCompany e) {
+		} catch (WithoutCurrentCompanyException e) {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Advertencia");
 			alert.setHeaderText("Esta accion requiere una empresa actual.");
@@ -615,7 +612,7 @@ public class MainControllerGUI {
 
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(financialOpts);
-		} catch (WithoutCurrentCompany e) {
+		} catch (WithoutCurrentCompanyException e) {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Advertencia");
 			alert.setHeaderText("Esta accion requiere una empresa actual.");

@@ -8,6 +8,6 @@ public class ContractNotFoundException extends Exception{
 	}
 	
 	public String getMessage() {
-		return "Contract with id " + id + "not found!";
+		return "Contract with id " + id + " not found!";
 	}	
 }
