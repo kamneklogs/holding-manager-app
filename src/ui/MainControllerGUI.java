@@ -25,9 +25,7 @@ import model.*;
 
 public class MainControllerGUI {
 
-	private Holding theHolding;
-
-	private Company currentCompany;
+	private Holding theHolding;	
 
 	@FXML
 	private ToggleGroup empleadosToggleGroup;
@@ -145,6 +143,7 @@ public class MainControllerGUI {
 
 	@FXML
 	void runSearchBrandOffice(ActionEvent event) {
+		/*
 		try {
 			theHolding.getCurrentCompany().searchBrandOffice(idForSearchBranchOffice.getText());
 			addressForSearchBrand.setText(
@@ -160,6 +159,7 @@ public class MainControllerGUI {
 
 			alert.showAndWait();
 		}
+		*/
 	}
 
 	@FXML

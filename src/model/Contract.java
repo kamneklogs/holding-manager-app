@@ -62,8 +62,15 @@ public abstract class Contract implements Comparable<Contract> {
 		
 	@Override
 	public int compareTo(Contract anotherContract) {
-		// TODO Auto-generated method stub
-		return 0;
+		if(id.compareTo(anotherContract.getId()) > 0) {
+			return 1;
+		}
+		else if (id.compareTo(anotherContract.getId()) < 0) {
+			return -1;
+		}
+		else {
+			return 0;
+		}		
 	}
 
 

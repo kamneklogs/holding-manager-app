@@ -2,6 +2,8 @@ package model;
 
 public class TechnologyCompany extends Company implements TechnologyTaxRelief {
 
+	public static final double TECHNOLOGY_TAX_RELIEF = 0.3;
+	
     /**
      * @param name
      * @param nit
@@ -15,8 +17,7 @@ public class TechnologyCompany extends Company implements TechnologyTaxRelief {
             Employee employee, BranchOffice mainOffice) {
         super(name, nit, myLegarR, firstEmployee, moneyValue, employee, mainOffice);
     }
-
-    // Subtracts taxes to moneyFund;
+    
     @Override
     public void subtractTaxes() {
 

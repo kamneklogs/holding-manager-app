@@ -2,6 +2,8 @@ package model;
 
 public class EducationCompany extends Company implements EducationTaxRelief{
 
+	public static final double EDUCATION_TAX_RELIEF = 0.3;
+	
     /**
      * @param name
      * @param nit

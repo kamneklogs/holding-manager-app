@@ -1,28 +1,31 @@
 package model;
 
 public class BranchOffice {
-
+	
+	public static final String MAIN = "Main Office";
+	public static final String SECONDARY = "Secondary Office";
+	
     private String city;
     private String address;
     private String id;
     private String type;
-    private Employee eResponsible;
+    private Employee responsableEmployee;
 
-    private BranchOffice right, left;
+    private BranchOffice preOffice, nextOffice;
 
     /**
      * @param city
      * @param address
      * @param id
      * @param type
-     * @param eResponsible
+     * @param responsableEmployee
      */
-    public BranchOffice(String city, String address, String id, String type, Employee eResponsible) {
+    public BranchOffice(String city, String address, String id, String type, Employee responsableEmployee) {
         this.city = city;
         this.address = address;
         this.id = id;
         this.type = type;
-        this.eResponsible = eResponsible;
+        this.responsableEmployee = responsableEmployee;
     }
 
     /**
@@ -33,26 +36,12 @@ public class BranchOffice {
     }
 
     /**
-     * @param city the city to set
-     */
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    /**
      * @return the address
      */
     public String getAddress() {
         return address;
     }
-
-    /**
-     * @param address the address to set
-     */
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
+    
     /**
      * @return the id
      */
@@ -61,66 +50,45 @@ public class BranchOffice {
     }
 
     /**
-     * @param id the id to set
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    /**
      * @return the type
      */
     public String getType() {
         return type;
     }
-
-    /**
-     * @param type the type to set
-     */
-    public void setType(String type) {
-        this.type = type;
-    }
-
+    
     /**
      * @return the eResponsible
      */
     public Employee geteResponsible() {
-        return eResponsible;
-    }
-
-    /**
-     * @param eResponsible the eResponsible to set
-     */
-    public void seteResponsible(Employee eResponsible) {
-        this.eResponsible = eResponsible;
+        return responsableEmployee;
     }
 
     /**
      * @return the right
      */
-    public BranchOffice getRight() {
-        return right;
+    public BranchOffice getPreOffice() {
+        return preOffice;
     }
 
     /**
      * @param right the right to set
      */
-    public void setRight(BranchOffice right) {
-        this.right = right;
+    public void setPreOffice(BranchOffice right) {
+        this.preOffice = right;
     }
 
     /**
      * @return the left
      */
-    public BranchOffice getLeft() {
-        return left;
+    public BranchOffice getNextOffice() {
+        return nextOffice;
     }
 
     /**
      * @param left the left to set
      */
-    public void setLeft(BranchOffice left) {
-        this.left = left;
+    public void setNextOffice(BranchOffice left) {
+        this.nextOffice = left;
     }
 
 }

@@ -31,12 +31,4 @@ public class LegalRepresentative extends Employee {
     public String[] getJobTitles() {
         return jobTitles;
     }
-
-    /**
-     * @param jobTitles the jobTitles to set
-     */
-    public void setJobTitles(String[] jobTitles) {
-        this.jobTitles = jobTitles;
-    }
-
 }

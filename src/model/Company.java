@@ -32,46 +32,186 @@ public class Company {
         this.moneyValue = moneyValue;
         this.employee = employee;
         this.mainOffice = mainOffice;
-    }
-
-    public void addContract(Contract newContract) {
-
-        if (getLastContract() == null) {
-
-            firstContract = newContract;
-
-        } else {
-
-            getLastContract().setNextContract(newContract);
-
-        }
-
-    }
-
-    public Contract getLastContract() {
+    }    
+    
+    /**
+     * Adds a previously created contract.
+     * @param newContract Contract to add.
+     */
+    public void addContract(Contract newContract) {//Must throw exception if id already exist
 
         Contract current;
 
         if (firstContract == null) {
 
-            return null;
+        	firstContract = newContract;
 
-        } else {
-
-            current = firstContract;
+        } 
+        else if(findContract(newContract.getId()) == null) {
+        	current = firstContract;
 
             while (current.getNextContract() != null) {
 
                 current = current.getNextContract();
 
             }
+            
+            current.setNextContract(newContract);
+            newContract.setPreContract(current);
         }
-
-        return current;
-
+        else {          
+            //throw new ContractALreadyExistException            
+        }
     }
 
-    public BranchOffice searchBrandOffice(String id) throws NotFundBrandOfficeException {
+    /**
+     * Remove a contract given its id
+     * @param id Contract id
+     */
+    public void removeContract(String id) {//Must throw exception if not found
+    	Contract current;
+    	if (firstContract == null) {
+    		//throws exception
+        } 
+        else {
+        	current = firstContract;
+
+            while (current.getNextContract() != null && !current.getId().equals(id)) {
+                current = current.getNextContract();
+            }
+            
+            if(current.getId().equals(id)) {
+            	if(current == firstContract) {
+            		firstContract = current.getNextContract();
+            		current.setNextContract(null);
+            		firstContract.setPreContract(null);
+            	}
+            	else if(current.getNextContract() == null) {
+            		current.getPreContract().setNextContract(null);
+            		current.setPreContract(null);
+            	}
+            	else {
+            		current.getPreContract().setNextContract(current.getNextContract());
+            		current.getNextContract().setPreContract(current.getPreContract());
+            		current.setNextContract(null);
+            		current.setPreContract(null);
+            	}
+            }
+            else {
+            	//throws exception
+            }           
+        }
+    }
+   
+    /**
+     * Finds a contract given its id, return null if no contract was found.
+     * @param id Contract id
+     * @return Found contract, null if not found
+     */
+    public Contract findContract(String id) {
+    	bubbleSortContracts();
+    	if(firstContract == null) {
+    		return null;
+    	}
+    	else {
+    		int length = 1;
+    		Contract current = firstContract;
+    		
+    		while(current.getNextContract() != null) {
+    			length++;
+    			current.getNextContract();
+    		}
+    		
+    		int middleLength = length/2;   		
+    		
+    		Contract middleContract = firstContract;
+    		int low = 0;
+    		int mid = middleLength;
+    		int high = length;    		
+    		
+    		while(low<=high) {    			
+    			mid = (low + high)/2;
+    			for (int i = low; i < mid; i++) {
+    				middleContract = middleContract.getNextContract();
+    			} 
+    			
+    			if(id.compareTo(middleContract.getId()) == 0) {
+    				return middleContract;			
+    			}
+    			else if(id.compareTo(middleContract.getId()) < 0){
+    				high = mid-1;
+    			}
+    			else {
+    				low = mid+1;			
+    			}	    			
+    		}
+    		return null;
+    	}    	
+	}
+
+    /**
+     * Sorts contracts using id as criteria.
+     */
+    public void bubbleSortContracts() {
+    	if(firstContract != null && firstContract.getNextContract() != null) {
+	    	boolean exchange = true;
+	    	while(exchange) {
+	    		exchange = false;
+	    		Contract prev = null;
+	    		Contract current = firstContract;
+	    		Contract next = firstContract.getNextContract();
+	    		while(current.getNextContract() != null) {
+	    			if(current.compareTo(current.getNextContract()) > 0) {
+	    				if(current == firstContract) {
+	    					if(next.getNextContract() == null) {
+	    						next.setNextContract(current);
+	    						next.setPreContract(null);
+	    						current.setNextContract(null);
+	    						current.setPreContract(next);	    						
+	    					}
+	    					else {
+	    						current.setPreContract(next);
+	    						current.setNextContract(next.getNextContract());
+	    						next.getNextContract().setPreContract(current);
+	    						
+	    						next.setNextContract(current);
+	    						next.setPreContract(null);	
+	    						
+	    					}
+	    					firstContract = next;
+	    				}
+	    				else if(next.getNextContract() == null) {
+	    					prev.setNextContract(next);
+	    					
+	    					current.setPreContract(next);
+	    					current.setNextContract(null);
+	    					
+	    					next.setPreContract(prev);
+	    					next.setNextContract(current);
+	    				}
+	    				else{
+	    					prev.setNextContract(next);
+	    					
+	    					current.setPreContract(next);
+	    					current.setNextContract(next.getNextContract());
+	    					
+	    					next.setPreContract(prev);
+	    					next.getNextContract().setPreContract(current);
+	    					next.setNextContract(current);
+	    				}
+	    				prev = current;
+	    				current = next;
+	    				next = next.getNextContract();
+	    				
+	    				exchange = true;
+	    			}
+	    		}
+	    	}
+    	}
+    }
+    
+    
+	/*public BranchOffice searchBrandOffice(String id) throws NotFundBrandOfficeException {
 
         BranchOffice bO;
 
@@ -103,7 +243,7 @@ public class Company {
     }
 
     private BranchOffice searchBrandOffice(BranchOffice current, String id) {
-
+    	
         if (current == null) {
 
             return null;
@@ -137,7 +277,7 @@ public class Company {
             }
         }
 
-    }
+    }*/
 
     /**
      * @return the name
