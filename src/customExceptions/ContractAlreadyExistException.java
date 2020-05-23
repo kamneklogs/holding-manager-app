@@ -8,6 +8,6 @@ public class ContractAlreadyExistException extends Exception {
 	}
 	
 	public String getMessage() {
-		return "Contract with id " + id + " already exists!";
+		return "El contrato con id " + id + " ya existe!";
 	}	
 }

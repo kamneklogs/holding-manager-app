@@ -140,23 +140,19 @@ public class MainControllerGUI {
 
 	@FXML
 	void runSearchBrandOffice(ActionEvent event) {
-		/*
-		try {
-			theHolding.getCurrentCompany().searchBrandOffice(idForSearchBranchOffice.getText());
-			addressForSearchBrand.setText(
-					theHolding.getCurrentCompany().searchBrandOffice(idForSearchBranchOffice.getText()).getAddress());
-			idForSearchBranchOffice.setText(
-					theHolding.getCurrentCompany().searchBrandOffice(idForSearchBranchOffice.getText()).getId());
-
-		} catch (NotFundBrandOfficeException e) {
+		BranchOffice branchOffice = theHolding.getCurrentCompany().findBranchOffice(idForSearchBranchOffice.getText());
+		if(branchOffice != null){
+			addressForSearchBrand.setText(branchOffice.getAddress());
+			idForSearchBranchOffice.setText(branchOffice.getId());
+		}
+		else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Error");
 			alert.setHeaderText("Error.");
 			alert.setContentText("Sede inexistente");
 
 			alert.showAndWait();
-		}
-		*/
+		}	
 	}
 
 	@FXML

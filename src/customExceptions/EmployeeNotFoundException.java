@@ -8,6 +8,6 @@ public class EmployeeNotFoundException extends Exception {
 	}
 	
 	public String getMessage() {
-		return "Employee with id " + id + " not found!";
+		return "El empleado con id " + id + " no ha sido encontrado!";
 	}
 }

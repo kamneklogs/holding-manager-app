@@ -8,6 +8,6 @@ public class BranchOfficeAlreadyExistException extends Exception {
 	}
 	
 	public String getMessage() {
-		return "Branch office with id " + id + " already exists!";
+		return "La oficina con id " + id + " ya existe!";
 	}	
 }

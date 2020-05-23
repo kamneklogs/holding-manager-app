@@ -8,6 +8,6 @@ public class BranchOfficeNotFoundException extends Exception {
 	}
 	
 	public String getMessage() {
-		return "Branch office with id " + id + " not found!";
+		return "La oficina con id  " + id + " no ha sido encontrado!";
 	}	
 }

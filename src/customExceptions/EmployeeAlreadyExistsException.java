@@ -8,6 +8,6 @@ public class EmployeeAlreadyExistsException extends Exception {
 	}
 	
 	public String getMessage() {
-		return "Employee with id " + id + " already exists!";
+		return "El empleado con id " + id + " ya existe!";
 	}
 }
