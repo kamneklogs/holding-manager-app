@@ -281,34 +281,72 @@ public class Holding {
 		currentCompany.removeBranchOffice(id);
 	}
 	
-	public String generateEconomicReport(boolean txt){
-		//PENDING IMPLEMENTATION
-		return null;
+	/**
+	 * 
+	 * @param toScreen
+	 * @param toCsv
+	 * @param toTxt
+	 * @return
+	 */
+	public String generateEconomicReport(boolean toScreen, boolean toCsv, boolean toTxt){
+		return new EconomicReport(toScreen, toCsv, toTxt, currentCompany).generateReport();
 	}
 	
-	public String generateBranchOfficesReport(boolean txt) {
-		//PENDING IMPLEMENTATION
-		return null;
+	/**
+	 * 
+	 * @param toScreen
+	 * @param toCsv
+	 * @param toTxt
+	 * @return
+	 */
+	public String generateBranchOfficesReport(boolean toScreen, boolean toCsv, boolean toTxt) {
+		return new BranchOfficesReport(toScreen, toCsv, toTxt, currentCompany).generateReport();
 	}
 	
-	public String generateContractReportGeneral(boolean txt) {
-		//PENDING IMPLEMENTATION
-		return null;
+	/**
+	 * 
+	 * @param toScreen
+	 * @param toCsv
+	 * @param toTxt
+	 * @return
+	 */
+	public String generateContractReportGeneral(boolean toScreen, boolean toCsv, boolean toTxt) {
+		return new ContractReportGeneral(toScreen, toCsv, toTxt, currentCompany).generateReport();
 	}
 	
-	public String generateEmployeeReportGeneral(boolean txt) {
-		//PENDING IMPLEMENTATION
-		return null;
+	/**
+	 * 
+	 * @param toScreen
+	 * @param toCsv
+	 * @param toTxt
+	 * @return
+	 */
+	public String generateEmployeeReportGeneral(boolean toScreen, boolean toCsv, boolean toTxt) {
+		return new EmployeeReportGeneral(toScreen, toCsv, toTxt, currentCompany).generateReport();
 	}
 	
-	public String generateEmployeeReportDetailed(boolean txt, String id) {
-		//PENDING IMPLEMENTATION
-		return null;
+	/**
+	 * 
+	 * @param toScreen
+	 * @param toCsv
+	 * @param toTxt
+	 * @param id
+	 * @return
+	 */
+	public String generateEmployeeReportDetailed(boolean toScreen, boolean toCsv, boolean toTxt, String id) {
+		return new EmployeeReportDetailed(toScreen, toCsv, toTxt, currentCompany, id).generateReport();
 	}
 	
-	public String generateContractReportDetailed(boolean txt, String id) {
-		//PENDING IMPLEMENTATION
-		return null;
+	/**
+	 * 
+	 * @param toScreen
+	 * @param toCsv
+	 * @param toTxt
+	 * @param id
+	 * @return
+	 */
+	public String generateContractReportDetailed(boolean toScreen, boolean toCsv, boolean toTxt, String id) {
+		return new ContractReportDetailed(toScreen, toCsv, toTxt, currentCompany, id).generateReport();
 	}
 	
 	
