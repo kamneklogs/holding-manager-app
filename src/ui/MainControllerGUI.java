@@ -258,7 +258,7 @@ public class MainControllerGUI {
 
 	@FXML
 	void saveNewEmployee(ActionEvent event) {
-
+		
 	}
 
 	@FXML
