@@ -9,9 +9,8 @@ public class Employee {
     private String residenceAddress;
     private String numberPhone;
     private String jobTitle;
-    private double salary;    
-    private double[] workingHours;
-    private ArrayList<String> socialBenefits;
+    private double salary;
+    private int workingHoursPerWeek;
     private Contract myContract;
     private Employee right, left, father;
 
@@ -26,16 +25,14 @@ public class Employee {
      * @param socialBenefits
      * @param myContract
      */
-    public Employee(String name, String id, String residenceAddress, String numberPhone, String jobTitle, double salary,
-            double[] workingHours, ArrayList<String> socialBenefits, Contract myContract) {
+    public Employee(String name, String id, String residenceAddress, String numberPhone, String jobTitle, double salary, int workingHoursPerWeek, Contract myContract) {
         this.name = name;
         this.id = id;
         this.residenceAddress = residenceAddress;
         this.numberPhone = numberPhone;
         this.jobTitle = jobTitle;
         this.salary = salary;
-        this.workingHours = workingHours;
-        this.socialBenefits = socialBenefits;
+        this.workingHoursPerWeek = workingHoursPerWeek;
         this.myContract = myContract;
     }
 
@@ -83,31 +80,10 @@ public class Employee {
     }
 
     /**
-     * @return the workingHours
-     */
-    public double[] getWorkingHours() {
-        return workingHours;
-    }
-
-    /**
-     * @return the socialBenefits
-     */
-    public ArrayList<String> getSocialBenefits() {
-        return socialBenefits;
-    }
-
-    /**
      * @return the myContract
      */
     public Contract getMyContract() {
         return myContract;
-    }
-
-    /**
-     * @param myContract the myContract to set
-     */
-    public void setMyContract(Contract myContract) {
-        this.myContract = myContract;
     }
 
     /**
@@ -150,6 +126,14 @@ public class Employee {
      */
     public void setFather(Employee father) {
         this.father = father;
+    }
+
+    public int getWorkingHoursPerWeek() {
+        return workingHoursPerWeek;
+    }
+
+    public void setWorkingHoursPerWeek(int workingHoursPerWeek) {
+        this.workingHoursPerWeek = workingHoursPerWeek;
     }
 
 }

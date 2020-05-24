@@ -1,14 +1,14 @@
 package model;
 
-public class BranchOffice implements Comparable<BranchOffice>{
-	
-	public static final String MAIN = "Main Office";
-	public static final String SECONDARY = "Secondary Office";
-	
+public class BranchOffice implements Comparable<BranchOffice> {
+
+    public static final String MAIN = "Main Office";
+    public static final String SECONDARY = "Secondary Office";
+
     private String city;
     private String address;
     private String id;
-    private String type;
+    private Boolean type; // true == mainBranchOffice, false == simpleBranchOffice
     private Employee responsableEmployee;
 
     private BranchOffice preOffice, nextOffice;
@@ -16,11 +16,11 @@ public class BranchOffice implements Comparable<BranchOffice>{
     /**
      * @param city
      * @param address
-     * @param id
+     * @param ids
      * @param type
      * @param responsableEmployee
      */
-    public BranchOffice(String city, String address, String id, String type, Employee responsableEmployee) {
+    public BranchOffice(String city, String address, String id, boolean type, Employee responsableEmployee) {
         this.city = city;
         this.address = address;
         this.id = id;
@@ -41,7 +41,7 @@ public class BranchOffice implements Comparable<BranchOffice>{
     public String getAddress() {
         return address;
     }
-    
+
     /**
      * @return the id
      */
@@ -52,10 +52,10 @@ public class BranchOffice implements Comparable<BranchOffice>{
     /**
      * @return the type
      */
-    public String getType() {
+    public boolean getType() {
         return type;
     }
-    
+
     /**
      * @return the eResponsible
      */
@@ -91,16 +91,14 @@ public class BranchOffice implements Comparable<BranchOffice>{
         this.nextOffice = left;
     }
 
-	public int compareTo(BranchOffice anotherBranchOffice) {
-		if(id.compareTo(anotherBranchOffice.id) > 0) {
-			return 1;
-		}
-		else if(id.compareTo(anotherBranchOffice.id) < 0) {
-			return -1;
-		}
-		else {
-			return 0;
-		}
-	}
+    public int compareTo(BranchOffice anotherBranchOffice) {
+        if (id.compareTo(anotherBranchOffice.id) > 0) {
+            return 1;
+        } else if (id.compareTo(anotherBranchOffice.id) < 0) {
+            return -1;
+        } else {
+            return 0;
+        }
+    }
 
 }
