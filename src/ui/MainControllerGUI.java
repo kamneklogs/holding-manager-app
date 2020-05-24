@@ -154,6 +154,27 @@ public class MainControllerGUI {
 	@FXML
 	private Label infoCurrentCompanyLabel;
 
+	@FXML
+	private ToggleGroup typeBranchOfficeToggleGruop;
+
+	@FXML
+	private TextField newBranchOfficeCity;
+
+	@FXML
+	private TextField newBranchOfficeAddress;
+
+	@FXML
+	private TextField newBranchOfficeId;
+
+	@FXML
+	private RadioButton newBranchOfficeMainType;
+
+	@FXML
+	private RadioButton newBranchOfficeSimpleType;
+
+	@FXML
+	private TextField newBranchOfficeEmployee;
+
 	/**
 	 * @param theHolding
 	 * @throws IOException
@@ -447,6 +468,60 @@ public class MainControllerGUI {
 				changeCompanyWindow();
 			}
 
+		}
+	}
+
+	@FXML
+	void saveBranchOfficeButton(ActionEvent event) {
+		try {
+
+			if (newBranchOfficeCity.getText() == "") {
+
+				throw new Exception();
+			}
+
+			if (newBranchOfficeAddress.getText() == "") {
+
+				throw new Exception();
+			}
+
+			if (newBranchOfficeId.getText() == "") {
+
+				throw new Exception();
+			}
+
+			if (theHolding.getCurrentCompany().findEmployee(newBranchOfficeEmployee.getText()) == null) {
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("Advertencia");
+				alert.setHeaderText("Empleado no encontrado");
+				alert.setContentText(
+						"Revise el ID del empleado.");
+
+				alert.showAndWait();
+			}
+
+			boolean b;
+			if (newBranchOfficeMainType.isSelected()) {
+				b = true;
+			} else if (newBranchOfficeSimpleType.isSelected()) {
+				b = false;
+			} else {
+				throw new Exception();
+			}
+
+			theHolding.getCurrentCompany()
+					.addBranchOffice(new BranchOffice(newBranchOfficeCity.getText(), newBranchOfficeAddress.getText(),
+							newBranchOfficeId.getText(), b,
+							theHolding.getCurrentCompany().findEmployee(newBranchOfficeEmployee.getText())));
+
+		} catch (Exception e) {
+
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Parametros incompletos");
+			alert.setContentText("Revise que todos los parametros de registro esten completos");
+
+			alert.showAndWait();
 		}
 	}
 
@@ -793,9 +868,9 @@ public class MainControllerGUI {
 		Company newCurrentCompany = theHolding.searchCompany(searchParameterCompany.getText());
 		theHolding.setCurrentCompany(newCurrentCompany);
 
-		infoCurrentCompanyLabel.setText(theHolding.getCurrentCompany().getName() + "\nNit: "
-				+ theHolding.getCurrentCompany().getNit());
-			
+		infoCurrentCompanyLabel.setText(
+				theHolding.getCurrentCompany().getName() + "\nNit: " + theHolding.getCurrentCompany().getNit());
+
 		infoCurrentCompanyPane.setVisible(true);
 
 		Alert alert = new Alert(AlertType.CONFIRMATION);
