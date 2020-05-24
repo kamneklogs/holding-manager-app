@@ -289,7 +289,7 @@ public class Holding {
 	 * @return
 	 */
 	public String generateEconomicReport(boolean toScreen, boolean toCsv, boolean toTxt){
-		return new EconomicReport(toScreen, toCsv, toTxt, currentCompany).generateReport();
+		return new EconomicReport(toCsv, toTxt, currentCompany).generateReport();
 	}
 	
 	/**
@@ -300,7 +300,7 @@ public class Holding {
 	 * @return
 	 */
 	public String generateBranchOfficesReport(boolean toScreen, boolean toCsv, boolean toTxt) {
-		return new BranchOfficesReport(toScreen, toCsv, toTxt, currentCompany).generateReport();
+		return new BranchOfficesReport(toCsv, toTxt, currentCompany).generateReport();
 	}
 	
 	/**
@@ -311,7 +311,7 @@ public class Holding {
 	 * @return
 	 */
 	public String generateContractReportGeneral(boolean toScreen, boolean toCsv, boolean toTxt) {
-		return new ContractReportGeneral(toScreen, toCsv, toTxt, currentCompany).generateReport();
+		return new ContractReportGeneral(toCsv, toTxt, currentCompany).generateReport();
 	}
 	
 	/**
@@ -322,7 +322,7 @@ public class Holding {
 	 * @return
 	 */
 	public String generateEmployeeReportGeneral(boolean toScreen, boolean toCsv, boolean toTxt) {
-		return new EmployeeReportGeneral(toScreen, toCsv, toTxt, currentCompany).generateReport();
+		return new EmployeeReportGeneral(toCsv, toTxt, currentCompany).generateReport();
 	}
 	
 	/**
@@ -334,7 +334,7 @@ public class Holding {
 	 * @return
 	 */
 	public String generateEmployeeReportDetailed(boolean toScreen, boolean toCsv, boolean toTxt, String id) {
-		return new EmployeeReportDetailed(toScreen, toCsv, toTxt, currentCompany, id).generateReport();
+		return new EmployeeReportDetailed(toCsv, toTxt, currentCompany, id).generateReport();
 	}
 	
 	/**
@@ -346,7 +346,7 @@ public class Holding {
 	 * @return
 	 */
 	public String generateContractReportDetailed(boolean toScreen, boolean toCsv, boolean toTxt, String id) {
-		return new ContractReportDetailed(toScreen, toCsv, toTxt, currentCompany, id).generateReport();
+		return new ContractReportDetailed(toCsv, toTxt, currentCompany, id).generateReport();
 	}
 	
 	

@@ -2,14 +2,12 @@ package model;
 
 public abstract class Report {
 
-    private String content;
-    private boolean toScreen;
+    private String content;   
     private boolean toCsv;
     private boolean toTxt;
     private Company company;
     
-    public Report(boolean toScreen, boolean toCsv, boolean toTxt, Company company) {
-    	this.toScreen = toScreen;
+    public Report(boolean toCsv, boolean toTxt, Company company) {
     	this.toCsv = toCsv;
     	this.toTxt = toTxt;
     	this.company = company;
@@ -35,10 +33,6 @@ public abstract class Report {
 
 	public Company getCompany() {
 		return company;
-	}
-
-	public boolean isToScreen() {
-		return toScreen;
 	}
 
 	public boolean isToCsv() {

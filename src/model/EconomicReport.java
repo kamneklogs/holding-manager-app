@@ -6,8 +6,8 @@ import java.io.IOException;
 
 public class EconomicReport extends Report {
 
-    public EconomicReport(boolean toScreen, boolean toCsv, boolean toTxt, Company company) {
-    	super(toScreen, toCsv,toTxt,company);           
+    public EconomicReport(boolean toCsv, boolean toTxt, Company company) {
+    	super(toCsv,toTxt,company);           
     }    
 
 	@Override
@@ -46,14 +46,7 @@ public class EconomicReport extends Report {
 			} catch (IOException e) {				
 				e.printStackTrace();				
 			}
-		}
-		
-		
-		
-		if(isToScreen()) {			
-			return report;			
-		}	
-		
-		return null;
+		}					
+		return "";
 	}
 }
