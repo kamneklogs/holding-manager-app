@@ -7,8 +7,8 @@ import java.util.Arrays;
 
 public class EmployeeReportGeneral extends Report {
 
-    public EmployeeReportGeneral(boolean toScreen, boolean toCsv, boolean toTxt, Company company) {
-		super(toScreen, toCsv, toTxt, company);		
+    public EmployeeReportGeneral(boolean toCsv, boolean toTxt, Company company) {
+		super(toCsv, toTxt, company);		
 	}
     //name,id,phone number, salary, job title
 	@Override
@@ -29,12 +29,11 @@ public class EmployeeReportGeneral extends Report {
 				catch (IOException e) {					
 					e.printStackTrace();
 				}
-			}
-			
-			report = "REPORTE GENERAL DE EMPLEADOS PARA LA EMPRESA " + companyName + "\n";
-			report += obtainInfo(employee,"");
+			}			
 			
 			if(isToTxt()) {
+				report = "REPORTE GENERAL DE EMPLEADOS PARA LA EMPRESA " + companyName + "\n";
+				report += obtainInfo(employee,"");
 				try {
 					BufferedWriter bw = new BufferedWriter(new FileWriter("data/Reporte_Empleados_" + companyName + ".txt"));
 					bw.write(report);
@@ -44,14 +43,10 @@ public class EmployeeReportGeneral extends Report {
 					e.printStackTrace();
 				}
 			}
-			
-			if(isToScreen()) {
-				return report;
-			}
-			return null;
+			return "";
 		}
 		else {
-			return "No se han agregado empleados!";
+			return null;
 		}
 		
 	}

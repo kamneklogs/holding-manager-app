@@ -6,8 +6,8 @@ import java.io.IOException;
 
 public class ContractReportGeneral extends Report {
 
-	public ContractReportGeneral(boolean toScreen, boolean toCsv, boolean toTxt, Company company) {
-		super(toScreen, toCsv, toTxt, company);	
+	public ContractReportGeneral(boolean toCsv, boolean toTxt, Company company) {
+		super(toCsv, toTxt, company);	
 	} 
 	//name, id, start date, end date    
 	@Override
@@ -36,19 +36,18 @@ public class ContractReportGeneral extends Report {
 					e.printStackTrace();
 				}			
 			}
-			
-			report = "REPORTE GENERAL DE CONTRATOS PARA LA EMPRESA " + companyName + "\n";
-			
-			while(contract != null) {
-				report += "Name: " + contract.getName() + " -- ID: " + contract.getId() 
-				+ " -- Fecha de Incio: "
-				+ (contract.getStartDate() != null? contract.getStartDate().toString() : "N/A")
-				+ " -- Fecha de Terminación: " 
-				+ (contract.getFinishDate() != null? contract.getFinishDate().toString() : "N/A") + "\n";
-				contract = contract.getNextContract();
-			}
-			
-			if(isToTxt()) {				
+						
+			if(isToTxt()) {	
+				report = "REPORTE GENERAL DE CONTRATOS PARA LA EMPRESA " + companyName + "\n";
+				
+				while(contract != null) {
+					report += "Name: " + contract.getName() + " -- ID: " + contract.getId() 
+					+ " -- Fecha de Incio: "
+					+ (contract.getStartDate() != null? contract.getStartDate().toString() : "N/A")
+					+ " -- Fecha de Terminación: " 
+					+ (contract.getFinishDate() != null? contract.getFinishDate().toString() : "N/A") + "\n";
+					contract = contract.getNextContract();
+				}
 				try {
 					BufferedWriter bw = new BufferedWriter(new FileWriter("data/Reporte_Contratos_" +  companyName + ".txt"));
 					bw.write(report);
@@ -57,15 +56,11 @@ public class ContractReportGeneral extends Report {
 				catch (IOException e) {					
 					e.printStackTrace();
 				}	
-			}
-			
-			if(isToScreen()) {
-				return report;
 			}			
-			return null;
+			return "";
 		}
 		else {
-			return "No contracts created!";
+			return null;
 		}
 	}
 }

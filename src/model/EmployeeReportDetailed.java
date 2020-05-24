@@ -10,8 +10,8 @@ public class EmployeeReportDetailed extends Report {
 	
 	private String id;
 
-	public EmployeeReportDetailed(boolean toScreen, boolean toCsv, boolean toTxt, Company company, String id) {
-		super(toScreen, toCsv, toTxt, company);		
+	public EmployeeReportDetailed(boolean toCsv, boolean toTxt, Company company, String id) {
+		super(toCsv, toTxt, company);		
 	}
     
 	@Override
@@ -43,7 +43,7 @@ public class EmployeeReportDetailed extends Report {
 				catch (IOException e) {					
 					e.printStackTrace();
 				}				
-			}
+			}	
 			
 			report = "REPORTE DE EMPLEADO " + name + " CON ID: " + id + " PARA LA EMPRESA " + companyName + "\n";
 			report += "Nombre: " + name + "\n";
@@ -55,8 +55,8 @@ public class EmployeeReportDetailed extends Report {
 			report += "Horas de Trabajo (L-D)" + Arrays.toString(workingHours) + "\n";
 			report += "Beneficios sociales: " + socialBenefits.toString() + "\n";
 			
-			
 			if(isToTxt()) {
+				
 				try {
 					BufferedWriter bw = new BufferedWriter(new FileWriter("data/Reporte_Empleado_" + name + "_" + id + "_" +  companyName + ".txt"));
 					bw.write(report);
@@ -66,15 +66,10 @@ public class EmployeeReportDetailed extends Report {
 					e.printStackTrace();
 				}
 			}
-			
-			if(isToScreen()) {
-				return report;
-			}
-			
-			return null;
+			return report;
 		}
 		else {
-			return "El empleado no ha sido encontrado!";
+			return null;
 		}
 		
 	}

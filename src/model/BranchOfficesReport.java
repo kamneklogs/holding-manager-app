@@ -6,8 +6,8 @@ import java.io.IOException;
 
 public class BranchOfficesReport extends Report {
 
-	public BranchOfficesReport(boolean toScreen, boolean toCsv, boolean toTxt, Company company) {
-		super(toScreen, toCsv, toTxt, company);		
+	public BranchOfficesReport(boolean toCsv, boolean toTxt, Company company) {
+		super(toCsv, toTxt, company);		
 	}
 
 	@Override
@@ -33,18 +33,16 @@ public class BranchOfficesReport extends Report {
 				catch (IOException e) {					
 					e.printStackTrace();
 				}
-			}
-			
-			BranchOffice current = getCompany().getFirstBranchOffice();
-			report = "REPORTE DE SEDES PARA LA EMPRESA " + name + " CON NIT: " + nit + "\n";								
-			
-			while(current != null) {
-				report += "Tipo: " + current.getType() + " -- ID: " + current.getId() + " -- Ciudad: " + current.getCity() + " -- Dirección:" + current.getAddress() + "\n";
-				current = current.getNextOffice();
-			}
-			
+			}					
 			
 			if(isToTxt()) {
+				BranchOffice current = getCompany().getFirstBranchOffice();
+				report = "REPORTE DE SEDES PARA LA EMPRESA " + name + " CON NIT: " + nit + "\n";								
+				
+				while(current != null) {
+					report += "Tipo: " + current.getType() + " -- ID: " + current.getId() + " -- Ciudad: " + current.getCity() + " -- Dirección:" + current.getAddress() + "\n";
+					current = current.getNextOffice();
+				}
 				try {
 					BufferedWriter bw = new BufferedWriter(new FileWriter("data/Reporte_Sedes_" + name + ".txt"));
 					bw.write(report);
@@ -53,16 +51,11 @@ public class BranchOfficesReport extends Report {
 				catch (IOException e) {					
 					e.printStackTrace();
 				}
-			}
-			
-			if(isToScreen()) {
-				return report;
-			}	
-			
-			return null;			
+			}			
+			return "";			
 		}
 		else {
-			return "No hay sedes agregadas!";
+			return null;
 		}
 	}
 

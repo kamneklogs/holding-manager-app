@@ -9,8 +9,8 @@ import java.util.ArrayList;
 public class ContractReportDetailed extends Report {
 	private String id;
 	
-	public ContractReportDetailed(boolean toScreen, boolean toCsv, boolean toTxt, Company company, String id) {
-		super(toScreen, toCsv, toTxt, company);		
+	public ContractReportDetailed(boolean toCsv, boolean toTxt, Company company, String id) {
+		super(toCsv, toTxt, company);		
 	}    
 
 	@Override
@@ -68,7 +68,9 @@ public class ContractReportDetailed extends Report {
 				catch (IOException e) {					
 					e.printStackTrace();
 				}
-			}
+				report = "";
+			}	
+			
 			report = "REPORTE DE CONTRATO " + id + " PARA LA EMPRESA " + companyName + "\n";
 			report += "Nombre: " + name + "\n";
 			report += "ID: " + id + "\n";
@@ -83,6 +85,7 @@ public class ContractReportDetailed extends Report {
 			report += "Limite de renovaciones: " + renewalsLimit + "\n";
 			
 			if(isToTxt()) {
+				
 				try {
 					BufferedWriter bw = new BufferedWriter(new FileWriter("data/Reporte_Contrato_" + name + "_" + id + "_" +  companyName + ".txt"));
 					bw.write(report);
@@ -91,16 +94,13 @@ public class ContractReportDetailed extends Report {
 				catch (IOException e) {					
 					e.printStackTrace();
 				}
-			}
+			}			
 			
-			if(isToScreen()) {
-				return report;
-			}
-			return null;
+			return report;
 		}
 		
 		else {
-			return "No se ha encontrado el contrato!";
+			return null;
 		}				
 	}
 }
