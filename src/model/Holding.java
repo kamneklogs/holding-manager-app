@@ -15,6 +15,7 @@ public class Holding {
 	// Basic attributes
 	private String name;
 	private double value;
+	private int  totalTCompanies, totalFCompanies,totalECompanies;
 	
 	// Companies binary search tree
 	private Company firstCompany;
@@ -49,7 +50,8 @@ public class Holding {
 	 * @param current
 	 * @param c
 	 */
-	private void addCompany(Company current, Company c) {	
+	private void addCompany(Company current, Company c) {
+		
 		if (c.getNit().compareTo(current.getNit()) <= 0) {
 			if (current.getLeft() == null) {
 		    	current.setLeft(c);
@@ -383,5 +385,29 @@ public class Holding {
 	 */
 	public void setCurrentCompany(Company currentCompany) {
 		this.currentCompany = currentCompany;
+	}
+
+	public int getTotalTCompanies() {
+		return totalTCompanies;
+	}
+
+	public void setTotalTCompanies(int totalTCompanies) {
+		this.totalTCompanies = totalTCompanies;
+	}
+
+	public int getTotalFCompanies() {
+		return totalFCompanies;
+	}
+
+	public void setTotalFCompanies(int totalFCompanies) {
+		this.totalFCompanies = totalFCompanies;
+	}
+
+	public int getTotalECompanies() {
+		return totalECompanies;
+	}
+
+	public void setTotalECompanies(int totalECompanies) {
+		this.totalECompanies = totalECompanies;
 	}
 }

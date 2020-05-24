@@ -16,13 +16,14 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import model.*;
 
 public class MainControllerGUI {
 
-	private Holding theHolding;	
+	private Holding theHolding;
 
 	@FXML
 	private ToggleGroup empleadosToggleGroup;
@@ -123,6 +124,36 @@ public class MainControllerGUI {
 	@FXML
 	private RadioButton ceaRadioButton;
 
+	@FXML
+	private Label totalFCompanies;
+
+	@FXML
+	private Label totalTCompanies;
+
+	@FXML
+	private Label totalECompanies;
+
+	@FXML
+	private Label totalCompanies;
+
+	@FXML
+	private TextField newCompanyIncome;
+
+	@FXML
+	private TextField newCompanyOutcome;
+
+	@FXML
+	private TextField newCompanyTaxe;
+
+	@FXML
+	private TextField newCompanyValue;
+
+	@FXML
+	private Pane infoCurrentCompanyPane;
+
+	@FXML
+	private Label infoCurrentCompanyLabel;
+
 	/**
 	 * @param theHolding
 	 * @throws IOException
@@ -141,18 +172,17 @@ public class MainControllerGUI {
 	@FXML
 	void runSearchBrandOffice(ActionEvent event) {
 		BranchOffice branchOffice = theHolding.getCurrentCompany().findBranchOffice(idForSearchBranchOffice.getText());
-		if(branchOffice != null){
+		if (branchOffice != null) {
 			addressForSearchBrand.setText(branchOffice.getAddress());
 			idForSearchBranchOffice.setText(branchOffice.getId());
-		}
-		else {
+		} else {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Error");
 			alert.setHeaderText("Error.");
 			alert.setContentText("Sede inexistente");
 
 			alert.showAndWait();
-		}	
+		}
 	}
 
 	@FXML
@@ -641,25 +671,56 @@ public class MainControllerGUI {
 	}
 
 	@FXML
-	void saveNewCompany(ActionEvent event) {
+	void saveNewCompany(ActionEvent event) throws IOException {
 
 		if (newCompanyTypeToggleGroup.getSelectedToggle() != null && newCompanyName.getText() != null
 				&& newCompanyName.getText() != "" && newCompanyNIT.getText() != null && newCompanyNIT.getText() != "") {
-			FoodCompany nC = null;
+			Company nC = null;
 			if (alimentosTypeRadioButton.isSelected()) {
-				nC = new FoodCompany(newCompanyName.getText(), newCompanyNIT.getText(), 0, 0, 0, 0);//Add fields for income,outcome,taxes and value
+
+				nC = new FoodCompany(newCompanyName.getText(), newCompanyNIT.getText(),
+						Double.parseDouble(newCompanyIncome.getText()), Double.parseDouble(newCompanyOutcome.getText()),
+						Double.parseDouble(newCompanyTaxe.getText()), Double.parseDouble(newCompanyValue.getText()));
+
 			} else if (tecnologiaTypeRadioButton.isSelected()) {
+
+				nC = new TechnologyCompany(newCompanyName.getText(), newCompanyNIT.getText(),
+						Double.parseDouble(newCompanyIncome.getText()), Double.parseDouble(newCompanyOutcome.getText()),
+						Double.parseDouble(newCompanyTaxe.getText()), Double.parseDouble(newCompanyValue.getText()));
 
 			} else if (educacionTypeRadioButton.isSelected()) {
 
+				nC = new EducationCompany(newCompanyName.getText(), newCompanyNIT.getText(),
+						Double.parseDouble(newCompanyIncome.getText()), Double.parseDouble(newCompanyOutcome.getText()),
+						Double.parseDouble(newCompanyTaxe.getText()), Double.parseDouble(newCompanyValue.getText()));
+
 			}
+
 			theHolding.addCompany(nC);
+
+			if (nC instanceof FoodCompany) {
+
+				theHolding.setTotalFCompanies(theHolding.getTotalFCompanies() + 1);
+
+			} else if (nC instanceof TechnologyCompany) {
+
+				theHolding.setTotalTCompanies(theHolding.getTotalTCompanies() + 1);
+
+			} else {
+
+				theHolding.setTotalECompanies(theHolding.getTotalECompanies() + 1);
+
+			}
+
+			updateCountCompanies();
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("Confirmacion");
 			alert.setHeaderText("Compañia agregada exitosamente");
 			alert.setContentText("Ahora puede gestionar todos los procesos de esta compañia");
 
 			alert.showAndWait();
+
+			addCompanyWindow(event);
 
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -670,6 +731,15 @@ public class MainControllerGUI {
 			alert.showAndWait();
 		}
 
+	}
+
+	void updateCountCompanies() {
+		totalCompanies.setText(Integer.toString(
+				theHolding.getTotalECompanies() + theHolding.getTotalFCompanies() + theHolding.getTotalTCompanies()));
+
+		totalECompanies.setText(Integer.toString(theHolding.getTotalECompanies()));
+		totalFCompanies.setText(Integer.toString(theHolding.getTotalFCompanies()));
+		totalTCompanies.setText(Integer.toString(theHolding.getTotalTCompanies()));
 	}
 
 	@FXML
@@ -723,12 +793,18 @@ public class MainControllerGUI {
 		Company newCurrentCompany = theHolding.searchCompany(searchParameterCompany.getText());
 		theHolding.setCurrentCompany(newCurrentCompany);
 
+		infoCurrentCompanyLabel.setText(theHolding.getCurrentCompany().getName() + "\nNit: "
+				+ theHolding.getCurrentCompany().getNit());
+			
+		infoCurrentCompanyPane.setVisible(true);
+
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setTitle("Confirmacion");
 		alert.setHeaderText("Compañia cambiada exitosamente");
 		alert.setContentText("Nueva compañia:\n\n     " + theHolding.getCurrentCompany().getName());
 
 		alert.showAndWait();
+
 	}
 
 }
