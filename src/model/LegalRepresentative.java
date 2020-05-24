@@ -1,7 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-
 public class LegalRepresentative extends Employee {
 
     private String[] jobTitles;
@@ -19,9 +17,8 @@ public class LegalRepresentative extends Employee {
      * @param jobTitles
      */
     public LegalRepresentative(String name, String id, String residenceAddress, String numberPhone, String jobTitle,
-            double salary, double[] workingHours, ArrayList<String> socialBenefits, Contract myContract,
-            String[] jobTitles) {
-        super(name, id, residenceAddress, numberPhone, jobTitle, salary, workingHours, socialBenefits, myContract);
+            double salary, int workingHours, String[] jobTitles, Contract myContract) {
+        super(name, id, residenceAddress, numberPhone, jobTitle, salary, workingHours, myContract);
         this.jobTitles = jobTitles;
     }
 

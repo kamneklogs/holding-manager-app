@@ -10,7 +10,7 @@ public class EmployeeReportGeneral extends Report {
     public EmployeeReportGeneral(boolean toCsv, boolean toTxt, Company company) {
 		super(toCsv, toTxt, company);		
 	}
-    //name,id,phone number, salary, job title
+    
 	@Override
 	public String generateReport() {
 		Employee employee = getCompany().getFirstEmployee();

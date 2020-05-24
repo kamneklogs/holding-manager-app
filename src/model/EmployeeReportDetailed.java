@@ -3,7 +3,6 @@ package model;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class EmployeeReportDetailed extends Report {
@@ -27,13 +26,12 @@ public class EmployeeReportDetailed extends Report {
 			String phoneNumber = employee.getNumberPhone();
 			double salary = employee.getSalary();
 			String jobTitle = employee.getJobTitle();
-			double[] workingHours = employee.getWorkingHours();
-			ArrayList<String> socialBenefits = employee.getSocialBenefits();
+			double weeklyHours = employee.getWorkingHoursPerWeek();		
 			
 			if(isToCsv()) {
-				report += "nombre,id,dirección_residencia,numero_telefono,salario,titulo,horas_trabajo(L-D),beneficios_sociales";
+				report += "nombre,id,dirección_residencia,numero_telefono,salario,titulo(s)_trabajo,horas_trabajo_semana";
 				report += name + "," + id + "," + address + "," + phoneNumber + "," + salary + "," + jobTitle
-						+ "," + Arrays.toString(workingHours) + "," + socialBenefits.toString();
+						+ (employee instanceof LegalRepresentative? Arrays.toString(((LegalRepresentative)employee).getJobTitles()):"") + "," + weeklyHours;
 				
 				try {
 					BufferedWriter bw = new BufferedWriter(new FileWriter("data/Reporte_Empleado_" + name + "_" + id + "_" +  companyName + ".csv"));
@@ -51,12 +49,10 @@ public class EmployeeReportDetailed extends Report {
 			report += "Dirección de Residencia: " + address + "\n";
 			report += "Numero de telefono: " + phoneNumber + "\n";
 			report += "Salario: $" + salary + "\n";
-			report += "Titulo de Trabajo: " + jobTitle + "\n";
-			report += "Horas de Trabajo (L-D)" + Arrays.toString(workingHours) + "\n";
-			report += "Beneficios sociales: " + socialBenefits.toString() + "\n";
+			report += "Titulo de Trabajo: " + jobTitle + (employee instanceof LegalRepresentative? Arrays.toString(((LegalRepresentative)employee).getJobTitles()):"") + "\n";
+			report += "Horas de Trabajo (L-D)" + weeklyHours + "\n";
 			
-			if(isToTxt()) {
-				
+			if(isToTxt()) {				
 				try {
 					BufferedWriter bw = new BufferedWriter(new FileWriter("data/Reporte_Empleado_" + name + "_" + id + "_" +  companyName + ".txt"));
 					bw.write(report);

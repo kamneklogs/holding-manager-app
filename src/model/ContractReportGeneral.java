@@ -8,8 +8,7 @@ public class ContractReportGeneral extends Report {
 
 	public ContractReportGeneral(boolean toCsv, boolean toTxt, Company company) {
 		super(toCsv, toTxt, company);	
-	} 
-	//name, id, start date, end date    
+	} 	  
 	@Override
 	public String generateReport() {	
 		Contract contract = getCompany().getFirstContract();
