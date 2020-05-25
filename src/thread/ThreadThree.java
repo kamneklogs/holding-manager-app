@@ -1,7 +1,5 @@
 package thread;
 
-import ui.MainControllerGUI;
-
 import java.io.IOException;
 
 import model.Holding;
@@ -9,7 +7,6 @@ import model.Holding;
 public class ThreadThree extends Thread {
 
     private Holding theHolding;
-    private MainControllerGUI controllerGUI;
 
     /**
      * 
@@ -28,7 +25,8 @@ public class ThreadThree extends Thread {
         while (!theHolding.isStateCharge()) {
 
             try {
-                Thread.sleep(5);
+
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -39,12 +37,12 @@ public class ThreadThree extends Thread {
             try {
                 theHolding.updateSave();
             } catch (IOException e1) {
-                // TODO Auto-generated catch block
                 e1.printStackTrace();
             }
 
             try {
-                Thread.sleep(5);
+
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Optional;
 
 import customExceptions.BranchOfficeAlreadyExistException;
@@ -29,7 +28,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TableColumn;
@@ -267,6 +265,7 @@ public class MainControllerGUI {
 
 		new ThreadOne(this).start();
 		new ThreadTwo(this, theHolding).start();
+		new ThreadThree(theHolding).start();
 
 	}
 
