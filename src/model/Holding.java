@@ -359,6 +359,10 @@ public class Holding {
 		return currentCompany.employeesToArrayList();
 	}
 	
+	public ArrayList<Contract> getCurrentCompanyContracts() {
+		return currentCompany.contractsToArrayList();
+	}
+	
 	/**
 	 * 
 	 */
@@ -457,6 +461,5 @@ public class Holding {
 	public void setTotalECompanies(int totalECompanies) {
 		this.totalECompanies = totalECompanies;
 	}
-
 	
 }

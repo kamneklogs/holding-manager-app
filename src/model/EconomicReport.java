@@ -34,8 +34,8 @@ public class EconomicReport extends Report {
 			}			
 		}
 		
-		report = "REPORTE ECONOMICO PARA LA EMPRESA " + name + " CON NIT:" + nit + "\n";
-		report += "Ingresos: $" + income + "\n Egresos: $" + outcome
+		report = "REPORTE ECONOMICO PARA LA EMPRESA " + name + " CON NIT:" + nit + "\n\n";
+		report += "Ingresos: $" + income + "\nEgresos: $" + outcome
 				+ "\nValor: $" + value + "\nImpuestos: " + taxes + "%";
 		
 		if(isToTxt()) {
@@ -47,6 +47,6 @@ public class EconomicReport extends Report {
 				e.printStackTrace();				
 			}
 		}					
-		return "";
+		return report;
 	}
 }

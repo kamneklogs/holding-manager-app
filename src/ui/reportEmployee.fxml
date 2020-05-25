@@ -31,10 +31,10 @@
                <children>
                   <RadioButton fx:id="employeesParticularToggleButton" alignment="CENTER_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#employeesUpdateSearchButton" prefHeight="18.0" prefWidth="74.0" text="Particular ">
                      <toggleGroup>
-                        <ToggleGroup fx:id="typeBranchOfficeReportTypeTG" />
+                        <ToggleGroup fx:id="employeesToggleGroup" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="employeesGeneralToggleButton" mnemonicParsing="false" onAction="#employeesUpdateSearchButton" prefHeight="18.0" prefWidth="69.0" text="General" toggleGroup="$typeBranchOfficeReportTypeTG" />
+                  <RadioButton fx:id="employeesGeneralToggleButton" mnemonicParsing="false" onAction="#employeesUpdateSearchButton" prefHeight="18.0" prefWidth="69.0" text="General" toggleGroup="$employeesToggleGroup" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="56.0" prefWidth="430.0" spacing="10.0">

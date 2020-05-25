@@ -804,9 +804,22 @@ public class Company {
 		}
 		else {
 			employeesList.add(employee);
-			employeesList = employeesToArrayListRecursive (employee.getLeft(), employeesList);
-			employeesList = employeesToArrayListRecursive (employee.getRight(), employeesList);	
+			employeesList = employeesToArrayListRecursive(employee.getLeft(), employeesList);
+			employeesList = employeesToArrayListRecursive(employee.getRight(), employeesList);	
 			return employeesList;
 		}		
+	}
+
+	public ArrayList<Contract> contractsToArrayList() {
+		ArrayList<Contract> contracts = new ArrayList<>();
+		Contract current = firstContract;
+		
+		if(current != null) {
+			while(current != null) {
+				contracts.add(current);
+				current = current.getNextContract();
+			}
+		}
+		return contracts;
 	}
 }

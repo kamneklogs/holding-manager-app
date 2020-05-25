@@ -1,6 +1,7 @@
 package ui;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -1148,7 +1149,7 @@ public class MainControllerGUI {
 	private RadioButton employeesParticularToggleButton;
 
 	@FXML
-	private ToggleGroup typeBranchOfficeReportTypeTG;
+	private ToggleGroup employeesToggleGroup;
 
 	@FXML
 	private RadioButton employeesGeneralToggleButton;
@@ -1257,6 +1258,144 @@ public class MainControllerGUI {
 	}
 
 	// CONTRACTS REPORT
+	
+
+    @FXML
+    private RadioButton contractsParticularToggleButton;
+
+    @FXML
+    private ToggleGroup contractsToggleGroup;
+
+    @FXML
+    private RadioButton contractsGeneralToggleButton;
+
+    @FXML
+    private TextField contractsIdTextField;
+
+    @FXML
+    private CheckBox contractsCsvCheckBox;
+
+    @FXML
+    private CheckBox contractsTxtCheckBox;
+
+    @FXML
+    private CheckBox contractsScreenCheckBox;
+
+    @FXML
+    private TableView<Contract> contractsTableView;
+
+    @FXML
+    private TableColumn<Contract, String> contractNameColumn;
+
+    @FXML
+    private TableColumn<Contract, String> contractIdColumn;
+
+    @FXML
+    private TableColumn<Contract, LocalDate> contractStartDateColumn;
+
+    @FXML
+    private TableColumn<Contract, LocalDate> contractEndDateColumn;
+
+    @FXML
+    void contractsGenerateReport(ActionEvent event) {
+		if (!contractsCsvCheckBox.isSelected() && !contractsTxtCheckBox.isSelected()
+				&& !contractsScreenCheckBox.isSelected()) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setContentText("No se ha seleccionado formato de salida, por favor seleccione al menos uno!");
+			alert.showAndWait();
+		} else if (!contractsParticularToggleButton.isSelected() && !contractsGeneralToggleButton.isSelected()) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setContentText(
+					"No se ha seleccionado un tipo de reporte particular o general, por favor seleccione uno!");
+			alert.showAndWait();
+		} else {
+			ArrayList<Contract> contracts = theHolding.getCurrentCompanyContracts();
+			ObservableList<Contract> observableContracts = FXCollections.observableArrayList(contracts);
+
+			if (!contracts.isEmpty()) {
+				if (contractsParticularToggleButton.isSelected()) {
+					String id = contractsIdTextField.getText();
+					if (!id.isEmpty()) {
+						String report = theHolding.generateContractReportDetailed(contractsScreenCheckBox.isSelected(),
+								contractsCsvCheckBox.isSelected(), contractsScreenCheckBox.isSelected(), id);
+						if (report != null && contractsScreenCheckBox.isSelected()) {
+							Alert alert = new Alert(AlertType.INFORMATION);
+							alert.setTitle("Contract");
+							alert.setContentText(report);
+							alert.showAndWait();
+						} else {
+							Alert alert = new Alert(AlertType.ERROR);
+							alert.setTitle("Error");
+							alert.setContentText("No se ha encontrado el contrato con id: " + id + " !");
+							alert.showAndWait();
+						}
+					} else {
+						Alert alert = new Alert(AlertType.ERROR);
+						alert.setTitle("Error");
+						alert.setContentText(
+								"No se ha escrito la id del contrato, por favor escribala en el recuadro!");
+						alert.showAndWait();
+					}
+				} else {
+					theHolding.generateContractReportGeneral(contractsCsvCheckBox.isSelected(),
+							contractsScreenCheckBox.isSelected());
+					if (contractsScreenCheckBox.isSelected()) {
+						contractsTableView.setItems(observableContracts);
+
+						contractNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+						contractIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+						contractStartDateColumn.setCellValueFactory(new PropertyValueFactory<>("startDate"));
+						contractEndDateColumn.setCellValueFactory(new PropertyValueFactory<>("finishDate"));						
+					}
+				}
+			} else {
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("Advertencia");
+				alert.setContentText("No se han agregado contratos!");
+				alert.showAndWait();
+			}
+		}
+    }
+
+    @FXML
+    void contractsUpdateIdField(ActionEvent event) {
+    	if (contractsParticularToggleButton.isSelected()) {
+			contractsIdTextField.setDisable(false);
+		} else {
+			contractsIdTextField.setDisable(true);
+		}
+    }   
 
 	// ECONOMICAL REPORT
+    
+    @FXML
+    private CheckBox economicalCsvCheckBox;
+
+    @FXML
+    private CheckBox economicalTxtCheckBox;
+
+    @FXML
+    private CheckBox economicalScreenCheckBox;
+
+    @FXML
+    private Label economicalReportContent;
+
+    @FXML
+    void economicalGenerateReport(ActionEvent event) {
+    	if (!economicalCsvCheckBox.isSelected() && !economicalTxtCheckBox.isSelected()
+				&& !economicalScreenCheckBox.isSelected()) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setContentText("No se ha seleccionado formato de salida, por favor seleccione al menos uno!");
+			alert.showAndWait();
+		}
+    	else {    		
+    		String report = theHolding.generateEconomicReport(economicalCsvCheckBox.isSelected(), economicalTxtCheckBox.isSelected());
+    		if(economicalScreenCheckBox.isSelected()) {
+    			economicalReportContent.setText(report);
+    		}    		
+    	}
+    }    
 }
