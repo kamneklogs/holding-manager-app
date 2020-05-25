@@ -1766,7 +1766,7 @@ public class MainControllerGUI {
 			alert.setHeaderText("Campos vacios");
 			alert.setContentText("Verifique que todos los campos este llenos!");
 			alert.showAndWait();
-<<<<<<< HEAD
+
     	}
     		
     }
@@ -1786,10 +1786,4 @@ public class MainControllerGUI {
     
     @FXML
     private Accordion mainAccordion;
-
-=======
-		}
-
-	}
->>>>>>> 9e68659d2c00d9a4995c057a4c232ec489776f09
 }
