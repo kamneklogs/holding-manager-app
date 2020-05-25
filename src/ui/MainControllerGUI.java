@@ -292,10 +292,9 @@ public class MainControllerGUI {
 
 			if (workingHNewEmpTF.getText() == "")
 				throw new Exception();
-				
+
 			if (theHolding.findContract(idContractNewEmpTF.getText()) == null)
 				throw new ContractNotFoundException(idContractNewEmpTF.getText());
-				
 
 			theHolding.addEmployee(new Employee(nameNewEmpTF.getText(), idNewEmpTF.getText(), addresNewEmpTF.getText(),
 					phoneNewEmpTF.getText(), jobNewEmpTF.getText(), Double.parseDouble(salaryNewEmpTF.getText()),
@@ -571,21 +570,24 @@ public class MainControllerGUI {
 				alert.setContentText("Revise el ID del empleado.");
 
 				alert.showAndWait();
-			}
 
-			boolean b;
-			if (newBranchOfficeMainType.isSelected()) {
-				b = true;
-			} else if (newBranchOfficeSimpleType.isSelected()) {
-				b = false;
 			} else {
-				throw new Exception();
-			}
 
-			theHolding.getCurrentCompany()
-					.addBranchOffice(new BranchOffice(newBranchOfficeCity.getText(), newBranchOfficeAddress.getText(),
-							newBranchOfficeId.getText(), b,
-							theHolding.getCurrentCompany().findEmployee(newBranchOfficeEmployee.getText())));
+				boolean b;
+				if (newBranchOfficeMainType.isSelected()) {
+					b = true;
+				} else if (newBranchOfficeSimpleType.isSelected()) {
+					b = false;
+				} else {
+					throw new Exception();
+				}
+
+				theHolding.getCurrentCompany()
+						.addBranchOffice(new BranchOffice(newBranchOfficeCity.getText(),
+								newBranchOfficeAddress.getText(), newBranchOfficeId.getText(), b,
+								theHolding.getCurrentCompany().findEmployee(newBranchOfficeEmployee.getText())));
+
+			}
 
 		} catch (Exception e) {
 
@@ -954,183 +956,178 @@ public class MainControllerGUI {
 		alert.showAndWait();
 
 	}
-	
-	//OFFICES REPORT
 
-    @FXML
-    private CheckBox officeCsvCheckBox;
+	// OFFICES REPORT
 
-    @FXML
-    private CheckBox officeTxtCheckBox;
+	@FXML
+	private CheckBox officeCsvCheckBox;
 
-    @FXML
-    private CheckBox officeScreenCheckBox;
+	@FXML
+	private CheckBox officeTxtCheckBox;
 
-    @FXML
-    private TableView<BranchOffice> officesTableView;
+	@FXML
+	private CheckBox officeScreenCheckBox;
 
-    @FXML
-    private TableColumn<BranchOffice, String> officeIdColumn;
+	@FXML
+	private TableView<BranchOffice> officesTableView;
 
-    @FXML
-    private TableColumn<BranchOffice, String> officeTypeColumn;
+	@FXML
+	private TableColumn<BranchOffice, String> officeIdColumn;
 
-    @FXML
-    private TableColumn<BranchOffice, String> officeCityColumn;
+	@FXML
+	private TableColumn<BranchOffice, String> officeTypeColumn;
 
-    @FXML
-    private TableColumn<BranchOffice, String> officeAddressColumn;
-    
-    @FXML
-    void generateOfficesReport(ActionEvent event) {
-    	if(!officeCsvCheckBox.isSelected() && !officeTxtCheckBox.isSelected() && !officeScreenCheckBox.isSelected()) {
-    		Alert alert = new Alert(AlertType.ERROR);
-    		alert.setTitle("Error");
-    		alert.setContentText("No se ha seleccionado formato de salida, por favor seleccione al menos uno!");
-    		alert.showAndWait();
-    	}
-    	else {    		
-    		ArrayList<BranchOffice> offices = theHolding.getCurrentCompanyOffices();
-    		ObservableList<BranchOffice> observableOffices = FXCollections.observableArrayList(offices);
-    		
-    		if(!offices.isEmpty()) {
-    			theHolding.generateBranchOfficesReport(officeCsvCheckBox.isSelected(), officeTxtCheckBox.isSelected());
-    			if(officeScreenCheckBox.isSelected()) {
-    				officesTableView.setItems(observableOffices);
-    				
-    				officeIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-    				officeTypeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
-    				officeCityColumn.setCellValueFactory(new PropertyValueFactory<>("city"));
-    				officeAddressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
-    			}
-    		}
-    		else {
-    			Alert alert = new Alert(AlertType.WARNING);
-        		alert.setTitle("Advertencia");
-        		alert.setContentText("No se han agregado oficinas a la empresa actual!");
-        		alert.showAndWait();
-    		}    		
-    	}
-    }
-    
-    //EMPLOYEE REPORT
-    
+	@FXML
+	private TableColumn<BranchOffice, String> officeCityColumn;
 
-    @FXML
-    private RadioButton employeesParticularToggleButton;
+	@FXML
+	private TableColumn<BranchOffice, String> officeAddressColumn;
 
-    @FXML
-    private ToggleGroup typeBranchOfficeReportTypeTG;
+	@FXML
+	void generateOfficesReport(ActionEvent event) {
+		if (!officeCsvCheckBox.isSelected() && !officeTxtCheckBox.isSelected() && !officeScreenCheckBox.isSelected()) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setContentText("No se ha seleccionado formato de salida, por favor seleccione al menos uno!");
+			alert.showAndWait();
+		} else {
+			ArrayList<BranchOffice> offices = theHolding.getCurrentCompanyOffices();
+			ObservableList<BranchOffice> observableOffices = FXCollections.observableArrayList(offices);
 
-    @FXML
-    private RadioButton employeesGeneralToggleButton;
+			if (!offices.isEmpty()) {
+				theHolding.generateBranchOfficesReport(officeCsvCheckBox.isSelected(), officeTxtCheckBox.isSelected());
+				if (officeScreenCheckBox.isSelected()) {
+					officesTableView.setItems(observableOffices);
 
-    @FXML
-    private TextField employeeIdTextField;
+					officeIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+					officeTypeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+					officeCityColumn.setCellValueFactory(new PropertyValueFactory<>("city"));
+					officeAddressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
+				}
+			} else {
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("Advertencia");
+				alert.setContentText("No se han agregado oficinas a la empresa actual!");
+				alert.showAndWait();
+			}
+		}
+	}
 
-    @FXML
-    private CheckBox employeesCsvCheckBox;
+	// EMPLOYEE REPORT
 
-    @FXML
-    private CheckBox employeesTxtCheckBox;
+	@FXML
+	private RadioButton employeesParticularToggleButton;
 
-    @FXML
-    private CheckBox employeesScreenCheckBox;
+	@FXML
+	private ToggleGroup typeBranchOfficeReportTypeTG;
 
-    @FXML
-    private TableView<Employee> employeesTableView;
+	@FXML
+	private RadioButton employeesGeneralToggleButton;
 
-    @FXML
-    private TableColumn<Employee, String> employeeNameColumn;
+	@FXML
+	private TextField employeeIdTextField;
 
-    @FXML
-    private TableColumn<Employee, String> employeeIdColumn;
+	@FXML
+	private CheckBox employeesCsvCheckBox;
 
-    @FXML
-    private TableColumn<Employee, String> employeePhoneColumn;
+	@FXML
+	private CheckBox employeesTxtCheckBox;
 
-    @FXML
-    private TableColumn<Employee, Double> employeeSalaryColumn;
+	@FXML
+	private CheckBox employeesScreenCheckBox;
 
-    @FXML
-    private TableColumn<Employee, String> employeeTitleColumn;
+	@FXML
+	private TableView<Employee> employeesTableView;
 
-    @FXML
-    void employeesGenerateReport(ActionEvent event) {
-    	if(!employeesCsvCheckBox.isSelected() && !employeesTxtCheckBox.isSelected() && !employeesScreenCheckBox.isSelected()) {
-    		Alert alert = new Alert(AlertType.ERROR);
-    		alert.setTitle("Error");
-    		alert.setContentText("No se ha seleccionado formato de salida, por favor seleccione al menos uno!");
-    		alert.showAndWait();
-    	}
-    	else if(!employeesParticularToggleButton.isSelected() && !employeesGeneralToggleButton.isSelected()) {
-    		Alert alert = new Alert(AlertType.ERROR);
-    		alert.setTitle("Error");
-    		alert.setContentText("No se ha seleccionado un tipo de reporte particular o general, por favor seleccione uno!");
-    		alert.showAndWait();
-    	}
-    	else {    		
-    		ArrayList<Employee> employees = theHolding.getCurrentCompanyEmployees();
-    		ObservableList<Employee> observableEmployees = FXCollections.observableArrayList(employees);
-    		
-    		if(!employees.isEmpty()) {
-    			if(employeesParticularToggleButton.isSelected()) {
-    				String id = employeeIdTextField.getText();    				
-    				if(!id.isEmpty()) {
-    					String report = theHolding.generateEmployeeReportDetailed(employeesScreenCheckBox.isSelected(), employeesCsvCheckBox.isSelected(), employeesScreenCheckBox.isSelected(),id);
-        				if(report != null && employeesScreenCheckBox.isSelected()) {
-        					Alert alert = new Alert(AlertType.INFORMATION);
-                        	alert.setTitle("Empleado");
-                        	alert.setContentText(report);
-                        	alert.showAndWait();                			
-        				}   
-        				else {
-        					Alert alert = new Alert(AlertType.ERROR);
-                    		alert.setTitle("Error");
-                    		alert.setContentText("No se ha encontrado el empleado con id: " + id + " !" );
-                    		alert.showAndWait();
-        				}
-    				}
-    				else {
-    					Alert alert = new Alert(AlertType.ERROR);
-                		alert.setTitle("Error");
-                		alert.setContentText("No se ha escrito la id del empleado, por favor escribala en el recuadro!");
-                		alert.showAndWait();
-    				}    				
-    			}
-    			else{
-    				theHolding.generateEmployeeReportGeneral(employeesCsvCheckBox.isSelected(), employeesScreenCheckBox.isSelected());
-        			if(employeesScreenCheckBox.isSelected()) {
-        				employeesTableView.setItems(observableEmployees);
-        				
-        				employeeNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        				employeeIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        				employeePhoneColumn.setCellValueFactory(new PropertyValueFactory<>("numberPhone"));
-        				employeeSalaryColumn.setCellValueFactory(new PropertyValueFactory<>("salary"));
-        				employeeTitleColumn.setCellValueFactory(new PropertyValueFactory<>("jobTitle"));
-        			}
-    			}    			
-    		}
-    		else {
-    			Alert alert = new Alert(AlertType.WARNING);
-        		alert.setTitle("Advertencia");
-        		alert.setContentText("No se han agregado empleados!");
-        		alert.showAndWait();
-    		}    		
-    	}
-    }
+	@FXML
+	private TableColumn<Employee, String> employeeNameColumn;
 
-    @FXML
-    void employeesUpdateSearchButton(ActionEvent event) {
-    	if(employeesParticularToggleButton.isSelected() ) {
-    		employeeIdTextField.setDisable(false);
-    	}
-    	else {
-    		employeeIdTextField.setDisable(true);
-    	}
-    }
-    
-    //CONTRACTS REPORT
-    
-    //ECONOMICAL REPORT
+	@FXML
+	private TableColumn<Employee, String> employeeIdColumn;
+
+	@FXML
+	private TableColumn<Employee, String> employeePhoneColumn;
+
+	@FXML
+	private TableColumn<Employee, Double> employeeSalaryColumn;
+
+	@FXML
+	private TableColumn<Employee, String> employeeTitleColumn;
+
+	@FXML
+	void employeesGenerateReport(ActionEvent event) {
+		if (!employeesCsvCheckBox.isSelected() && !employeesTxtCheckBox.isSelected()
+				&& !employeesScreenCheckBox.isSelected()) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setContentText("No se ha seleccionado formato de salida, por favor seleccione al menos uno!");
+			alert.showAndWait();
+		} else if (!employeesParticularToggleButton.isSelected() && !employeesGeneralToggleButton.isSelected()) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setContentText(
+					"No se ha seleccionado un tipo de reporte particular o general, por favor seleccione uno!");
+			alert.showAndWait();
+		} else {
+			ArrayList<Employee> employees = theHolding.getCurrentCompanyEmployees();
+			ObservableList<Employee> observableEmployees = FXCollections.observableArrayList(employees);
+
+			if (!employees.isEmpty()) {
+				if (employeesParticularToggleButton.isSelected()) {
+					String id = employeeIdTextField.getText();
+					if (!id.isEmpty()) {
+						String report = theHolding.generateEmployeeReportDetailed(employeesScreenCheckBox.isSelected(),
+								employeesCsvCheckBox.isSelected(), employeesScreenCheckBox.isSelected(), id);
+						if (report != null && employeesScreenCheckBox.isSelected()) {
+							Alert alert = new Alert(AlertType.INFORMATION);
+							alert.setTitle("Empleado");
+							alert.setContentText(report);
+							alert.showAndWait();
+						} else {
+							Alert alert = new Alert(AlertType.ERROR);
+							alert.setTitle("Error");
+							alert.setContentText("No se ha encontrado el empleado con id: " + id + " !");
+							alert.showAndWait();
+						}
+					} else {
+						Alert alert = new Alert(AlertType.ERROR);
+						alert.setTitle("Error");
+						alert.setContentText(
+								"No se ha escrito la id del empleado, por favor escribala en el recuadro!");
+						alert.showAndWait();
+					}
+				} else {
+					theHolding.generateEmployeeReportGeneral(employeesCsvCheckBox.isSelected(),
+							employeesScreenCheckBox.isSelected());
+					if (employeesScreenCheckBox.isSelected()) {
+						employeesTableView.setItems(observableEmployees);
+
+						employeeNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+						employeeIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+						employeePhoneColumn.setCellValueFactory(new PropertyValueFactory<>("numberPhone"));
+						employeeSalaryColumn.setCellValueFactory(new PropertyValueFactory<>("salary"));
+						employeeTitleColumn.setCellValueFactory(new PropertyValueFactory<>("jobTitle"));
+					}
+				}
+			} else {
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("Advertencia");
+				alert.setContentText("No se han agregado empleados!");
+				alert.showAndWait();
+			}
+		}
+	}
+
+	@FXML
+	void employeesUpdateSearchButton(ActionEvent event) {
+		if (employeesParticularToggleButton.isSelected()) {
+			employeeIdTextField.setDisable(false);
+		} else {
+			employeeIdTextField.setDisable(true);
+		}
+	}
+
+	// CONTRACTS REPORT
+
+	// ECONOMICAL REPORT
 }
