@@ -464,39 +464,6 @@ public class MainControllerGUI {
 	}
 
 	@FXML
-	void searchEmployeeWindow(ActionEvent event) throws IOException {
-
-		try {
-			ccObject();
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("searchEmployee.fxml"));
-
-			fxmlLoader.setController(this);
-			Parent searchEmployee = fxmlLoader.load();
-
-			mainPane.getChildren().clear();
-			mainPane.getChildren().add(searchEmployee);
-		} catch (WithoutCurrentCompanyException e) {
-			Alert alert = new Alert(AlertType.WARNING);
-			alert.setTitle("Advertencia");
-			alert.setHeaderText("Esta accion requiere una empresa actual.");
-			alert.setContentText("Elija una opccion:");
-
-			ButtonType buttonTypeOne = new ButtonType("Agregar nueva empresa");
-			ButtonType buttonTypeTwo = new ButtonType("Elegir una empresa existente");
-
-			alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
-
-			Optional<ButtonType> result = alert.showAndWait();
-			if (result.get() == buttonTypeOne) {
-				addCompanyWindow(event);
-			} else if (result.get() == buttonTypeTwo) {
-				changeCompanyWindow();
-			}
-
-		}
-	}
-
-	@FXML
 	void addContractWindow(ActionEvent event) throws IOException {
 
 		try {
@@ -1490,76 +1457,78 @@ public class MainControllerGUI {
 			}
 		}
 	}
-	
-	//ECONOMICAL INFORMATION UPDATE AND CHARTS
-	
-	@FXML
-    private TextField incomeUpdateTextField;
-	
-	@FXML
-    private TextField outcomeUpdateTextField;	
 
-    @FXML
-    private BorderPane chartsBorderPane;
+	// ECONOMICAL INFORMATION UPDATE AND CHARTS
 
-    @FXML
-    void modifyIncome(ActionEvent event) {
-    	try {
-    		double newIncome = Double.parseDouble(incomeUpdateTextField.getText());
-    		
-    		if(newIncome < 0) {
-    			throw new NumberFormatException();
-    		}
-    		    		
-    		theHolding.getCurrentCompany().setIncome(newIncome);  
-    		initializeChart();
-    	}
-    	catch(NumberFormatException e){
-    		Alert alert = new Alert(AlertType.ERROR);
+	@FXML
+	private TextField incomeUpdateTextField;
+
+	@FXML
+	private TextField outcomeUpdateTextField;
+
+	@FXML
+	private BorderPane chartsBorderPane;
+
+	@FXML
+	void modifyIncome(ActionEvent event) {
+		try {
+			double newIncome = Double.parseDouble(incomeUpdateTextField.getText());
+
+			if (newIncome < 0) {
+				throw new NumberFormatException();
+			}
+
+			theHolding.getCurrentCompany().setIncome(newIncome);
+			initializeChart();
+		} catch (NumberFormatException e) {
+			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Error");
-			alert.setContentText("Los ingresos deben ser un numero que no incluye el simbolo de dinero, ademas debe ser positivo o 0, verifique su valor!");
+			alert.setContentText(
+					"Los ingresos deben ser un numero que no incluye el simbolo de dinero, ademas debe ser positivo o 0, verifique su valor!");
 			alert.showAndWait();
-    	}
-    }   
+		}
+	}
 
 	@FXML
-    void modifyOutcome(ActionEvent event) {
-    	try {
-    		double newOutcome = Double.parseDouble(outcomeUpdateTextField.getText());
-    		
-    		if(newOutcome < 0) {
-    			throw new NumberFormatException();
-    		}
-    		    		
-    		theHolding.getCurrentCompany().setOutcome(newOutcome);
-    		
-    		initializeChart();
-    	}
-    	catch(NumberFormatException e){
-    		Alert alert = new Alert(AlertType.ERROR);
+	void modifyOutcome(ActionEvent event) {
+		try {
+			double newOutcome = Double.parseDouble(outcomeUpdateTextField.getText());
+
+			if (newOutcome < 0) {
+				throw new NumberFormatException();
+			}
+
+			theHolding.getCurrentCompany().setOutcome(newOutcome);
+
+			initializeChart();
+		} catch (NumberFormatException e) {
+			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Error");
-			alert.setContentText("Los egresos deben ser un numero que no incluye el simbolo de dinero, ademas debe ser positivo o 0, verifique su valor!");
+			alert.setContentText(
+					"Los egresos deben ser un numero que no incluye el simbolo de dinero, ademas debe ser positivo o 0, verifique su valor!");
 			alert.showAndWait();
-    	}
-    }
-	
+		}
+	}
+
 	@SuppressWarnings("unchecked")
 	public void initializeChart() {
 		final CategoryAxis xAxis = new CategoryAxis();
 		final NumberAxis yAxis = new NumberAxis();
-		final BarChart<String,Number> barChart = new BarChart<>(xAxis,yAxis);
-		xAxis.setLabel("Información Economica");
+		final BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
+		xAxis.setLabel("Informaciï¿½n Economica");
 		yAxis.setLabel("Valor ($)");
-		
+
 		XYChart.Series<String, Number> incomeSeries = new XYChart.Series<>();
-		incomeSeries.getData().add(new XYChart.Data<String,Number>("Ingresos",theHolding.getCurrentCompany().getIncome()));
-		
+		incomeSeries.getData()
+				.add(new XYChart.Data<String, Number>("Ingresos", theHolding.getCurrentCompany().getIncome()));
+
 		XYChart.Series<String, Number> outcomeSeries = new XYChart.Series<>();
-		outcomeSeries.getData().add(new XYChart.Data<String,Number>("Egresos",theHolding.getCurrentCompany().getOutcome()));
-		
-		barChart.getData().addAll(incomeSeries,outcomeSeries);		
-		barChart.setTitle("Informacion Economica Basica");		
-		
+		outcomeSeries.getData()
+				.add(new XYChart.Data<String, Number>("Egresos", theHolding.getCurrentCompany().getOutcome()));
+
+		barChart.getData().addAll(incomeSeries, outcomeSeries);
+		barChart.setTitle("Informacion Economica Basica");
+
 		chartsBorderPane.setCenter(barChart);
-	}    
+	}
 }
