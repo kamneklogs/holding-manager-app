@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 import customExceptions.ContractNotFoundException;
+import customExceptions.EmployeeNotFoundException;
 import customExceptions.WithoutCurrentCompanyException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -221,6 +222,18 @@ public class MainControllerGUI {
 
 	private ArrayList<String> clauses;
 
+	@FXML
+	private TextField idRemoveEmployee;
+
+	@FXML
+	private Label nameRemoveEmployee;
+
+	@FXML
+	private Label idContractRemoveEmployee;
+
+	@FXML
+	private Button removeEmployeeButton;
+
 	/**
 	 * @param theHolding
 	 * @throws IOException
@@ -343,6 +356,9 @@ public class MainControllerGUI {
 
 			alert.showAndWait();
 
+			theHolding.findContract(idContractNewEmpTF.getText())
+					.setEmployee(theHolding.findEmployee(idNewEmpTF.getText()));
+
 		} catch (ContractNotFoundException e) {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Advertencia");
@@ -399,6 +415,51 @@ public class MainControllerGUI {
 			}
 
 		}
+
+	}
+
+	@FXML
+	void searchEmployeeToRemove(ActionEvent event) {
+		try {
+
+			if (idRemoveEmployee.getText() != "") {
+
+				if (theHolding.findEmployee(idRemoveEmployee.getText()) != null) {
+
+					removeEmployeeButton.setDisable(false);
+
+				} else {
+					throw new EmployeeNotFoundException(idRemoveEmployee.getText());
+				}
+
+			} else {
+				throw new Exception();
+			}
+
+		} catch (EmployeeNotFoundException e) {
+
+			Alert alert = new Alert(AlertType.WARNING);
+
+			alert.setTitle("Advertencia");
+			alert.setHeaderText("Empleado no encontrado");
+			alert.setContentText(e.getMessage());
+
+			alert.showAndWait();
+
+		} catch (Exception e) {
+			Alert alert = new Alert(AlertType.ERROR);
+
+			alert.setTitle("Error");
+			alert.setHeaderText("Parametros incompletos");
+			alert.setContentText("Verifique todos los parametros.");
+		}
+	}
+
+	@FXML
+	void removeEmployee(ActionEvent event) throws ContractNotFoundException, EmployeeNotFoundException {
+
+		theHolding.removeContract(theHolding.findEmployee(idRemoveEmployee.getText()).getMyContract().getId());
+		theHolding.removeEmployee(idRemoveEmployee.getText());
 
 	}
 
