@@ -50,7 +50,7 @@
                   <Insets right="20.0" />
                </GridPane.margin>
             </Label>
-            <Button mnemonicParsing="false" onAction="#removeEmployeeButton" prefHeight="33.0" prefWidth="88.0" text="Eliminar" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Button fx:id="removeEmployeeButton" disable="true" mnemonicParsing="false" onAction="#removeEmployee" prefHeight="33.0" prefWidth="88.0" text="Eliminar" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                <children>
                   <TextField fx:id="idRemoveEmployee">
