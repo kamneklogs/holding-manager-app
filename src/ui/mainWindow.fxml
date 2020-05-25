@@ -68,18 +68,17 @@
       <items>
         <AnchorPane>
           <children>
-                  <Accordion prefHeight="274.0" prefWidth="220.0">
+                  <Accordion prefWidth="220.0">
                     <panes>
-                      <TitledPane text="Empleados">
+                      <TitledPane prefWidth="220.0" text="Empleados">
                            <content>
-                              <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+                              <VBox alignment="CENTER_LEFT" prefWidth="218.0" spacing="15.0">
                                  <children>
                                     <RadioButton mnemonicParsing="false" onAction="#addEmployeeWindow" text="Añadir">
                                        <toggleGroup>
                                           <ToggleGroup fx:id="empleadosToggleGroup" />
                                        </toggleGroup></RadioButton>
                                     <RadioButton mnemonicParsing="false" onAction="#removeEmployeeWindow" text="Eliminar" toggleGroup="$empleadosToggleGroup" />
-                                    <RadioButton mnemonicParsing="false" onAction="#searchEmployeeWindow" text="Buscar" toggleGroup="$empleadosToggleGroup" />
                                  </children>
                               </VBox>
                            </content>
@@ -93,14 +92,13 @@
                                           <ToggleGroup fx:id="contratosToggleGroup" />
                                        </toggleGroup></RadioButton>
                                     <RadioButton ToggleGroup="$contratosToggleGroup" mnemonicParsing="false" onAction="#removeContractWindow" text="Eliminar." />
-                                    <RadioButton ToggleGroup="$contratosToggleGroup" mnemonicParsing="false" onAction="#searchContractWindow" text="Buscar" />
                                  </children>
                               </VBox>
                            </content>
                       </TitledPane>
-                      <TitledPane prefHeight="476.0" prefWidth="220.0" text="Sedes">
+                      <TitledPane prefWidth="220.0" text="Sedes">
                            <content>
-                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+                              <VBox prefWidth="100.0" spacing="15.0">
                                  <children>
                                     <RadioButton mnemonicParsing="false" onAction="#addBranchOfficeWindow" text="Agregar">
                                        <toggleGroup>
@@ -112,9 +110,9 @@
                               </VBox>
                            </content>
                       </TitledPane>
-                        <TitledPane prefHeight="200.0" prefWidth="200.0" text="Reportes">
+                        <TitledPane prefWidth="200.0" text="Reportes">
                            <content>
-                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+                              <VBox prefWidth="100.0" spacing="15.0">
                                  <children>
                                     <RadioButton mnemonicParsing="false" onAction="#branchOfficesReportWindow" text="Sedes">
                                        <toggleGroup>
@@ -127,9 +125,9 @@
                                  </children>
                               </VBox>
                            </content></TitledPane>
-                        <TitledPane prefHeight="200.0" prefWidth="200.0" text="Finanzas">
+                        <TitledPane prefWidth="200.0" text="Finanzas">
                            <content>
-                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+                              <VBox prefWidth="100.0" spacing="15.0">
                                  <children>
                                     <RadioButton mnemonicParsing="false" onAction="#financialOptsWindow" text="Ingresos y Gastos">
                                        <toggleGroup>
@@ -139,9 +137,9 @@
                                  </children>
                               </VBox>
                            </content></TitledPane>
-                        <TitledPane prefHeight="56.0" prefWidth="220.0" text="Administracion">
+                        <TitledPane prefWidth="220.0" text="Administracion">
                            <content>
-                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+                              <VBox prefWidth="100.0" spacing="15.0">
                                  <children>
                                     <RadioButton mnemonicParsing="false" onAction="#addCompanyWindow" text="Agregar empresa">
                                        <toggleGroup>

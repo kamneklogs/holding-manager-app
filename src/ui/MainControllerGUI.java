@@ -636,6 +636,15 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	private TextField idContractToRemove;
+
+	@FXML
+	private Button removeContractButton;
+
+	@FXML
+	private Label InfoContractToRemove;
+
+	@FXML
 	void removeContractWindow(ActionEvent event) throws IOException {
 
 		try {
@@ -668,36 +677,28 @@ public class MainControllerGUI {
 	}
 
 	@FXML
-	void searchContractWindow(ActionEvent event) throws IOException {
+	void searchContractToRemove(ActionEvent event) {
 
 		try {
-			ccObject();
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("searchContract.fxml"));
 
-			fxmlLoader.setController(this);
-			Parent searchContract = fxmlLoader.load();
-
-			mainPane.getChildren().clear();
-			mainPane.getChildren().add(searchContract);
-		} catch (WithoutCurrentCompanyException e) {
-			Alert alert = new Alert(AlertType.WARNING);
-			alert.setTitle("Advertencia");
-			alert.setHeaderText("Esta accion requiere una empresa actual.");
-			alert.setContentText("Elija una opccion:");
-
-			ButtonType buttonTypeOne = new ButtonType("Agregar nueva empresa");
-			ButtonType buttonTypeTwo = new ButtonType("Elegir una empresa existente");
-
-			alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
-
-			Optional<ButtonType> result = alert.showAndWait();
-			if (result.get() == buttonTypeOne) {
-				addCompanyWindow(event);
-			} else if (result.get() == buttonTypeTwo) {
-				changeCompanyWindow();
+			if (idContractToRemove.getText() != "") {
+				if (theHolding.getCurrentCompany().findContract(idContractToRemove.getText()) != null) {
+					InfoContractToRemove.setText("Contrato Encontrado!\n\nID: "
+							+ theHolding.getCurrentCompany().findContract(idContractToRemove.getText()).getId()
+							+ "\bDescripcion: " + theHolding.getCurrentCompany()
+									.findContract(idContractToRemove.getText()).getDescription());
+				}
 			}
 
+		} catch (Exception e) {
+			
 		}
+
+	}
+
+	@FXML
+	void removeContract(ActionEvent event) {
+
 	}
 
 	@FXML
@@ -1055,7 +1056,7 @@ public class MainControllerGUI {
 			updateCountCompanies();
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("Confirmacion");
-			alert.setHeaderText("Compañia agregada exitosamente");
+			alert.setHeaderText("Compaï¿½ia agregada exitosamente");
 			alert.setContentText("Ahora puede gestionar todos los procesos de esta compaÃ±ia");
 
 			alert.showAndWait();
