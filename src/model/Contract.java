@@ -3,8 +3,6 @@ package model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import javafx.scene.image.Image;
-
 public abstract class Contract implements Comparable<Contract> {
 
 	private String name;
@@ -21,7 +19,6 @@ public abstract class Contract implements Comparable<Contract> {
 	
 	private int actualRenewals;
 	private int renewalsLimit;
-	private Image[] signatures;
 	
 	private Contract preContract, nextContract;
 	
@@ -39,11 +36,10 @@ public abstract class Contract implements Comparable<Contract> {
 	 * @param employee
 	 * @param actualRenewals
 	 * @param renewalsLimit
-	 * @param signatures
 	 */
 	public Contract(String name, String id, String description, ArrayList<String> clauses, double amount,
 			LocalDate startDate, LocalDate finishDate, LocalDate radicationDate, Company company, Employee employee,
-			int renewalsLimit, Image[] signatures) {
+			int renewalsLimit) {
 		this.name = name;
 		this.id = id;
 		this.description = description;
@@ -56,7 +52,7 @@ public abstract class Contract implements Comparable<Contract> {
 		this.employee = employee;
 		actualRenewals = 0;
 		this.renewalsLimit = renewalsLimit;
-		this.signatures = signatures;		
+			
 	}
 
 		
@@ -134,10 +130,6 @@ public abstract class Contract implements Comparable<Contract> {
 	}
 
 
-	public Image[] getSignatures() {
-		return signatures;
-	}
-
 
 	public Contract getPreContract() {
 		return preContract;
@@ -158,12 +150,7 @@ public abstract class Contract implements Comparable<Contract> {
 		this.finishDate = finishDate;
 	}
 
-
-	public void setSignatures(Image[] signatures) {
-		this.signatures = signatures;
-	}
-
-
+	
 	public void setPreContract(Contract preContract) {
 		this.preContract = preContract;
 	}
