@@ -512,11 +512,17 @@ public class Company {
 		if (toRemove != null) {
 
 			if (toRemove.getRight() == null && toRemove.getLeft() == null) {
-				if (toRemove.getFather().getLeft() == toRemove) {
-					toRemove.getFather().setLeft(null);
-				} else {
-					toRemove.getFather().setRight(null);
+				if(toRemove == firstEmployee) {
+					firstEmployee = null;
 				}
+				else {
+					if (toRemove.getFather().getLeft() == toRemove) {
+						toRemove.getFather().setLeft(null);
+					} else {
+						toRemove.getFather().setRight(null);
+					}
+				}
+					
 			} else if (toRemove.getRight() == null ^ toRemove.getLeft() == null) {
 
 				if (toRemove.getRight() != null) {

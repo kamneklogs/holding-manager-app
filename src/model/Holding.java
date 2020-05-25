@@ -138,12 +138,18 @@ public class Holding {
 	public void removeCompany(Company toRemove) {	
 		if (toRemove != null) {	
 			if (toRemove.getRight() == null && toRemove.getLeft() == null) {
-				if (toRemove.getFather().getLeft() == toRemove) {
-					toRemove.getFather().setLeft(null);
-				} 
-				else {
-					toRemove.getFather().setRight(null);
+				if(toRemove == firstCompany) {
+					firstCompany = null;
+					currentCompany = null;
 				}
+				else {
+					if (toRemove.getFather().getLeft() == toRemove) {
+						toRemove.getFather().setLeft(null);
+					} 
+					else {
+						toRemove.getFather().setRight(null);
+					}
+				}				
 			} 
 			else if (toRemove.getRight() == null ^ toRemove.getLeft() == null) {	
 				if (toRemove.getRight() != null) {
@@ -197,6 +203,10 @@ public class Holding {
 		        }
 		
 		        current = null;	
+			}
+			
+			if(toRemove == currentCompany) {
+				currentCompany = null;
 			}
 	
 		}
