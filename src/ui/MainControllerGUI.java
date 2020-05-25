@@ -509,8 +509,6 @@ public class MainControllerGUI {
 
 		try {
 
-			LocalDate now = LocalDate.now();
-
 			if (descriptionNewContract.getText() == "")
 				throw new Exception();
 
