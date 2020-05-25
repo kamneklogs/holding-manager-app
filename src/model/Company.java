@@ -95,9 +95,14 @@ public class Company {
 
 			if (current.getId().equals(id)) {
 				if (current == firstContract) {
-					firstContract = current.getNextContract();
-					current.setNextContract(null);
-					firstContract.setPreContract(null);
+					if(firstContract.getNextContract() == null) {
+						firstContract = null;
+					}
+					else {
+						firstContract = current.getNextContract();
+						current.setNextContract(null);
+						firstContract.setPreContract(null);
+					}						
 				} else if (current.getNextContract() == null) {
 					current.getPreContract().setNextContract(null);
 					current.setPreContract(null);
@@ -262,9 +267,14 @@ public class Company {
 
 			if (current.getId().equals(id)) {
 				if (current == firstBranchOffice) {
-					firstBranchOffice = current.getNextOffice();
-					current.setNextOffice(null);
-					firstBranchOffice.setPreOffice(null);
+					if(firstBranchOffice.getNextOffice() == null) {
+						firstBranchOffice = null;
+					}
+					else {
+						firstBranchOffice = current.getNextOffice();
+						current.setNextOffice(null);
+						firstBranchOffice.setPreOffice(null);
+					}					
 				} else if (current.getNextOffice() == null) {
 					current.getPreOffice().setNextOffice(null);
 					current.setPreOffice(null);
