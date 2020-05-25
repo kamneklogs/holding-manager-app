@@ -1016,52 +1016,67 @@ public class MainControllerGUI {
 
 		if (newCompanyTypeToggleGroup.getSelectedToggle() != null && newCompanyName.getText() != null
 				&& newCompanyName.getText() != "" && newCompanyNIT.getText() != null && newCompanyNIT.getText() != "") {
-			Company nC = null;
-			if (alimentosTypeRadioButton.isSelected()) {
+			try {
+				Company newCompany = null;
+				
+				String name = newCompanyName.getText();
+				String nit = newCompanyNIT.getText();
+				double income = Double.parseDouble(newCompanyIncome.getText());
+				double outcome = Double.parseDouble(newCompanyOutcome.getText());
+				double tax = Double.parseDouble(newCompanyTaxe.getText());
+				double value = Double.parseDouble(newCompanyValue.getText());
+							
+				if(income < 0){
+					throw new NumberFormatException();
+				}
+				if(outcome < 0) {
+					throw new NumberFormatException();
+				}
+				if(tax < 0 || tax > 50) {
+					throw new NumberFormatException();
+				}
+				if(value < 0) {
+					throw new NumberFormatException();
+				}				
+				
+				if (alimentosTypeRadioButton.isSelected()) {
+					newCompany = new FoodCompany(name,nit,income,outcome,tax,value);
+				} 
+				else if (tecnologiaTypeRadioButton.isSelected()) {
+					newCompany = new TechnologyCompany(name,nit,income,outcome,tax,value);
+				}
+				else {
+					newCompany = new EducationCompany(name,nit,income,outcome,tax,value);
+				}
 
-				nC = new FoodCompany(newCompanyName.getText(), newCompanyNIT.getText(),
-						Double.parseDouble(newCompanyIncome.getText()), Double.parseDouble(newCompanyOutcome.getText()),
-						Double.parseDouble(newCompanyTaxe.getText()), Double.parseDouble(newCompanyValue.getText()));
+				theHolding.addCompany(newCompany);
 
-			} else if (tecnologiaTypeRadioButton.isSelected()) {
+				if (newCompany instanceof FoodCompany) {
+					theHolding.setTotalFCompanies(theHolding.getTotalFCompanies() + 1);
+				} 
+				else if (newCompany instanceof TechnologyCompany) {
+					theHolding.setTotalTCompanies(theHolding.getTotalTCompanies() + 1);
+				} 
+				else {
+					theHolding.setTotalECompanies(theHolding.getTotalECompanies() + 1);
+				}
 
-				nC = new TechnologyCompany(newCompanyName.getText(), newCompanyNIT.getText(),
-						Double.parseDouble(newCompanyIncome.getText()), Double.parseDouble(newCompanyOutcome.getText()),
-						Double.parseDouble(newCompanyTaxe.getText()), Double.parseDouble(newCompanyValue.getText()));
+				updateCountCompanies();
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.setTitle("Confirmacion");
+				alert.setHeaderText("Compaï¿½ia agregada exitosamente");
+				alert.setContentText("Ahora puede gestionar todos los procesos de esta compaÃ±ia");
 
-			} else if (educacionTypeRadioButton.isSelected()) {
+				alert.showAndWait();
 
-				nC = new EducationCompany(newCompanyName.getText(), newCompanyNIT.getText(),
-						Double.parseDouble(newCompanyIncome.getText()), Double.parseDouble(newCompanyOutcome.getText()),
-						Double.parseDouble(newCompanyTaxe.getText()), Double.parseDouble(newCompanyValue.getText()));
-
-			}
-
-			theHolding.addCompany(nC);
-
-			if (nC instanceof FoodCompany) {
-
-				theHolding.setTotalFCompanies(theHolding.getTotalFCompanies() + 1);
-
-			} else if (nC instanceof TechnologyCompany) {
-
-				theHolding.setTotalTCompanies(theHolding.getTotalTCompanies() + 1);
-
-			} else {
-
-				theHolding.setTotalECompanies(theHolding.getTotalECompanies() + 1);
-
-			}
-
-			updateCountCompanies();
-			Alert alert = new Alert(AlertType.CONFIRMATION);
-			alert.setTitle("Confirmacion");
-			alert.setHeaderText("Compaï¿½ia agregada exitosamente");
-			alert.setContentText("Ahora puede gestionar todos los procesos de esta compaÃ±ia");
-
-			alert.showAndWait();
-
-			addCompanyWindow(event);
+				addCompanyWindow(event);
+			} catch (NumberFormatException e) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Error");
+				alert.setHeaderText("Formato erroneo");
+				alert.setContentText("Verifique el valor ingresado en los campos de ingreso, egresos y avaluo.\nEl valor máximo de impuestos es de 50%.\nSolo introduzca valores numericos, ningún simbolo adicional.");
+				alert.showAndWait();				
+			} 
 
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -1532,4 +1547,63 @@ public class MainControllerGUI {
 
 		chartsBorderPane.setCenter(barChart);
 	}
+	
+	//SELL COMPANY
+	
+    @FXML
+    private TextField sellCompanyNitTextField;
+
+    @FXML
+    private TextField sellValueTextField;
+
+    @FXML
+    void sellCompany(ActionEvent event) {
+    	String nit = sellCompanyNitTextField.getText();
+    	String valueStr  = sellValueTextField.getText();
+    	
+    	if(!nit.isEmpty() || !valueStr.isEmpty()) {
+    		try {
+				double value = Double.parseDouble(valueStr);
+				if(value < 0) {
+					throw new NumberFormatException();
+				}
+				
+				Company companyToSell = theHolding.searchCompany(nit);
+				if(companyToSell != null) {
+					 if(companyToSell == theHolding.getCurrentCompany()) {
+						 theHolding.setCurrentCompany(null);
+						 infoCurrentCompanyLabel.setText("");
+					 }
+					 theHolding.sellCompany(nit,value);
+					 Alert alert = new Alert(AlertType.INFORMATION);
+			    		alert.setTitle("Información");
+			    		alert.setHeaderText("Compañía vendida exitosamente!");
+			    		alert.setContentText("La compañia con nit " + nit + " ha sido vendida por $" + value + " y el nuevo valor del Seros es $" + theHolding.getValue());
+			    		alert.showAndWait();
+				}
+				else {
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("Error");
+					alert.setHeaderText("Compañía no encontrada!");
+					alert.setContentText("La compañia con nit " + nit + " no ha sido encontrada");
+					alert.showAndWait();
+				}				
+			}
+    		catch (NumberFormatException e) {				
+    			Alert alert = new Alert(AlertType.ERROR);
+    			alert.setTitle("Error");
+    			alert.setHeaderText("Formato");
+    			alert.setContentText("Verifique que el valor introducido en el campo de valor de venta es un numero positivo.\nNo agregue ningun simbolo adicional.");
+    			alert.showAndWait();
+			}
+    	}
+    	else {
+    		Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Campos vacios");
+			alert.setContentText("Verifique que todos los campos este llenos!");
+			alert.showAndWait();
+    	}
+    		
+    }
 }
