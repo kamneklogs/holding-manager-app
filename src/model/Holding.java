@@ -45,6 +45,7 @@ public class Holding {
 		else {	
 	    	addCompany(firstCompany, c);	
 	    }	
+		value += c.getValue();
 	}
 	
 	/**
@@ -126,8 +127,8 @@ public class Holding {
 	 * 
 	 * @param nit
 	 */
-	public void sellCompany(String nit) {		
-	    value -= searchCompany(nit).getValue();	
+	public void sellCompany(String nit,double value) {		
+	    this.value += value - searchCompany(nit).getValue();	
 	    removeCompany(searchCompany(nit));	
 	}
 	

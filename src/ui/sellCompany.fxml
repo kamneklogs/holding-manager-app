@@ -35,21 +35,19 @@
             <RowConstraints maxHeight="196.0" minHeight="10.0" prefHeight="196.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="118.0" text="Vender" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Button mnemonicParsing="false" onAction="#sellCompany" prefHeight="31.0" prefWidth="118.0" text="Vender" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label text="NIT:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="20.0" />
                </GridPane.margin>
             </Label>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <TextField fx:id="sellCompanyNitTextField" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="10.0" right="30.0" />
                </GridPane.margin>
             </TextField>
-            <Label text="Nombre:" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-            <Label text="Vacio" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
             <Label text="Valor de venta:" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <TextField fx:id="sellValueTextField" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="10.0" right="30.0" />
                </GridPane.margin>
