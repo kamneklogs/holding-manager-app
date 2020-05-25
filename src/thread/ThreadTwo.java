@@ -13,9 +13,9 @@ public class ThreadTwo extends Thread {
      * 
      */
     public ThreadTwo(MainControllerGUI controllerGUI, Holding theHolding) {
-
+        setDaemon(true);
         this.controllerGUI = controllerGUI;
-        this.theHolding=theHolding;
+        this.theHolding = theHolding;
 
     }
 

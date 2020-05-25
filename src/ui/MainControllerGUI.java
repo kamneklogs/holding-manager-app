@@ -29,6 +29,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TableColumn;
@@ -42,9 +43,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import model.*;
 import thread.*;
 
@@ -269,6 +272,11 @@ public class MainControllerGUI {
 
 	public void loadingDataAnimation() {
 		loadingIcon.setRotate(loadingIcon.getRotate() + 0.5);
+	}
+
+	@FXML
+	void resetData(ActionEvent event) {
+
 	}
 
 	@FXML
@@ -1827,4 +1835,15 @@ public class MainControllerGUI {
 
 	@FXML
 	private Accordion mainAccordion;
+
+	@FXML
+	private VBox mainVBox;
+
+	@FXML
+	void exitApp(ActionEvent event) {
+
+		Stage stage = (Stage) mainVBox.getScene().getWindow();
+		stage.close();
+
+	}
 }
