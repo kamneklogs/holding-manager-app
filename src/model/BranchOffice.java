@@ -8,7 +8,7 @@ public class BranchOffice implements Comparable<BranchOffice> {
     private String city;
     private String address;
     private String id;
-    private Boolean type; // true == mainBranchOffice, false == simpleBranchOffice
+    private String type; 
     private Employee responsableEmployee;
 
     private BranchOffice preOffice, nextOffice;
@@ -24,7 +24,13 @@ public class BranchOffice implements Comparable<BranchOffice> {
         this.city = city;
         this.address = address;
         this.id = id;
-        this.type = type;
+
+        if(type){
+            this.type = "Principal";
+        }else{
+            this.type = "Ordinaria";
+        }
+
         this.responsableEmployee = responsableEmployee;
     }
 
@@ -52,7 +58,7 @@ public class BranchOffice implements Comparable<BranchOffice> {
     /**
      * @return the type
      */
-    public boolean getType() {
+    public String getType() {
         return type;
     }
 

@@ -2,6 +2,8 @@ package ui;
 
 import java.io.IOException;
 import java.util.Optional;
+
+import customExceptions.ContractNotFoundException;
 import customExceptions.WithoutCurrentCompanyException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -75,6 +77,9 @@ public class MainControllerGUI {
 
 	@FXML
 	private TextField salaryNewEmpTF;
+
+	@FXML
+	private TextField workingHNewEmpTF;
 
 	@FXML
 	private TextField idContractNewEmpTF;
@@ -261,7 +266,69 @@ public class MainControllerGUI {
 
 	@FXML
 	void saveNewEmployee(ActionEvent event) {
-		
+		try {
+
+			if (nameNewEmpTF.getText() == "")
+				throw new Exception();
+
+			if (idNewEmpTF.getText() == "")
+				throw new Exception();
+
+			if (addresNewEmpTF.getText() == "")
+				throw new Exception();
+
+			if (phoneNewEmpTF.getText() == "")
+				throw new Exception();
+
+			if (jobNewEmpTF.getText() == "")
+				throw new Exception();
+
+			if (salaryNewEmpTF.getText() == "")
+				throw new Exception();
+
+			if (workingHNewEmpTF.getText() == "")
+				throw new Exception();
+				
+			if (theHolding.findContract(idContractNewEmpTF.getText()) == null)
+				throw new ContractNotFoundException(idContractNewEmpTF.getText());
+				
+
+			theHolding.addEmployee(new Employee(nameNewEmpTF.getText(), idNewEmpTF.getText(), addresNewEmpTF.getText(),
+					phoneNewEmpTF.getText(), jobNewEmpTF.getText(), Double.parseDouble(salaryNewEmpTF.getText()),
+					Integer.parseInt(workingHNewEmpTF.getText()),
+					theHolding.findContract(idContractNewEmpTF.getText())));
+
+			Alert alert = new Alert(AlertType.CONFIRMATION);
+			alert.setTitle("Confirmacion");
+			alert.setHeaderText("Empleado agregado");
+			alert.setContentText(nameNewEmpTF.getText() + " vinculado a " + theHolding.getCurrentCompany().getName()
+					+ " exitosamente");
+
+			alert.showAndWait();
+
+		} catch (ContractNotFoundException e) {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Advertencia");
+			alert.setHeaderText("Contrato no encontrado");
+			alert.setContentText("Revise el ID del contrato de vinculacion");
+
+			alert.showAndWait();
+		} catch (NumberFormatException e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Parametros invalidos");
+			alert.setContentText("Formato incorrecto en parametros numericos");
+
+			alert.showAndWait();
+		} catch (Exception e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Parametros incompletos");
+			alert.setContentText("Revise que todos los parametros de registro esten completos");
+
+			alert.showAndWait();
+		}
+
 	}
 
 	@FXML
@@ -497,8 +564,7 @@ public class MainControllerGUI {
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("Advertencia");
 				alert.setHeaderText("Empleado no encontrado");
-				alert.setContentText(
-						"Revise el ID del empleado.");
+				alert.setContentText("Revise el ID del empleado.");
 
 				alert.showAndWait();
 			}
