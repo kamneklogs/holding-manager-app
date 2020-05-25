@@ -642,7 +642,7 @@ public class MainControllerGUI {
 	private Button removeContractButton;
 
 	@FXML
-	private Label InfoContractToRemove;
+	private Label infoContractToRemove;
 
 	@FXML
 	void removeContractWindow(ActionEvent event) throws IOException {
@@ -683,22 +683,45 @@ public class MainControllerGUI {
 
 			if (idContractToRemove.getText() != "") {
 				if (theHolding.getCurrentCompany().findContract(idContractToRemove.getText()) != null) {
-					InfoContractToRemove.setText("Contrato Encontrado!\n\nID: "
+					infoContractToRemove.setText("Contrato Encontrado!\n\nID: "
 							+ theHolding.getCurrentCompany().findContract(idContractToRemove.getText()).getId()
 							+ "\bDescripcion: " + theHolding.getCurrentCompany()
 									.findContract(idContractToRemove.getText()).getDescription());
+
+					infoContractToRemove.setVisible(true);
+
+					removeContractButton.setDisable(false);
+
+				} else {
+					throw new ContractNotFoundException(idContractToRemove.getText());
 				}
 			}
 
+		} catch (ContractNotFoundException e) {
+			infoContractToRemove.setVisible(true);
 		} catch (Exception e) {
-			
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Advertencia");
+			alert.setHeaderText("Parametros faltantes");
+			alert.setContentText("Revise el ID del contrato a eliminar.");
+
+			alert.showAndWait();
 		}
 
 	}
 
 	@FXML
-	void removeContract(ActionEvent event) {
+	void removeContract(ActionEvent event) throws ContractNotFoundException, IOException {
+		theHolding.getCurrentCompany().removeContract(idContractToRemove.getText());
 
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmacion");
+		alert.setHeaderText("Eliminacion realizada");
+		alert.setContentText("Contrato eliminado exitosamente.");
+
+		alert.showAndWait();
+
+		removeContractWindow(event);
 	}
 
 	@FXML

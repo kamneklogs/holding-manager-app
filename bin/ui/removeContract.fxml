@@ -22,6 +22,6 @@
       <TextField fx:id="idContractToRemove" layoutX="136.0" layoutY="217.0" />
       <Button fx:id="removeContractButton" disable="true" layoutX="169.0" layoutY="387.0" mnemonicParsing="false" onAction="#removeContract" prefHeight="31.0" prefWidth="93.0" text="Confirmar" />
       <Button layoutX="285.0" layoutY="217.0" mnemonicParsing="false" onAction="#searchContractToRemove" text="Buscar" />
-      <Label fx:id="InfoContractToRemove" layoutX="146.0" layoutY="273.0" text="Contrato no encontrado!" visible="false" />
+      <Label fx:id="infoContractToRemove" layoutX="146.0" layoutY="273.0" text="Contrato no encontrado!" visible="false" />
    </children>
 </AnchorPane>
