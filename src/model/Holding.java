@@ -62,7 +62,8 @@ public class Holding {
 		} 
 		catch (ClassNotFoundException e) {
 			//SHOULD NOT GET IN HERE
-		}	    
+		}	
+		stateCharge = true;
 	}
 	
 	/**
