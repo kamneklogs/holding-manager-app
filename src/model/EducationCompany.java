@@ -20,8 +20,7 @@ public class EducationCompany extends Company implements EducationTaxRelief{
 
 	@Override
 	public void substractTaxes() {
-		
-		
+		setTaxes(getTaxes()*(1-EDUCATION_TAX_RELIEF));		
 	}
 
 }

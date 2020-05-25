@@ -18,7 +18,7 @@ public class Company {
 	private double outcome;
 	private double taxes;
 	private double value;
-
+	
 	private Employee firstEmployee;// Binary search tree
 	private LegalRepresentative legalRepresentative;// Direct relation
 
@@ -839,5 +839,9 @@ public class Company {
 
 	public void setOutcome(double outcome) {
 		this.outcome = outcome;
+	}
+
+	public void setTaxes(double taxes) {
+		this.taxes = taxes;
 	}
 }

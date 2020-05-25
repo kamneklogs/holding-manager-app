@@ -20,8 +20,7 @@ public class FoodCompany extends Company implements FoodTaxRelief {
 
 	@Override
 	public void substractTaxes() {
-		
-		
+		setTaxes(getTaxes()*(1-FOOD_TAX_RELIEF));			
 	}
 
 }
