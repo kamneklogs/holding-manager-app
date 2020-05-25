@@ -1,5 +1,6 @@
 package model;
 
+@SuppressWarnings("serial")
 public class LegalRepresentative extends Employee {
 
     private String[] jobTitles;

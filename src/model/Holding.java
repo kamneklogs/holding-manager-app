@@ -1,5 +1,14 @@
 package model;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
 import customExceptions.BranchOfficeAlreadyExistException;
@@ -29,9 +38,30 @@ public class Holding {
 	 * @param n
 	 * @param v
 	 */
-	public Holding(String n, double v) {
-		name = n;
-	    value = v;
+	public Holding(String n, double v) {		
+		try {
+			loadHoldingData();
+			loadCompaniesData();			
+		}
+		catch(FileNotFoundException e) {
+			name = n;
+		    value = v;
+		    totalTCompanies = 0;
+		    totalFCompanies = 0;
+		    totalECompanies = 0;
+		    try {
+				updateSave();
+			} 
+		    catch (IOException e1) {				
+		    	//SHOULD NOT GET IN HERE
+			}
+		} 
+		catch (IOException e) {
+			//SHOULD NOT GET IN HERE
+		} 
+		catch (ClassNotFoundException e) {
+			//SHOULD NOT GET IN HERE
+		}	    
 	}
 	
 	/**
@@ -45,9 +75,15 @@ public class Holding {
 		else {	
 	    	addCompany(firstCompany, c);	
 	    }	
-		value += c.getValue();
-	}
-	
+		value += c.getValue();	
+		try {
+			addNitToFile(c.getNit());
+		} 
+		catch (IOException e) {
+			//SHOULD NOT GET IN HERE
+		}
+	}	
+
 	/**
 	 * 
 	 * @param current
@@ -129,7 +165,13 @@ public class Holding {
 	 */
 	public void sellCompany(String nit,double value) {		
 	    this.value += value - searchCompany(nit).getValue();	
-	    removeCompany(searchCompany(nit));	
+	    removeCompany(searchCompany(nit));
+	    try {
+			removeNitFromFile(nit);
+		} 
+		catch (IOException e) {
+			//SHOULD NOT GET IN HERE
+		}
 	}
 	
 	/**
@@ -396,19 +438,155 @@ public class Holding {
 	}
 	
 	/**
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 * @throws NumberFormatException 
 	 * 
 	 */
-	public void loadAttributesFromTxtFile() {
-		//PENDING IMPLEMENTATION
+	public void loadCompaniesData() throws IOException, ClassNotFoundException {
+		BufferedReader br = new BufferedReader(new FileReader("data/companiesNIT.txt"));
+		
+		String line = br.readLine();		
+		while(line != null) {
+			String nit = line;
+						
+			BufferedReader br2 = new BufferedReader(new FileReader("data/companies/" + nit + "/attributes.txt"));
+			
+			String name = br2.readLine();
+			nit = br2.readLine();
+			double income = Double.parseDouble(br2.readLine());
+			double outcome = Double.parseDouble(br2.readLine());
+			double taxes = Double.parseDouble(br2.readLine());
+			double value = Double.parseDouble(br2.readLine());
+			int type = Integer.parseInt(br2.readLine());
+			br2.close();
+			
+			Company c;
+			
+			if(type == EducationCompany.TYPE_ID) {
+				c = new EducationCompany(name, nit, income, outcome, taxes, value);
+			}
+			else if(type == FoodCompany.TYPE_ID) {
+				c =  new FoodCompany(name, nit, income, outcome, taxes, value);
+			}
+			else {
+				c = new TechnologyCompany(name, nit, income, outcome, taxes, value);
+			}			
+			
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("data/companies/" + nit + "/employees.dat"));
+			Employee firstEmployee = (Employee)ois.readObject();
+			LegalRepresentative legalRepresentative = (LegalRepresentative)firstEmployee;
+			ois.close();		
+			
+			ois = new ObjectInputStream(new FileInputStream("data/companies/" + nit + "/contracts.dat"));
+			Contract firstContract = (Contract)ois.readObject();
+			ois.close();
+			
+			ois = new ObjectInputStream(new FileInputStream("data/companies/" + nit + "/branch_offices.dat"));
+			BranchOffice firstBranchOffice = (BranchOffice)ois.readObject();
+			ois.close();
+						
+			c.setFirstEmployee(firstEmployee);
+			c.setLegalRepresentative(legalRepresentative);
+			
+			BranchOffice current = firstBranchOffice;
+			
+			while(current != null) {
+				String id = current.geteResponsible().getId();
+				Employee eResponsable = c.findEmployee(id);
+				current.setResponsableEmployee(eResponsable);				
+				current = current.getNextOffice();
+			}
+			c.setFirstBranchOffice(firstBranchOffice);
+			
+			Contract currentContract = firstContract;
+			
+			while(currentContract != null) {
+				String id = currentContract.getEmployee().getId();
+				Employee employee = c.findEmployee(id);
+				employee.setContract(currentContract);
+				currentContract.setEmployee(employee);
+				
+				currentContract = currentContract.getNextContract();
+			}
+			c.setFirstContract(firstContract);			
+			
+			addCompany(c);
+			
+			line = br.readLine();
+		}
+		br.close();
+	}
+	
+	/**
+	 * @throws IOException 
+	 * @throws FileNotFouncdException 
+	 * 
+	 */
+	private void loadHoldingData() throws FileNotFoundException, IOException {
+		BufferedReader br = new BufferedReader(new FileReader("data/holding.txt"));
+		name = br.readLine();
+		value = Double.parseDouble(br.readLine());
+		totalTCompanies = Integer.parseInt(br.readLine());
+		totalFCompanies = Integer.parseInt(br.readLine());
+		totalECompanies = Integer.parseInt(br.readLine());
+		br.close();
 	}
 	
 	/**
 	 * 
+	 * @throws IOException
 	 */
-	public void loadRelationsFromFile() {
-		//PENDING IMPLEMENTATION
+	public void updateSave() throws IOException {
+		BufferedWriter bw = new BufferedWriter(new FileWriter("data/holding.txt"));
+		bw.write(name + "\n" + value + "\n" + totalTCompanies + "\n" + totalFCompanies + "\n" + totalECompanies);
+		bw.close();		
+		
+		File file = new File("data/companiesNIT.txt");		
+		if(!file.exists()) {
+			file.createNewFile();
+		}	
 	}
 	
+	private void addNitToFile(String nit) throws IOException {		
+		BufferedReader br = new BufferedReader(new FileReader("data/companiesNIT.txt"));
+		ArrayList<String> nits = new ArrayList<>();
+		String line  = br.readLine();		
+		while(line != null) {
+			nits.add(line);
+			line = br.readLine();
+		}		
+		nits.add(nit);
+		
+		BufferedWriter bw = new BufferedWriter(new FileWriter("data/companiesNIT.txt")) ;
+		for (int i = 0; i < nits.size(); i++) {
+			bw.write(nits.get(i));
+			bw.newLine();
+		}
+		
+		bw.close();
+		br.close();
+	}
+	
+	private void removeNitFromFile(String nit) throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader("data/companiesNIT.txt"));
+		ArrayList<String> nits = new ArrayList<>();
+		String line  = br.readLine();		
+		while(line != null) {
+			nits.add(line);
+			line = br.readLine();
+		}		
+		nits.remove(nit);
+		
+		BufferedWriter bw = new BufferedWriter(new FileWriter("data/companiesNIT.txt")) ;
+		for (int i = 0; i < nits.size(); i++) {
+			bw.write(nits.get(i));
+			bw.newLine();
+		}
+		
+		bw.close();
+		br.close();
+	}
 	/**
 	 * 
 	 * @return

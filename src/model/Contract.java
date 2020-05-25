@@ -1,9 +1,11 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public abstract class Contract implements Comparable<Contract> {
+@SuppressWarnings("serial")
+public abstract class Contract implements Comparable<Contract>, Serializable {
 
 	public static final String[] TYPES = { "Termino fijo", "Termino indefinido", "Obra o labor",
 			"Prestacion de servicios", "Aprendizaje", "Ocasional" };

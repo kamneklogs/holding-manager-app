@@ -1,5 +1,12 @@
 package model;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -43,6 +50,17 @@ public class Company {
 		this.outcome = outcome;
 		this.taxes = taxes;
 		this.value = value;
+		
+		new File("data/companies/" + nit + "").mkdir();				
+		try {
+			updateSave();
+		} 
+		catch (FileNotFoundException e) {
+			//SHOULD NOT GET IN HERE
+		} 
+		catch (IOException e) {
+			//SHOULD NOT GET IN HERE
+		}		
 	}
 
 	/**
@@ -844,4 +862,39 @@ public class Company {
 	public void setTaxes(double taxes) {
 		this.taxes = taxes;
 	}
+	
+	public void updateSave() throws FileNotFoundException, IOException {		
+		BufferedWriter bw = new BufferedWriter(new FileWriter("data/companies/" + nit +"/attributes.txt"));
+		bw.write(name + "\n" + nit + "\n" + income + "\n" + outcome + "\n" + taxes + "\n" + value);
+		bw.close();
+		
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("data/companies/" + nit +"/employees.dat"));
+		oos.writeObject(firstEmployee);
+		oos.close();		
+		
+		oos = new ObjectOutputStream(new FileOutputStream("data/companies/" + nit +"/contracts.dat"));
+		oos.writeObject(firstContract);
+		oos.close();
+		
+		oos = new ObjectOutputStream(new FileOutputStream("data/companies/" + nit +"/branch_offices.dat"));
+		oos.writeObject(firstBranchOffice);
+		oos.close();
+	}
+
+	public void setFirstEmployee(Employee firstEmployee) {
+		this.firstEmployee = firstEmployee;		
+	}
+
+	public void setLegalRepresentative(LegalRepresentative legalRepresentative) {
+		this.legalRepresentative = legalRepresentative;		
+	}
+
+	public void setFirstBranchOffice(BranchOffice firstBranchOffice) {
+		this.firstBranchOffice = firstBranchOffice;		
+	}
+
+	public void setFirstContract(Contract firstContract) {
+		this.firstContract = firstContract;
+	}
+	
 }

@@ -1,6 +1,9 @@
 package model;
 
-public class Employee {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Employee implements Serializable{
 
     private String name;
     private String id;
@@ -133,5 +136,10 @@ public class Employee {
     public void setWorkingHoursPerWeek(int workingHoursPerWeek) {
         this.workingHoursPerWeek = workingHoursPerWeek;
     }
+
+	public void setContract(Contract contract) {
+		this.myContract = contract;
+		
+	}
 
 }

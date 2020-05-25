@@ -1,6 +1,9 @@
 package model;
 
-public class BranchOffice implements Comparable<BranchOffice> {
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class BranchOffice implements Comparable<BranchOffice>, Serializable {
 
     public static final String MAIN = "Main Office";
     public static final String SECONDARY = "Secondary Office";
@@ -106,5 +109,10 @@ public class BranchOffice implements Comparable<BranchOffice> {
             return 0;
         }
     }
+
+	public void setResponsableEmployee(Employee eResponsable) {
+		this.responsableEmployee = eResponsable;
+		
+	}
 
 }

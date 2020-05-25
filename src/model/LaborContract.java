@@ -3,6 +3,7 @@ package model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+@SuppressWarnings("serial")
 public class LaborContract extends Contract {
 
 	public final static int MAX_RENEWALS = 0;
