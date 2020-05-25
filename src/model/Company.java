@@ -228,15 +228,18 @@ public class Company {
 
 		BranchOffice current;
 
-		if (firstBranchOffice == null) {
+		System.out.println(newBranchOffice.getId()+"\n" + findBranchOffice(newBranchOffice.getId()));
 
+		if (firstBranchOffice == null) {
+			
 			firstBranchOffice = newBranchOffice;
 
 		} else if (findBranchOffice(newBranchOffice.getId()) == null) {
+			
 			current = firstBranchOffice;
 
 			while (current.getNextOffice() != null) {
-
+				
 				current = current.getNextOffice();
 
 			}
@@ -244,6 +247,7 @@ public class Company {
 			current.setNextOffice(newBranchOffice);
 			newBranchOffice.setPreOffice(current);
 		} else {
+			
 			throw new BranchOfficeAlreadyExistException(newBranchOffice.getId());
 		}
 	}

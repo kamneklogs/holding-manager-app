@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import customExceptions.BranchOfficeAlreadyExistException;
 import customExceptions.BranchOfficeNotFoundException;
 import customExceptions.ContractNotFoundException;
 import customExceptions.EmployeeNotFoundException;
@@ -825,9 +826,26 @@ public class MainControllerGUI {
 								newBranchOfficeAddress.getText(), newBranchOfficeId.getText(), b,
 								theHolding.getCurrentCompany().findEmployee(newBranchOfficeEmployee.getText())));
 
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+				alert.setTitle("Confirmacion");
+				alert.setHeaderText("Proceso realizado");
+				alert.setContentText("La seede con ID " + newBranchOfficeId.getText()
+						+ "fue a√±adida exitosamente a la base de datos");
+
+				alert.showAndWait();
+
+				addBranchOfficeWindow(event);
 			}
 
+		} catch (BranchOfficeAlreadyExistException e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText(e.getMessage());
+			alert.setContentText("El ID ingresado ya esta registrado con otra sede.");
+
+			alert.showAndWait();
 		} catch (Exception e) {
+
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Error");
 			alert.setHeaderText("Parametros incompletos");
@@ -1167,53 +1185,49 @@ public class MainControllerGUI {
 				&& newCompanyName.getText() != "" && newCompanyNIT.getText() != null && newCompanyNIT.getText() != "") {
 			try {
 				Company newCompany = null;
-				
+
 				String name = newCompanyName.getText();
 				String nit = newCompanyNIT.getText();
 				double income = Double.parseDouble(newCompanyIncome.getText());
 				double outcome = Double.parseDouble(newCompanyOutcome.getText());
 				double tax = Double.parseDouble(newCompanyTaxe.getText());
 				double value = Double.parseDouble(newCompanyValue.getText());
-							
-				if(income < 0){
+
+				if (income < 0) {
 					throw new NumberFormatException();
 				}
-				if(outcome < 0) {
+				if (outcome < 0) {
 					throw new NumberFormatException();
 				}
-				if(tax < 0 || tax > 50) {
+				if (tax < 0 || tax > 50) {
 					throw new NumberFormatException();
 				}
-				if(value < 0) {
+				if (value < 0) {
 					throw new NumberFormatException();
-				}				
-				
+				}
+
 				if (alimentosTypeRadioButton.isSelected()) {
-					newCompany = new FoodCompany(name,nit,income,outcome,tax,value);
-				} 
-				else if (tecnologiaTypeRadioButton.isSelected()) {
-					newCompany = new TechnologyCompany(name,nit,income,outcome,tax,value);
-				}
-				else {
-					newCompany = new EducationCompany(name,nit,income,outcome,tax,value);
+					newCompany = new FoodCompany(name, nit, income, outcome, tax, value);
+				} else if (tecnologiaTypeRadioButton.isSelected()) {
+					newCompany = new TechnologyCompany(name, nit, income, outcome, tax, value);
+				} else {
+					newCompany = new EducationCompany(name, nit, income, outcome, tax, value);
 				}
 
 				theHolding.addCompany(newCompany);
 
 				if (newCompany instanceof FoodCompany) {
 					theHolding.setTotalFCompanies(theHolding.getTotalFCompanies() + 1);
-				} 
-				else if (newCompany instanceof TechnologyCompany) {
+				} else if (newCompany instanceof TechnologyCompany) {
 					theHolding.setTotalTCompanies(theHolding.getTotalTCompanies() + 1);
-				} 
-				else {
+				} else {
 					theHolding.setTotalECompanies(theHolding.getTotalECompanies() + 1);
 				}
 
 				updateCountCompanies();
 				Alert alert = new Alert(AlertType.CONFIRMATION);
 				alert.setTitle("Confirmacion");
-				alert.setHeaderText("CompaÔøΩia agregada exitosamente");
+				alert.setHeaderText("Compa√±ia agregada exitosamente");
 				alert.setContentText("Ahora puede gestionar todos los procesos de esta compa√±ia");
 
 				alert.showAndWait();
@@ -1223,9 +1237,10 @@ public class MainControllerGUI {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("Error");
 				alert.setHeaderText("Formato erroneo");
-				alert.setContentText("Verifique el valor ingresado en los campos de ingreso, egresos y avaluo.\nEl valor m·ximo de impuestos es de 50%.\nSolo introduzca valores numericos, ning˙n simbolo adicional.");
-				alert.showAndWait();				
-			} 
+				alert.setContentText(
+						"Verifique el valor ingresado en los campos de ingreso, egresos y avaluo.\nEl valor mÔøΩximo de impuestos es de 50%.\nSolo introduzca valores numericos, ningÔøΩn simbolo adicional.");
+				alert.showAndWait();
+			}
 
 		} else {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -1696,62 +1711,62 @@ public class MainControllerGUI {
 
 		chartsBorderPane.setCenter(barChart);
 	}
-	
-	//SELL COMPANY
-	
-    @FXML
-    private TextField sellCompanyNitTextField;
 
-    @FXML
-    private TextField sellValueTextField;
+	// SELL COMPANY
 
-    @FXML
-    void sellCompany(ActionEvent event) {
-    	String nit = sellCompanyNitTextField.getText();
-    	String valueStr  = sellValueTextField.getText();
-    	
-    	if(!nit.isEmpty() || !valueStr.isEmpty()) {
-    		try {
+	@FXML
+	private TextField sellCompanyNitTextField;
+
+	@FXML
+	private TextField sellValueTextField;
+
+	@FXML
+	void sellCompany(ActionEvent event) {
+		String nit = sellCompanyNitTextField.getText();
+		String valueStr = sellValueTextField.getText();
+
+		if (!nit.isEmpty() || !valueStr.isEmpty()) {
+			try {
 				double value = Double.parseDouble(valueStr);
-				if(value < 0) {
+				if (value < 0) {
 					throw new NumberFormatException();
 				}
-				
+
 				Company companyToSell = theHolding.searchCompany(nit);
-				if(companyToSell != null) {
-					 if(companyToSell == theHolding.getCurrentCompany()) {
-						 theHolding.setCurrentCompany(null);
-						 infoCurrentCompanyLabel.setText("");
-					 }
-					 theHolding.sellCompany(nit,value);
-					 Alert alert = new Alert(AlertType.INFORMATION);
-			    		alert.setTitle("InformaciÛn");
-			    		alert.setHeaderText("CompaÒÌa vendida exitosamente!");
-			    		alert.setContentText("La compaÒia con nit " + nit + " ha sido vendida por $" + value + " y el nuevo valor del Seros es $" + theHolding.getValue());
-			    		alert.showAndWait();
-				}
-				else {
+				if (companyToSell != null) {
+					if (companyToSell == theHolding.getCurrentCompany()) {
+						theHolding.setCurrentCompany(null);
+						infoCurrentCompanyLabel.setText("");
+					}
+					theHolding.sellCompany(nit, value);
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("InformaciÔøΩn");
+					alert.setHeaderText("CompaÔøΩÔøΩa vendida exitosamente!");
+					alert.setContentText("La compaÔøΩia con nit " + nit + " ha sido vendida por $" + value
+							+ " y el nuevo valor del Seros es $" + theHolding.getValue());
+					alert.showAndWait();
+				} else {
 					Alert alert = new Alert(AlertType.ERROR);
 					alert.setTitle("Error");
-					alert.setHeaderText("CompaÒÌa no encontrada!");
-					alert.setContentText("La compaÒia con nit " + nit + " no ha sido encontrada");
+					alert.setHeaderText("CompaÔøΩÔøΩa no encontrada!");
+					alert.setContentText("La compaÔøΩia con nit " + nit + " no ha sido encontrada");
 					alert.showAndWait();
-				}				
+				}
+			} catch (NumberFormatException e) {
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("Error");
+				alert.setHeaderText("Formato");
+				alert.setContentText(
+						"Verifique que el valor introducido en el campo de valor de venta es un numero positivo.\nNo agregue ningun simbolo adicional.");
+				alert.showAndWait();
 			}
-    		catch (NumberFormatException e) {				
-    			Alert alert = new Alert(AlertType.ERROR);
-    			alert.setTitle("Error");
-    			alert.setHeaderText("Formato");
-    			alert.setContentText("Verifique que el valor introducido en el campo de valor de venta es un numero positivo.\nNo agregue ningun simbolo adicional.");
-    			alert.showAndWait();
-			}
-    	}
-    	else {
-    		Alert alert = new Alert(AlertType.ERROR);
+		} else {
+			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Error");
 			alert.setHeaderText("Campos vacios");
 			alert.setContentText("Verifique que todos los campos este llenos!");
 			alert.showAndWait();
+<<<<<<< HEAD
     	}
     		
     }
@@ -1772,4 +1787,9 @@ public class MainControllerGUI {
     @FXML
     private Accordion mainAccordion;
 
+=======
+		}
+
+	}
+>>>>>>> 9e68659d2c00d9a4995c057a4c232ec489776f09
 }
