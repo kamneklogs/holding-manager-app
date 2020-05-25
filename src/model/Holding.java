@@ -18,6 +18,7 @@ public class Holding {
 	private String name;
 	private double value;
 	private int  totalTCompanies, totalFCompanies,totalECompanies;
+	private boolean stateCharge;
 	
 	// Companies binary search tree
 	private Company firstCompany;
@@ -471,6 +472,10 @@ public class Holding {
 
 	public void setTotalECompanies(int totalECompanies) {
 		this.totalECompanies = totalECompanies;
+	}
+
+	public boolean isStateCharge() {
+		return stateCharge;
 	}
 	
 }
