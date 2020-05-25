@@ -39,10 +39,11 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="58.0" minHeight="10.0" prefHeight="58.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label alignment="TOP_RIGHT" contentDisplay="TOP" text="Nombre Descriptivo:" textAlignment="RIGHT" GridPane.halignment="RIGHT">
+            <Label alignment="TOP_RIGHT" contentDisplay="TOP" text="Descripcion:" textAlignment="RIGHT" GridPane.halignment="RIGHT">
                <GridPane.margin>
                   <Insets right="20.0" />
                </GridPane.margin>
@@ -62,26 +63,26 @@
                   <Insets right="20.0" />
                </GridPane.margin>
             </Label>
-            <Button mnemonicParsing="false" onAction="#saveNewEmployee" prefHeight="33.0" prefWidth="88.0" text="Guardar" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <TextField GridPane.columnIndex="1">
+            <Button mnemonicParsing="false" onAction="#saveNewContract" prefHeight="33.0" prefWidth="88.0" text="Guardar" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <TextField fx:id="descriptionNewContract" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets right="30.0" />
                </GridPane.margin></TextField>
-            <SplitMenuButton mnemonicParsing="false" text="Selecionar" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <SplitMenuButton fx:id="typeNewContract" mnemonicParsing="false" text="Seleccionar" GridPane.columnIndex="1" GridPane.rowIndex="1">
               <items>
-                <MenuItem mnemonicParsing="false" text="Termino Fijo" />
-                <MenuItem mnemonicParsing="false" text="Termino Indefinido" />
-                  <MenuItem mnemonicParsing="false" text="Obra o Labor" />
-                  <MenuItem mnemonicParsing="false" text="Prestacion de Servicios " />
-                  <MenuItem mnemonicParsing="false" text="Aprendizaje" />
-                  <MenuItem mnemonicParsing="false" text="Ocasional" />
+                <MenuItem mnemonicParsing="false" onAction="#terminoFijoTypeContract" text="Termino Fijo" />
+                <MenuItem mnemonicParsing="false" onAction="#terminoIndefinidoTypeContract" text="Termino Indefinido" />
+                  <MenuItem mnemonicParsing="false" onAction="#obraOLaborTypeContract" text="Obra o Labor" />
+                  <MenuItem mnemonicParsing="false" onAction="#prestacionSTypeContract" text="Prestacion de Servicios " />
+                  <MenuItem mnemonicParsing="false" onAction="#aprendizajeTypeContract" text="Aprendizaje" />
+                  <MenuItem mnemonicParsing="false" onAction="#ocasionalTypeContract" text="Ocasional" />
               </items>
             </SplitMenuButton>
-            <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <DatePicker fx:id="startDateNewContract" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets right="30.0" />
                </GridPane.margin></DatePicker>
-            <DatePicker GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <DatePicker fx:id="finishtDateNewContract" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets right="30.0" />
                </GridPane.margin></DatePicker>
@@ -105,22 +106,32 @@
                   <Insets right="20.0" />
                </GridPane.margin>
             </Label>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <TextField fx:id="subjectANewContract" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets right="30.0" />
                </GridPane.margin></TextField>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <TextField fx:id="idSubjectANewContract" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets right="30.0" />
                </GridPane.margin></TextField>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="6">
+            <TextField fx:id="subjectBNewContract" GridPane.columnIndex="1" GridPane.rowIndex="6">
                <GridPane.margin>
                   <Insets right="30.0" />
                </GridPane.margin></TextField>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="7">
+            <TextField fx:id="idSubjectBNewContract" GridPane.columnIndex="1" GridPane.rowIndex="7">
                <GridPane.margin>
                   <Insets right="30.0" />
                </GridPane.margin></TextField>
+            <Label text="Valor monetario:" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
+               <GridPane.margin>
+                  <Insets right="20.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField fx:id="valueNewContract" GridPane.columnIndex="1" GridPane.rowIndex="8">
+               <GridPane.margin>
+                  <Insets right="30.0" />
+               </GridPane.margin>
+            </TextField>
          </children>
       </GridPane>
    </children>

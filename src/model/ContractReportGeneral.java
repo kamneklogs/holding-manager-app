@@ -20,7 +20,7 @@ public class ContractReportGeneral extends Report {
 				report = "nombre,id,fecha_inicio,fecha_fin\n";
 				
 				while(contract != null) {
-					report += contract.getName() + "," + contract.getId() + "," 
+					report += contract.getDescription() + "," + contract.getId() + "," 
 					+ (contract.getStartDate() != null? contract.getStartDate().toString() : "N/A") + "," 
 					+ (contract.getFinishDate() != null? contract.getFinishDate().toString() : "N/A") + "\n";
 					contract = contract.getNextContract();
@@ -40,10 +40,10 @@ public class ContractReportGeneral extends Report {
 				report = "REPORTE GENERAL DE CONTRATOS PARA LA EMPRESA " + companyName + "\n";
 				
 				while(contract != null) {
-					report += "Name: " + contract.getName() + " -- ID: " + contract.getId() 
+					report += "Descripcion: " + contract.getDescription() + " -- ID: " + contract.getId() 
 					+ " -- Fecha de Incio: "
 					+ (contract.getStartDate() != null? contract.getStartDate().toString() : "N/A")
-					+ " -- Fecha de Terminación: " 
+					+ " -- Fecha de Terminaciï¿½n: " 
 					+ (contract.getFinishDate() != null? contract.getFinishDate().toString() : "N/A") + "\n";
 					contract = contract.getNextContract();
 				}

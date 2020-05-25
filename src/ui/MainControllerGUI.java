@@ -16,8 +16,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
@@ -186,6 +188,33 @@ public class MainControllerGUI {
 
 	@FXML
 	private TextField newBranchOfficeEmployee;
+
+	@FXML
+	private TextField descriptionNewContract;
+
+	@FXML
+	private SplitMenuButton typeNewContract;
+
+	@FXML
+	private DatePicker startDateNewContract;
+
+	@FXML
+	private DatePicker finishtDateNewContract;
+
+	@FXML
+	private TextField subjectANewContract;
+
+	@FXML
+	private TextField idSubjectANewContract;
+
+	@FXML
+	private TextField subjectBNewContract;
+
+	@FXML
+	private TextField idSubjectBNewContract;
+
+	@FXML
+	private TextField valueNewContract;
 
 	/**
 	 * @param theHolding
@@ -432,6 +461,106 @@ public class MainControllerGUI {
 			}
 
 		}
+	}
+
+	@FXML
+	void aprendizajeTypeContract(ActionEvent event) {
+		typeNewContract.setText(Contract.TYPES[4]);
+	}
+
+	@FXML
+	void obraOLaborTypeContract(ActionEvent event) {
+		typeNewContract.setText(Contract.TYPES[2]);
+	}
+
+	@FXML
+	void ocasionalTypeContract(ActionEvent event) {
+		typeNewContract.setText(Contract.TYPES[5]);
+	}
+
+	@FXML
+	void prestacionSTypeContract(ActionEvent event) {
+		typeNewContract.setText(Contract.TYPES[3]);
+	}
+
+	@FXML
+	void terminoFijoTypeContract(ActionEvent event) {
+		typeNewContract.setText(Contract.TYPES[1]);
+	}
+
+	@FXML
+	void terminoIndefinidoTypeContract(ActionEvent event) {
+		typeNewContract.setText(Contract.TYPES[0]);
+	}
+
+	@FXML
+	void saveNewContract(ActionEvent event) {
+
+		try {
+
+			if (descriptionNewContract.getText() == "")
+				throw new Exception();
+
+			if (typeNewContract.getText() == "Seleccionar")
+				throw new Exception();
+
+			if (startDateNewContract.getEditor().getText() == "")
+				throw new Exception();
+
+			if (finishtDateNewContract.getEditor().getText() == "")
+				throw new Exception();
+
+			if (subjectANewContract.getText() == "")
+				throw new Exception();
+
+			if (idSubjectANewContract.getText() == "")
+				throw new Exception();
+
+			if (subjectBNewContract.getText() == "")
+				throw new Exception();
+
+			if (idSubjectBNewContract.getText() == "")
+				throw new Exception();
+
+			if (finishtDateNewContract.getValue().isAfter(startDateNewContract.getValue())) {
+
+				if(typeNewContract.getText() == Contract.TYPES[0])
+
+				if(typeNewContract.getText() == Contract.TYPES[1])
+
+				if(typeNewContract.getText() == Contract.TYPES[2])
+
+				if(typeNewContract.getText() == Contract.TYPES[3])
+
+				if(typeNewContract.getText() == Contract.TYPES[4])
+
+				if(typeNewContract.getText() == Contract.TYPES[5]){
+					
+				}
+
+			} else {
+
+				Alert alert = new Alert(AlertType.ERROR);
+
+				alert.setTitle("Error");
+				alert.setHeaderText("Fechas erroneas");
+				alert.setContentText("La fecha de finalizacion esta antes de la de inicio, por favor verificar");
+
+				alert.showAndWait();
+
+			}
+
+		} catch (Exception e) {
+
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setHeaderText("Parametros incompletos");
+			alert.setContentText("Revise que todos los parametros de registro esten completos");
+
+			alert.showAndWait();
+
+		}
+
 	}
 
 	@FXML
