@@ -228,8 +228,6 @@ public class Company {
 
 		BranchOffice current;
 
-		System.out.println(newBranchOffice.getId()+"\n" + findBranchOffice(newBranchOffice.getId()));
-
 		if (firstBranchOffice == null) {
 			
 			firstBranchOffice = newBranchOffice;
@@ -250,6 +248,7 @@ public class Company {
 			
 			throw new BranchOfficeAlreadyExistException(newBranchOffice.getId());
 		}
+		
 	}
 
 	/**
