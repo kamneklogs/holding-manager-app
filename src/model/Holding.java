@@ -22,50 +22,46 @@ public class Holding {
 
 	public final static String NAME = "Seros Group";
 	public final static String PATH = "data/currentData.txt";
-	
+
 	// Basic attributes
 	private String name;
 	private double value;
-	private int  totalTCompanies, totalFCompanies,totalECompanies;
+	private int totalTCompanies, totalFCompanies, totalECompanies;
 	private boolean stateCharge;
-	
+
 	// Companies binary search tree
 	private Company firstCompany;
-	
+
 	// Company currently managed by the system
-	private Company currentCompany;	
-	
+	private Company currentCompany;
+
 	/**
 	 * @param n
 	 * @param v
 	 */
-	public Holding(String n, double v) {		
+	public Holding(String n, double v) {
 		try {
 			loadHoldingData();
-			loadCompaniesData();			
-		}
-		catch(FileNotFoundException e) {
+			loadCompaniesData();
+		} catch (FileNotFoundException e) {
 			name = n;
-		    value = v;
-		    totalTCompanies = 0;
-		    totalFCompanies = 0;
-		    totalECompanies = 0;
-		    try {
+			value = v;
+			totalTCompanies = 0;
+			totalFCompanies = 0;
+			totalECompanies = 0;
+			try {
 				updateSave();
-			} 
-		    catch (IOException e1) {				
-		    	//SHOULD NOT GET IN HERE
+			} catch (IOException e1) {
+				// SHOULD NOT GET IN HERE
 			}
-		} 
-		catch (IOException e) {
-			//SHOULD NOT GET IN HERE
-		} 
-		catch (ClassNotFoundException e) {
-			//SHOULD NOT GET IN HERE
-		}	
+		} catch (IOException e) {
+			// SHOULD NOT GET IN HERE
+		} catch (ClassNotFoundException e) {
+			// SHOULD NOT GET IN HERE
+		}
 		stateCharge = true;
 	}
-	
+
 	/**
 	 * 
 	 * @param c
@@ -73,18 +69,16 @@ public class Holding {
 	public void addCompany(Company c) {
 		if (firstCompany == null) {
 			firstCompany = c;
-	    } 
-		else {	
-	    	addCompany(firstCompany, c);	
-	    }	
-		value += c.getValue();	
+		} else {
+			addCompany(firstCompany, c);
+		}
+		value += c.getValue();
 		try {
 			addNitToFile(c.getNit());
-		} 
-		catch (IOException e) {
-			//SHOULD NOT GET IN HERE
+		} catch (IOException e) {
+			// SHOULD NOT GET IN HERE
 		}
-	}	
+	}
 
 	/**
 	 * 
@@ -92,199 +86,179 @@ public class Holding {
 	 * @param c
 	 */
 	private void addCompany(Company current, Company c) {
-		
+
 		if (c.getNit().compareTo(current.getNit()) <= 0) {
 			if (current.getLeft() == null) {
-		    	current.setLeft(c);
-		    	current.getLeft().setFather(current);
-		    } 
-		    else {
-		    	addCompany(current.getLeft(), c);
-		    }	
-	    } 
-	    else {	
-	    	if (current.getRight() == null) {
-	    		current.setRight(c);
-	    		current.getRight().setFather(current);
-	    	} 
-	    	else {
-	    		addCompany(current.getRight(), c);
-	    	}
-	    }	
+				current.setLeft(c);
+				current.getLeft().setFather(current);
+			} else {
+				addCompany(current.getLeft(), c);
+			}
+		} else {
+			if (current.getRight() == null) {
+				current.setRight(c);
+				current.getRight().setFather(current);
+			} else {
+				addCompany(current.getRight(), c);
+			}
+		}
 	}
-	
+
 	/**
 	 * 
 	 * @param nit
 	 * @return
 	 */
-	public Company searchCompany(String nit) {	
+	public Company searchCompany(String nit) {
 		if (firstCompany == null) {
-	    	return null;
-	    } 
-	    else if (firstCompany.getNit().equals(nit)) {
-	    	return firstCompany;
-	    }
-	    else {
-	    	return searchCompany(firstCompany, nit);
-	    }	
+			return null;
+		} else if (firstCompany.getNit().equals(nit)) {
+			return firstCompany;
+		} else {
+			return searchCompany(firstCompany, nit);
+		}
 	}
-	
+
 	/**
 	 * 
 	 * @param current
 	 * @param nit
 	 * @return
 	 */
-	private Company searchCompany(Company current, String nit) {	
-		if (current == null) {	
-			return null;	
-	    } 
-		else if (current.getNit().equals(nit)) {	
-			return current;	
-	    } 
-		else if (current.getNit().compareTo(nit) > 0) {
-			if (current.getLeft() == null) {	
-				return null;	
+	private Company searchCompany(Company current, String nit) {
+		if (current == null) {
+			return null;
+		} else if (current.getNit().equals(nit)) {
+			return current;
+		} else if (current.getNit().compareTo(nit) > 0) {
+			if (current.getLeft() == null) {
+				return null;
+			} else {
+				return searchCompany(current.getLeft(), nit);
 			}
-			else {	
-				return searchCompany(current.getLeft(), nit);	
-	        }	
-	    }
-		else {	
-			if(current.getNit().equals(nit)) {
-				return current;	
+		} else {
+			if (current.getNit().equals(nit)) {
+				return current;
+			} else {
+				return searchCompany(current.getRight(), nit);
 			}
-			else {	
-				return searchCompany(current.getRight(), nit);	
-			}
-	    }	
+		}
 	}
-	
+
 	/**
 	 * 
 	 * @param nit
 	 */
-	public void sellCompany(String nit,double value) {		
-	    this.value += value - searchCompany(nit).getValue();	
-	    removeCompany(searchCompany(nit));
-	    try {
+	public void sellCompany(String nit, double value) {
+		this.value += value - searchCompany(nit).getValue();
+		removeCompany(searchCompany(nit));
+		try {
 			removeNitFromFile(nit);
-		} 
-		catch (IOException e) {
-			//SHOULD NOT GET IN HERE
+		} catch (IOException e) {
+			// SHOULD NOT GET IN HERE
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param toRemove
 	 */
-	public void removeCompany(Company toRemove) {	
-		if (toRemove != null) {	
+	public void removeCompany(Company toRemove) {
+		if (toRemove != null) {
 			if (toRemove.getRight() == null && toRemove.getLeft() == null) {
-				if(toRemove == firstCompany) {
+				if (toRemove == firstCompany) {
 					firstCompany = null;
 					currentCompany = null;
-				}
-				else {
+				} else {
 					if (toRemove.getFather().getLeft() == toRemove) {
 						toRemove.getFather().setLeft(null);
-					} 
-					else {
+					} else {
 						toRemove.getFather().setRight(null);
 					}
-				}				
-			} 
-			else if (toRemove.getRight() == null ^ toRemove.getLeft() == null) {	
+				}
+			} else if (toRemove.getRight() == null ^ toRemove.getLeft() == null) {
 				if (toRemove.getRight() != null) {
 					if (toRemove.getFather().getRight() == toRemove) {
 						toRemove.getRight().setFather(toRemove.getFather());
 						toRemove.getFather().setRight(toRemove.getRight());
-					} 
-					else {
+					} else {
 						toRemove.getRight().setFather(toRemove.getFather());
 						toRemove.getFather().setLeft(toRemove.getRight());
-					}	
-				} 
-				else {	
+					}
+				} else {
 					if (toRemove.getFather().getRight() == toRemove) {
 						toRemove.getLeft().setFather(toRemove.getFather());
 						toRemove.getFather().setRight(toRemove.getLeft());
-					}
-					else {
+					} else {
 						toRemove.getLeft().setFather(toRemove.getFather());
 						toRemove.getFather().setLeft(toRemove.getLeft());
-					}	
-				}	
-			} 
-			else if (toRemove.getLeft() != null && toRemove.getRight() != null) {
-	
-		        Company current = toRemove.getLeft();
-		
-		        while (current.getRight() != null) {		
-		        	current = current.getRight();		
-		        }
-		
-		        if (current.getFather().getRight() == current) {
-		        	current.getFather().setRight(null);
-		        } 
-		        else {
-		        	current.getFather().setLeft(null);
-		        }
-		
-		        current.setFather(toRemove.getFather());
-		        current.setLeft(toRemove.getLeft());
-		        current.setRight(toRemove.getRight());
-		        current.getRight().setFather(current);
-		        current.getLeft().setFather(current);
-		
-		        if (toRemove.getFather().getRight() == toRemove) {
-		        	current.getFather().setRight(current);
-		
-		        }
-		        else {
-		        	current.getFather().setLeft(current);
-		        }
-		
-		        current = null;	
+					}
+				}
+			} else if (toRemove.getLeft() != null && toRemove.getRight() != null) {
+
+				Company current = toRemove.getLeft();
+
+				while (current.getRight() != null) {
+					current = current.getRight();
+				}
+
+				if (current.getFather().getRight() == current) {
+					current.getFather().setRight(null);
+				} else {
+					current.getFather().setLeft(null);
+				}
+
+				current.setFather(toRemove.getFather());
+				current.setLeft(toRemove.getLeft());
+				current.setRight(toRemove.getRight());
+				current.getRight().setFather(current);
+				current.getLeft().setFather(current);
+
+				if (toRemove.getFather().getRight() == toRemove) {
+					current.getFather().setRight(current);
+
+				} else {
+					current.getFather().setLeft(current);
+				}
+
+				current = null;
 			}
-			
-			if(toRemove == currentCompany) {
+
+			if (toRemove == currentCompany) {
 				currentCompany = null;
 			}
-	
+
 		}
-	
+
 	}
-	
+
 	/**
 	 * 
 	 * @param e
-	 * @throws EmployeeAlreadyExistsException 
+	 * @throws EmployeeAlreadyExistsException
 	 */
 	public void addEmployee(Employee e) throws EmployeeAlreadyExistsException {
 		currentCompany.addEmployee(e);
 	}
-	
+
 	/**
 	 * 
 	 * @param bO
-	 * @throws BranchOfficeAlreadyExistException 
+	 * @throws BranchOfficeAlreadyExistException
 	 */
 	public void addBranchOffice(BranchOffice bO) throws BranchOfficeAlreadyExistException {
 		currentCompany.addBranchOffice(bO);
 	}
-	
+
 	/**
 	 * 
 	 * @param c
-	 * @throws ContractAlreadyExistException 
+	 * @throws ContractAlreadyExistException
 	 */
 	public void addContract(Contract c) throws ContractAlreadyExistException {
 		currentCompany.addContract(c);
 	}
-	
+
 	/**
 	 * 
 	 * @return
@@ -292,7 +266,7 @@ public class Holding {
 	public Employee findEmployee(String id) {
 		return currentCompany.findEmployee(id);
 	}
-	
+
 	/**
 	 * 
 	 * @param id
@@ -301,7 +275,7 @@ public class Holding {
 	public Contract findContract(String id) {
 		return currentCompany.findContract(id);
 	}
-	
+
 	/**
 	 * 
 	 * @param id
@@ -310,34 +284,34 @@ public class Holding {
 	public BranchOffice findBranchOffice(String id) {
 		return currentCompany.findBranchOffice(id);
 	}
-	
+
 	/**
 	 * 
 	 * @param id
-	 * @throws EmployeeNotFoundException 
+	 * @throws EmployeeNotFoundException
 	 */
 	public void removeEmployee(String id) throws EmployeeNotFoundException {
 		currentCompany.removeEmployee(id);
 	}
-	
+
 	/**
 	 * 
 	 * @param id
-	 * @throws ContractNotFoundException 
+	 * @throws ContractNotFoundException
 	 */
 	public void removeContract(String id) throws ContractNotFoundException {
 		currentCompany.removeContract(id);
-	}	
-	
+	}
+
 	/**
 	 * 
 	 * @param id
-	 * @throws BranchOfficeNotFoundException 
+	 * @throws BranchOfficeNotFoundException
 	 */
 	public void removeBranchOffice(String id) throws BranchOfficeNotFoundException {
 		currentCompany.removeBranchOffice(id);
 	}
-	
+
 	/**
 	 * 
 	 * @param toScreen
@@ -345,10 +319,10 @@ public class Holding {
 	 * @param toTxt
 	 * @return
 	 */
-	public String generateEconomicReport(boolean toCsv, boolean toTxt){
+	public String generateEconomicReport(boolean toCsv, boolean toTxt) {
 		return new EconomicReport(toCsv, toTxt, currentCompany).generateReport();
 	}
-	
+
 	/**
 	 * 
 	 * @param toScreen
@@ -359,11 +333,11 @@ public class Holding {
 	public String generateBranchOfficesReport(boolean toCsv, boolean toTxt) {
 		return new BranchOfficesReport(toCsv, toTxt, currentCompany).generateReport();
 	}
-	
-	public ArrayList<BranchOffice> getCurrentCompanyOffices(){
+
+	public ArrayList<BranchOffice> getCurrentCompanyOffices() {
 		return currentCompany.branchOfficesToArrayList();
 	}
-	
+
 	/**
 	 * 
 	 * @param toScreen
@@ -374,7 +348,7 @@ public class Holding {
 	public String generateContractReportGeneral(boolean toCsv, boolean toTxt) {
 		return new ContractReportGeneral(toCsv, toTxt, currentCompany).generateReport();
 	}
-	
+
 	/**
 	 * 
 	 * @param toScreen
@@ -385,7 +359,7 @@ public class Holding {
 	public String generateEmployeeReportGeneral(boolean toCsv, boolean toTxt) {
 		return new EmployeeReportGeneral(toCsv, toTxt, currentCompany).generateReport();
 	}
-	
+
 	/**
 	 * 
 	 * @param toScreen
@@ -397,7 +371,7 @@ public class Holding {
 	public String generateEmployeeReportDetailed(boolean toScreen, boolean toCsv, boolean toTxt, String id) {
 		return new EmployeeReportDetailed(toCsv, toTxt, currentCompany, id).generateReport();
 	}
-	
+
 	/**
 	 * 
 	 * @param toScreen
@@ -409,51 +383,51 @@ public class Holding {
 	public String generateContractReportDetailed(boolean toScreen, boolean toCsv, boolean toTxt, String id) {
 		return new ContractReportDetailed(toCsv, toTxt, currentCompany, id).generateReport();
 	}
-	
+
 	public ArrayList<Employee> getCurrentCompanyEmployees() {
 		return currentCompany.employeesToArrayList();
 	}
-	
+
 	public ArrayList<Contract> getCurrentCompanyContracts() {
 		return currentCompany.contractsToArrayList();
 	}
-	
+
 	/**
 	 * 
 	 */
 	public void insertionSortBranchOffices() {
 		currentCompany.insertionSortBranchOffices();
 	}
-	
+
 	/**
 	 * 
 	 */
 	public void bubbleSortContracts() {
 		currentCompany.bubbleSortContracts();
 	}
-	
+
 	/**
 	 * 
 	 */
 	public void selectionSortBranchOffices() {
 		currentCompany.selectionSortBranchOffices();
 	}
-	
+
 	/**
-	 * @throws IOException 
-	 * @throws ClassNotFoundException 
-	 * @throws NumberFormatException 
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 * @throws NumberFormatException
 	 * 
 	 */
 	public void loadCompaniesData() throws IOException, ClassNotFoundException {
 		BufferedReader br = new BufferedReader(new FileReader("data/companiesNIT.txt"));
-		
-		String line = br.readLine();		
-		while(line != null) {
+
+		String line = br.readLine();
+		while (line != null) {
 			String nit = line;
-						
+
 			BufferedReader br2 = new BufferedReader(new FileReader("data/companies/" + nit + "/attributes.txt"));
-			
+
 			String name = br2.readLine();
 			nit = br2.readLine();
 			double income = Double.parseDouble(br2.readLine());
@@ -462,67 +436,66 @@ public class Holding {
 			double value = Double.parseDouble(br2.readLine());
 			int type = Integer.parseInt(br2.readLine());
 			br2.close();
-			
+
 			Company c;
-			
-			if(type == EducationCompany.TYPE_ID) {
+
+			if (type == EducationCompany.TYPE_ID) {
 				c = new EducationCompany(name, nit, income, outcome, taxes, value);
-			}
-			else if(type == FoodCompany.TYPE_ID) {
-				c =  new FoodCompany(name, nit, income, outcome, taxes, value);
-			}
-			else {
+			} else if (type == FoodCompany.TYPE_ID) {
+				c = new FoodCompany(name, nit, income, outcome, taxes, value);
+			} else {
 				c = new TechnologyCompany(name, nit, income, outcome, taxes, value);
-			}			
-			
-			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("data/companies/" + nit + "/employees.dat"));
-			Employee firstEmployee = (Employee)ois.readObject();
-			LegalRepresentative legalRepresentative = (LegalRepresentative)firstEmployee;
-			ois.close();		
-			
+			}
+
+			ObjectInputStream ois = new ObjectInputStream(
+					new FileInputStream("data/companies/" + nit + "/employees.dat"));
+			Employee firstEmployee = (Employee) ois.readObject();
+			LegalRepresentative legalRepresentative = (LegalRepresentative) firstEmployee;
+			ois.close();
+
 			ois = new ObjectInputStream(new FileInputStream("data/companies/" + nit + "/contracts.dat"));
-			Contract firstContract = (Contract)ois.readObject();
+			Contract firstContract = (Contract) ois.readObject();
 			ois.close();
-			
+
 			ois = new ObjectInputStream(new FileInputStream("data/companies/" + nit + "/branch_offices.dat"));
-			BranchOffice firstBranchOffice = (BranchOffice)ois.readObject();
+			BranchOffice firstBranchOffice = (BranchOffice) ois.readObject();
 			ois.close();
-						
+
 			c.setFirstEmployee(firstEmployee);
 			c.setLegalRepresentative(legalRepresentative);
-			
+
 			BranchOffice current = firstBranchOffice;
-			
-			while(current != null) {
+
+			while (current != null) {
 				String id = current.geteResponsible().getId();
 				Employee eResponsable = c.findEmployee(id);
-				current.setResponsableEmployee(eResponsable);				
+				current.setResponsableEmployee(eResponsable);
 				current = current.getNextOffice();
 			}
 			c.setFirstBranchOffice(firstBranchOffice);
-			
+
 			Contract currentContract = firstContract;
-			
-			while(currentContract != null) {
+
+			while (currentContract != null) {
 				String id = currentContract.getEmployee().getId();
 				Employee employee = c.findEmployee(id);
 				employee.setContract(currentContract);
 				currentContract.setEmployee(employee);
-				
+
 				currentContract = currentContract.getNextContract();
 			}
-			c.setFirstContract(firstContract);			
-			
+			c.setFirstContract(firstContract);
+
 			addCompany(c);
-			
+
 			line = br.readLine();
 		}
 		br.close();
 	}
-	
+
 	/**
-	 * @throws IOException 
-	 * @throws FileNotFouncdException 
+	 * @throws IOException
+	 * @throws FileNotFouncdException
 	 * 
 	 */
 	private void loadHoldingData() throws FileNotFoundException, IOException {
@@ -534,7 +507,7 @@ public class Holding {
 		totalECompanies = Integer.parseInt(br.readLine());
 		br.close();
 	}
-	
+
 	/**
 	 * 
 	 * @throws IOException
@@ -542,53 +515,57 @@ public class Holding {
 	public void updateSave() throws IOException {
 		BufferedWriter bw = new BufferedWriter(new FileWriter("data/holding.txt"));
 		bw.write(name + "\n" + value + "\n" + totalTCompanies + "\n" + totalFCompanies + "\n" + totalECompanies);
-		bw.close();		
-		
-		File file = new File("data/companiesNIT.txt");		
-		if(!file.exists()) {
+		bw.close();
+
+		File file = new File("data/companiesNIT.txt");
+		if (!file.exists()) {
 			file.createNewFile();
-		}	
+		}
+		if (currentCompany != null) {
+			currentCompany.updateSave();
+		}
 	}
-	
-	private void addNitToFile(String nit) throws IOException {		
+
+	private void addNitToFile(String nit) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader("data/companiesNIT.txt"));
 		ArrayList<String> nits = new ArrayList<>();
-		String line  = br.readLine();		
-		while(line != null) {
+		String line = br.readLine();
+		while (line != null) {
 			nits.add(line);
 			line = br.readLine();
-		}		
+		}
 		nits.add(nit);
-		
-		BufferedWriter bw = new BufferedWriter(new FileWriter("data/companiesNIT.txt")) ;
+
+		BufferedWriter bw = new BufferedWriter(new FileWriter("data/companiesNIT.txt"));
 		for (int i = 0; i < nits.size(); i++) {
 			bw.write(nits.get(i));
 			bw.newLine();
 		}
-		
+
 		bw.close();
 		br.close();
 	}
-	
+
 	private void removeNitFromFile(String nit) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader("data/companiesNIT.txt"));
 		ArrayList<String> nits = new ArrayList<>();
-		String line  = br.readLine();		
-		while(line != null) {
+		String line = br.readLine();
+		while (line != null) {
 			nits.add(line);
 			line = br.readLine();
-		}		
+		}
 		nits.remove(nit);
-		
-		BufferedWriter bw = new BufferedWriter(new FileWriter("data/companiesNIT.txt")) ;
+
+		BufferedWriter bw = new BufferedWriter(new FileWriter("data/companiesNIT.txt"));
 		for (int i = 0; i < nits.size(); i++) {
 			bw.write(nits.get(i));
 			bw.newLine();
 		}
-		
+
 		bw.close();
 		br.close();
 	}
+
 	/**
 	 * 
 	 * @return
@@ -596,7 +573,7 @@ public class Holding {
 	public Company getCurrentCompany() {
 		return currentCompany;
 	}
-	
+
 	/**
 	 * 
 	 * @return
@@ -604,7 +581,7 @@ public class Holding {
 	public String getName() {
 		return name;
 	}
-	
+
 	/**
 	 * 
 	 * @return
@@ -612,7 +589,7 @@ public class Holding {
 	public double getValue() {
 		return value;
 	}
-	
+
 	/**
 	 * 
 	 * @return
@@ -620,7 +597,7 @@ public class Holding {
 	public Company getFirstCompany() {
 		return firstCompany;
 	}
-	
+
 	/**
 	 * 
 	 * @param currentCompany
@@ -656,5 +633,5 @@ public class Holding {
 	public boolean isStateCharge() {
 		return stateCharge;
 	}
-	
+
 }
