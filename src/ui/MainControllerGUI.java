@@ -203,19 +203,18 @@ public class MainControllerGUI {
 	private DatePicker finishtDateNewContract;
 
 	@FXML
-	private TextField subjectANewContract;
-
-	@FXML
-	private TextField idSubjectANewContract;
-
-	@FXML
-	private TextField subjectBNewContract;
-
-	@FXML
-	private TextField idSubjectBNewContract;
+	private TextField idNewContract;
 
 	@FXML
 	private TextField valueNewContract;
+
+	@FXML
+	private TextField amountNewContract;
+
+	@FXML
+	private TextField clauseNewContract;
+
+	private ArrayList<String> clauses;
 
 	/**
 	 * @param theHolding
@@ -495,9 +494,22 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	void saveClauseNewContract(ActionEvent event) {
+		if (clauses == null) {
+			clauses = new ArrayList<String>();
+		}
+
+		clauses.add(clauseNewContract.getText());
+		clauseNewContract.setText("");
+
+	}
+
+	@FXML
 	void saveNewContract(ActionEvent event) {
 
 		try {
+
+			LocalDate now = LocalDate.now();
 
 			if (descriptionNewContract.getText() == "")
 				throw new Exception();
@@ -511,33 +523,49 @@ public class MainControllerGUI {
 			if (finishtDateNewContract.getEditor().getText() == "")
 				throw new Exception();
 
-			if (subjectANewContract.getText() == "")
-				throw new Exception();
-
-			if (idSubjectANewContract.getText() == "")
-				throw new Exception();
-
-			if (subjectBNewContract.getText() == "")
-				throw new Exception();
-
-			if (idSubjectBNewContract.getText() == "")
+			if (idNewContract.getText() == "")
 				throw new Exception();
 
 			if (finishtDateNewContract.getValue().isAfter(startDateNewContract.getValue())) {
 
-				if(typeNewContract.getText() == Contract.TYPES[0])
+				if (typeNewContract.getText() == Contract.TYPES[0])
+					theHolding.getCurrentCompany().addContract(new DefinedTermContract(idNewContract.getText(),
+							descriptionNewContract.getText(), clauses, Double.parseDouble(amountNewContract.getText()),
+							startDateNewContract.getValue(), finishtDateNewContract.getValue(), LocalDate.now()));
 
-				if(typeNewContract.getText() == Contract.TYPES[1])
+				if (typeNewContract.getText() == Contract.TYPES[1])
+					theHolding.getCurrentCompany().addContract(new UndefinedTermContract(idNewContract.getText(),
+							descriptionNewContract.getText(), clauses, Double.parseDouble(amountNewContract.getText()),
+							startDateNewContract.getValue(), LocalDate.now()));
 
-				if(typeNewContract.getText() == Contract.TYPES[2])
+				if (typeNewContract.getText() == Contract.TYPES[2])
+					theHolding.getCurrentCompany().addContract(new LaborContract(idNewContract.getText(),
+							descriptionNewContract.getText(), clauses, Double.parseDouble(amountNewContract.getText()),
+							startDateNewContract.getValue(), finishtDateNewContract.getValue(), LocalDate.now()));
 
-				if(typeNewContract.getText() == Contract.TYPES[3])
+				if (typeNewContract.getText() == Contract.TYPES[3])
+					theHolding.getCurrentCompany().addContract(new ServiceContract(idNewContract.getText(),
+							descriptionNewContract.getText(), clauses, Double.parseDouble(amountNewContract.getText()),
+							startDateNewContract.getValue(), finishtDateNewContract.getValue(), LocalDate.now()));
 
-				if(typeNewContract.getText() == Contract.TYPES[4])
+				if (typeNewContract.getText() == Contract.TYPES[4])
+					theHolding.getCurrentCompany().addContract(new LearningContract(idNewContract.getText(),
+							descriptionNewContract.getText(), clauses, Double.parseDouble(amountNewContract.getText()),
+							startDateNewContract.getValue(), finishtDateNewContract.getValue(), LocalDate.now()));
 
-				if(typeNewContract.getText() == Contract.TYPES[5]){
-					
-				}
+				if (typeNewContract.getText() == Contract.TYPES[5])
+					theHolding.getCurrentCompany().addContract(new OcassionalWorkContract(idNewContract.getText(),
+							descriptionNewContract.getText(), clauses, Double.parseDouble(amountNewContract.getText()),
+							startDateNewContract.getValue(), finishtDateNewContract.getValue(), LocalDate.now()));
+
+				Alert alert = new Alert(AlertType.CONFIRMATION);
+
+				alert.setTitle("Confirmacion");
+				alert.setHeaderText("Contrato guardado.");
+				alert.setContentText("El contrato con ID: " + idNewContract.getText()
+						+ " fue agregado exitosamente a la base de datos");
+
+				alert.showAndWait();
 
 			} else {
 
@@ -1258,46 +1286,45 @@ public class MainControllerGUI {
 	}
 
 	// CONTRACTS REPORT
-	
 
-    @FXML
-    private RadioButton contractsParticularToggleButton;
+	@FXML
+	private RadioButton contractsParticularToggleButton;
 
-    @FXML
-    private ToggleGroup contractsToggleGroup;
+	@FXML
+	private ToggleGroup contractsToggleGroup;
 
-    @FXML
-    private RadioButton contractsGeneralToggleButton;
+	@FXML
+	private RadioButton contractsGeneralToggleButton;
 
-    @FXML
-    private TextField contractsIdTextField;
+	@FXML
+	private TextField contractsIdTextField;
 
-    @FXML
-    private CheckBox contractsCsvCheckBox;
+	@FXML
+	private CheckBox contractsCsvCheckBox;
 
-    @FXML
-    private CheckBox contractsTxtCheckBox;
+	@FXML
+	private CheckBox contractsTxtCheckBox;
 
-    @FXML
-    private CheckBox contractsScreenCheckBox;
+	@FXML
+	private CheckBox contractsScreenCheckBox;
 
-    @FXML
-    private TableView<Contract> contractsTableView;
+	@FXML
+	private TableView<Contract> contractsTableView;
 
-    @FXML
-    private TableColumn<Contract, String> contractNameColumn;
+	@FXML
+	private TableColumn<Contract, String> contractNameColumn;
 
-    @FXML
-    private TableColumn<Contract, String> contractIdColumn;
+	@FXML
+	private TableColumn<Contract, String> contractIdColumn;
 
-    @FXML
-    private TableColumn<Contract, LocalDate> contractStartDateColumn;
+	@FXML
+	private TableColumn<Contract, LocalDate> contractStartDateColumn;
 
-    @FXML
-    private TableColumn<Contract, LocalDate> contractEndDateColumn;
+	@FXML
+	private TableColumn<Contract, LocalDate> contractEndDateColumn;
 
-    @FXML
-    void contractsGenerateReport(ActionEvent event) {
+	@FXML
+	void contractsGenerateReport(ActionEvent event) {
 		if (!contractsCsvCheckBox.isSelected() && !contractsTxtCheckBox.isSelected()
 				&& !contractsScreenCheckBox.isSelected()) {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -1347,7 +1374,7 @@ public class MainControllerGUI {
 						contractNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 						contractIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 						contractStartDateColumn.setCellValueFactory(new PropertyValueFactory<>("startDate"));
-						contractEndDateColumn.setCellValueFactory(new PropertyValueFactory<>("finishDate"));						
+						contractEndDateColumn.setCellValueFactory(new PropertyValueFactory<>("finishDate"));
 					}
 				}
 			} else {
@@ -1357,45 +1384,45 @@ public class MainControllerGUI {
 				alert.showAndWait();
 			}
 		}
-    }
+	}
 
-    @FXML
-    void contractsUpdateIdField(ActionEvent event) {
-    	if (contractsParticularToggleButton.isSelected()) {
+	@FXML
+	void contractsUpdateIdField(ActionEvent event) {
+		if (contractsParticularToggleButton.isSelected()) {
 			contractsIdTextField.setDisable(false);
 		} else {
 			contractsIdTextField.setDisable(true);
 		}
-    }   
+	}
 
 	// ECONOMICAL REPORT
-    
-    @FXML
-    private CheckBox economicalCsvCheckBox;
 
-    @FXML
-    private CheckBox economicalTxtCheckBox;
+	@FXML
+	private CheckBox economicalCsvCheckBox;
 
-    @FXML
-    private CheckBox economicalScreenCheckBox;
+	@FXML
+	private CheckBox economicalTxtCheckBox;
 
-    @FXML
-    private Label economicalReportContent;
+	@FXML
+	private CheckBox economicalScreenCheckBox;
 
-    @FXML
-    void economicalGenerateReport(ActionEvent event) {
-    	if (!economicalCsvCheckBox.isSelected() && !economicalTxtCheckBox.isSelected()
+	@FXML
+	private Label economicalReportContent;
+
+	@FXML
+	void economicalGenerateReport(ActionEvent event) {
+		if (!economicalCsvCheckBox.isSelected() && !economicalTxtCheckBox.isSelected()
 				&& !economicalScreenCheckBox.isSelected()) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Error");
 			alert.setContentText("No se ha seleccionado formato de salida, por favor seleccione al menos uno!");
 			alert.showAndWait();
+		} else {
+			String report = theHolding.generateEconomicReport(economicalCsvCheckBox.isSelected(),
+					economicalTxtCheckBox.isSelected());
+			if (economicalScreenCheckBox.isSelected()) {
+				economicalReportContent.setText(report);
+			}
 		}
-    	else {    		
-    		String report = theHolding.generateEconomicReport(economicalCsvCheckBox.isSelected(), economicalTxtCheckBox.isSelected());
-    		if(economicalScreenCheckBox.isSelected()) {
-    			economicalReportContent.setText(report);
-    		}    		
-    	}
-    }    
+	}
 }
