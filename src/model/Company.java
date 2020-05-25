@@ -248,6 +248,7 @@ public class Company {
 			
 			throw new BranchOfficeAlreadyExistException(newBranchOffice.getId());
 		}
+		
 	}
 
 	/**
