@@ -13,6 +13,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -28,6 +32,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -944,6 +949,7 @@ public class MainControllerGUI {
 
 			mainPane.getChildren().clear();
 			mainPane.getChildren().add(financialOpts);
+			initializeChart();
 		} catch (WithoutCurrentCompanyException e) {
 			Alert alert = new Alert(AlertType.WARNING);
 			alert.setTitle("Advertencia");
@@ -1423,4 +1429,76 @@ public class MainControllerGUI {
 			}
 		}
 	}
+	
+	//ECONOMICAL INFORMATION UPDATE AND CHARTS
+	
+	@FXML
+    private TextField incomeUpdateTextField;
+	
+	@FXML
+    private TextField outcomeUpdateTextField;	
+
+    @FXML
+    private BorderPane chartsBorderPane;
+
+    @FXML
+    void modifyIncome(ActionEvent event) {
+    	try {
+    		double newIncome = Double.parseDouble(incomeUpdateTextField.getText());
+    		
+    		if(newIncome < 0) {
+    			throw new NumberFormatException();
+    		}
+    		    		
+    		theHolding.getCurrentCompany().setIncome(newIncome);  
+    		initializeChart();
+    	}
+    	catch(NumberFormatException e){
+    		Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setContentText("Los ingresos deben ser un numero que no incluye el simbolo de dinero, ademas debe ser positivo o 0, verifique su valor!");
+			alert.showAndWait();
+    	}
+    }   
+
+	@FXML
+    void modifyOutcome(ActionEvent event) {
+    	try {
+    		double newOutcome = Double.parseDouble(outcomeUpdateTextField.getText());
+    		
+    		if(newOutcome < 0) {
+    			throw new NumberFormatException();
+    		}
+    		    		
+    		theHolding.getCurrentCompany().setOutcome(newOutcome);
+    		
+    		initializeChart();
+    	}
+    	catch(NumberFormatException e){
+    		Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Error");
+			alert.setContentText("Los egresos deben ser un numero que no incluye el simbolo de dinero, ademas debe ser positivo o 0, verifique su valor!");
+			alert.showAndWait();
+    	}
+    }
+	
+	@SuppressWarnings("unchecked")
+	public void initializeChart() {
+		final CategoryAxis xAxis = new CategoryAxis();
+		final NumberAxis yAxis = new NumberAxis();
+		final BarChart<String,Number> barChart = new BarChart<>(xAxis,yAxis);
+		xAxis.setLabel("Información Economica");
+		yAxis.setLabel("Valor ($)");
+		
+		XYChart.Series<String, Number> incomeSeries = new XYChart.Series<>();
+		incomeSeries.getData().add(new XYChart.Data<String,Number>("Ingresos",theHolding.getCurrentCompany().getIncome()));
+		
+		XYChart.Series<String, Number> outcomeSeries = new XYChart.Series<>();
+		outcomeSeries.getData().add(new XYChart.Data<String,Number>("Egresos",theHolding.getCurrentCompany().getOutcome()));
+		
+		barChart.getData().addAll(incomeSeries,outcomeSeries);		
+		barChart.setTitle("Informacion Economica Basica");		
+		
+		chartsBorderPane.setCenter(barChart);
+	}    
 }

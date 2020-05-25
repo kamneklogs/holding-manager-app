@@ -822,4 +822,12 @@ public class Company {
 		}
 		return contracts;
 	}
+
+	public void setIncome(double income) {
+		this.income = income;
+	}
+
+	public void setOutcome(double outcome) {
+		this.outcome = outcome;
+	}
 }
