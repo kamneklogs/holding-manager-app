@@ -1055,7 +1055,7 @@ public class MainControllerGUI {
 			updateCountCompanies();
 			Alert alert = new Alert(AlertType.CONFIRMATION);
 			alert.setTitle("Confirmacion");
-			alert.setHeaderText("Compañia agregada exitosamente");
+			alert.setHeaderText("Compa�ia agregada exitosamente");
 			alert.setContentText("Ahora puede gestionar todos los procesos de esta compañia");
 
 			alert.showAndWait();
