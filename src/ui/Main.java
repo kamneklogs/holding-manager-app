@@ -8,16 +8,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import model.*;
-import thread.*;
 
 public class Main extends Application {
 
 	private Holding theHolding;
 	private MainControllerGUI theMainControllerGUI;
-
-	private ThreadOne t1;
-	private ThreadTwo t2;
-	private ThreadThree t3;
 
 	public Main() throws IOException {
 	
@@ -45,6 +40,7 @@ public class Main extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("SEROS GROUP - MANAGER APP  v 1.1");
 		primaryStage.show();
+	
 
 	}
 }

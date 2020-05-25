@@ -2,7 +2,9 @@ package ui;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Optional;
 
 import customExceptions.BranchOfficeAlreadyExistException;
@@ -42,6 +44,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import model.*;
+import thread.ThreadOne;
 
 public class MainControllerGUI {
 
@@ -177,6 +180,9 @@ public class MainControllerGUI {
 	private Pane infoCurrentCompanyPane;
 
 	@FXML
+	private Label timeLabel;
+
+	@FXML
 	private Label infoCurrentCompanyLabel;
 
 	@FXML
@@ -238,12 +244,20 @@ public class MainControllerGUI {
 	@FXML
 	private Button removeEmployeeButton;
 
+	private LocalDateTime locaDate = LocalDateTime.now();
+
 	/**
 	 * @param theHolding
 	 * @throws IOException
 	 */
 	public MainControllerGUI(Holding theHolding) throws IOException {
 		this.theHolding = theHolding;
+
+	}
+
+	public void initialize() {
+
+		new ThreadOne(this).start();
 
 	}
 
@@ -298,8 +312,7 @@ public class MainControllerGUI {
 				addCompanyWindow(event);
 				mainAccordion.setExpandedPane(administrationTitledPane);
 				addCompanyRadioButton.setSelected(true);
-			} 
-			else if (result.get() == buttonTypeTwo) {				
+			} else if (result.get() == buttonTypeTwo) {
 				changeCompanyWindow();
 				mainAccordion.setExpandedPane(administrationTitledPane);
 				changeCompanyRadioButton.setSelected(true);
@@ -1262,6 +1275,16 @@ public class MainControllerGUI {
 		totalTCompanies.setText(Integer.toString(theHolding.getTotalTCompanies()));
 	}
 
+	public void updateTimeLabel() {
+
+		locaDate = LocalDateTime.now();
+
+		timeLabel.setText(Integer.toString(locaDate.getYear()) + "/" + Integer.toString(locaDate.getMonthValue()) + "/"
+				+ Integer.toString(locaDate.getDayOfMonth()) + "   " + Integer.toString(locaDate.getHour()) + ":"
+				+ Integer.toString(locaDate.getMinute()) + ":" + Integer.toString(locaDate.getSecond()));
+
+	}
+
 	@FXML
 	void sellCompanyWindow(ActionEvent event) throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("sellCompany.fxml"));
@@ -1767,23 +1790,23 @@ public class MainControllerGUI {
 			alert.setContentText("Verifique que todos los campos este llenos!");
 			alert.showAndWait();
 
-    	}
-    		
-    }
-    
-    //MAIN WINDOW FIX
-    @FXML
-    private ToggleGroup mainToggleGroup;
-    
-    @FXML
-    private TitledPane administrationTitledPane;
-    
-    @FXML
-    private RadioButton addCompanyRadioButton;
+		}
 
-    @FXML
-    private RadioButton changeCompanyRadioButton;
-    
-    @FXML
-    private Accordion mainAccordion;
+	}
+
+	// MAIN WINDOW FIX
+	@FXML
+	private ToggleGroup mainToggleGroup;
+
+	@FXML
+	private TitledPane administrationTitledPane;
+
+	@FXML
+	private RadioButton addCompanyRadioButton;
+
+	@FXML
+	private RadioButton changeCompanyRadioButton;
+
+	@FXML
+	private Accordion mainAccordion;
 }
