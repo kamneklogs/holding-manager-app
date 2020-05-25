@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 import customExceptions.BranchOfficeAlreadyExistException;
 import customExceptions.BranchOfficeNotFoundException;
 import customExceptions.ContractAlreadyExistException;
@@ -288,7 +290,7 @@ public class Holding {
 	 * @param toTxt
 	 * @return
 	 */
-	public String generateEconomicReport(boolean toScreen, boolean toCsv, boolean toTxt){
+	public String generateEconomicReport(boolean toCsv, boolean toTxt){
 		return new EconomicReport(toCsv, toTxt, currentCompany).generateReport();
 	}
 	
@@ -299,8 +301,12 @@ public class Holding {
 	 * @param toTxt
 	 * @return
 	 */
-	public String generateBranchOfficesReport(boolean toScreen, boolean toCsv, boolean toTxt) {
+	public String generateBranchOfficesReport(boolean toCsv, boolean toTxt) {
 		return new BranchOfficesReport(toCsv, toTxt, currentCompany).generateReport();
+	}
+	
+	public ArrayList<BranchOffice> getCurrentCompanyOffices(){
+		return currentCompany.branchOfficesToArrayList();
 	}
 	
 	/**
@@ -310,7 +316,7 @@ public class Holding {
 	 * @param toTxt
 	 * @return
 	 */
-	public String generateContractReportGeneral(boolean toScreen, boolean toCsv, boolean toTxt) {
+	public String generateContractReportGeneral(boolean toCsv, boolean toTxt) {
 		return new ContractReportGeneral(toCsv, toTxt, currentCompany).generateReport();
 	}
 	
@@ -321,7 +327,7 @@ public class Holding {
 	 * @param toTxt
 	 * @return
 	 */
-	public String generateEmployeeReportGeneral(boolean toScreen, boolean toCsv, boolean toTxt) {
+	public String generateEmployeeReportGeneral(boolean toCsv, boolean toTxt) {
 		return new EmployeeReportGeneral(toCsv, toTxt, currentCompany).generateReport();
 	}
 	
@@ -349,6 +355,9 @@ public class Holding {
 		return new ContractReportDetailed(toCsv, toTxt, currentCompany, id).generateReport();
 	}
 	
+	public ArrayList<Employee> getCurrentCompanyEmployees() {
+		return currentCompany.employeesToArrayList();
+	}
 	
 	/**
 	 * 
@@ -448,4 +457,6 @@ public class Holding {
 	public void setTotalECompanies(int totalECompanies) {
 		this.totalECompanies = totalECompanies;
 	}
+
+	
 }

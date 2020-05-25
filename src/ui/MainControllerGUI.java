@@ -1,10 +1,13 @@
 package ui;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Optional;
 
 import customExceptions.ContractNotFoundException;
 import customExceptions.WithoutCurrentCompanyException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +23,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -976,6 +980,157 @@ public class MainControllerGUI {
 
     @FXML
     private TableColumn<BranchOffice, String> officeAddressColumn;
-	
+    
+    @FXML
+    void generateOfficesReport(ActionEvent event) {
+    	if(!officeCsvCheckBox.isSelected() && !officeTxtCheckBox.isSelected() && !officeScreenCheckBox.isSelected()) {
+    		Alert alert = new Alert(AlertType.ERROR);
+    		alert.setTitle("Error");
+    		alert.setContentText("No se ha seleccionado formato de salida, por favor seleccione al menos uno!");
+    		alert.showAndWait();
+    	}
+    	else {    		
+    		ArrayList<BranchOffice> offices = theHolding.getCurrentCompanyOffices();
+    		ObservableList<BranchOffice> observableOffices = FXCollections.observableArrayList(offices);
+    		
+    		if(!offices.isEmpty()) {
+    			theHolding.generateBranchOfficesReport(officeCsvCheckBox.isSelected(), officeTxtCheckBox.isSelected());
+    			if(officeScreenCheckBox.isSelected()) {
+    				officesTableView.setItems(observableOffices);
+    				
+    				officeIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+    				officeTypeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+    				officeCityColumn.setCellValueFactory(new PropertyValueFactory<>("city"));
+    				officeAddressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
+    			}
+    		}
+    		else {
+    			Alert alert = new Alert(AlertType.WARNING);
+        		alert.setTitle("Advertencia");
+        		alert.setContentText("No se han agregado oficinas a la empresa actual!");
+        		alert.showAndWait();
+    		}    		
+    	}
+    }
+    
+    //EMPLOYEE REPORT
+    
 
+    @FXML
+    private RadioButton employeesParticularToggleButton;
+
+    @FXML
+    private ToggleGroup typeBranchOfficeReportTypeTG;
+
+    @FXML
+    private RadioButton employeesGeneralToggleButton;
+
+    @FXML
+    private TextField employeeIdTextField;
+
+    @FXML
+    private CheckBox employeesCsvCheckBox;
+
+    @FXML
+    private CheckBox employeesTxtCheckBox;
+
+    @FXML
+    private CheckBox employeesScreenCheckBox;
+
+    @FXML
+    private TableView<Employee> employeesTableView;
+
+    @FXML
+    private TableColumn<Employee, String> employeeNameColumn;
+
+    @FXML
+    private TableColumn<Employee, String> employeeIdColumn;
+
+    @FXML
+    private TableColumn<Employee, String> employeePhoneColumn;
+
+    @FXML
+    private TableColumn<Employee, Double> employeeSalaryColumn;
+
+    @FXML
+    private TableColumn<Employee, String> employeeTitleColumn;
+
+    @FXML
+    void employeesGenerateReport(ActionEvent event) {
+    	if(!employeesCsvCheckBox.isSelected() && !employeesTxtCheckBox.isSelected() && !employeesScreenCheckBox.isSelected()) {
+    		Alert alert = new Alert(AlertType.ERROR);
+    		alert.setTitle("Error");
+    		alert.setContentText("No se ha seleccionado formato de salida, por favor seleccione al menos uno!");
+    		alert.showAndWait();
+    	}
+    	else if(!employeesParticularToggleButton.isSelected() && !employeesGeneralToggleButton.isSelected()) {
+    		Alert alert = new Alert(AlertType.ERROR);
+    		alert.setTitle("Error");
+    		alert.setContentText("No se ha seleccionado un tipo de reporte particular o general, por favor seleccione uno!");
+    		alert.showAndWait();
+    	}
+    	else {    		
+    		ArrayList<Employee> employees = theHolding.getCurrentCompanyEmployees();
+    		ObservableList<Employee> observableEmployees = FXCollections.observableArrayList(employees);
+    		
+    		if(!employees.isEmpty()) {
+    			if(employeesParticularToggleButton.isSelected()) {
+    				String id = employeeIdTextField.getText();    				
+    				if(!id.isEmpty()) {
+    					String report = theHolding.generateEmployeeReportDetailed(employeesScreenCheckBox.isSelected(), employeesCsvCheckBox.isSelected(), employeesScreenCheckBox.isSelected(),id);
+        				if(report != null && employeesScreenCheckBox.isSelected()) {
+        					Alert alert = new Alert(AlertType.INFORMATION);
+                        	alert.setTitle("Empleado");
+                        	alert.setContentText(report);
+                        	alert.showAndWait();                			
+        				}   
+        				else {
+        					Alert alert = new Alert(AlertType.ERROR);
+                    		alert.setTitle("Error");
+                    		alert.setContentText("No se ha encontrado el empleado con id: " + id + " !" );
+                    		alert.showAndWait();
+        				}
+    				}
+    				else {
+    					Alert alert = new Alert(AlertType.ERROR);
+                		alert.setTitle("Error");
+                		alert.setContentText("No se ha escrito la id del empleado, por favor escribala en el recuadro!");
+                		alert.showAndWait();
+    				}    				
+    			}
+    			else{
+    				theHolding.generateEmployeeReportGeneral(employeesCsvCheckBox.isSelected(), employeesScreenCheckBox.isSelected());
+        			if(employeesScreenCheckBox.isSelected()) {
+        				employeesTableView.setItems(observableEmployees);
+        				
+        				employeeNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        				employeeIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        				employeePhoneColumn.setCellValueFactory(new PropertyValueFactory<>("numberPhone"));
+        				employeeSalaryColumn.setCellValueFactory(new PropertyValueFactory<>("salary"));
+        				employeeTitleColumn.setCellValueFactory(new PropertyValueFactory<>("jobTitle"));
+        			}
+    			}    			
+    		}
+    		else {
+    			Alert alert = new Alert(AlertType.WARNING);
+        		alert.setTitle("Advertencia");
+        		alert.setContentText("No se han agregado empleados!");
+        		alert.showAndWait();
+    		}    		
+    	}
+    }
+
+    @FXML
+    void employeesUpdateSearchButton(ActionEvent event) {
+    	if(employeesParticularToggleButton.isSelected() ) {
+    		employeeIdTextField.setDisable(false);
+    	}
+    	else {
+    		employeeIdTextField.setDisable(true);
+    	}
+    }
+    
+    //CONTRACTS REPORT
+    
+    //ECONOMICAL REPORT
 }

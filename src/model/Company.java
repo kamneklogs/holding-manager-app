@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import customExceptions.BranchOfficeAlreadyExistException;
@@ -777,5 +778,35 @@ public class Company {
 
 	public void setBranchOffices(int branchOffices) {
 		this.branchOffices = branchOffices;
+	}
+	
+	public ArrayList<BranchOffice> branchOfficesToArrayList(){
+		ArrayList<BranchOffice> offices = new ArrayList<>();
+		BranchOffice current = firstBranchOffice;
+		
+		if(current != null) {
+			while(current != null) {
+				offices.add(current);
+				current = current.getNextOffice();
+			}
+		}	
+		
+		return offices;
+	}
+
+	public ArrayList<Employee> employeesToArrayList() {
+		return employeesToArrayListRecursive(firstEmployee, new ArrayList<Employee>());
+	}
+	
+	private ArrayList<Employee> employeesToArrayListRecursive(Employee employee, ArrayList<Employee> employeesList) {
+		if(employee == null) {
+			return employeesList;
+		}
+		else {
+			employeesList.add(employee);
+			employeesList = employeesToArrayListRecursive (employee.getLeft(), employeesList);
+			employeesList = employeesToArrayListRecursive (employee.getRight(), employeesList);	
+			return employeesList;
+		}		
 	}
 }

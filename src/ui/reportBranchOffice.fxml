@@ -45,7 +45,7 @@
                   </VBox>
                </children>
             </HBox>
-            <Button mnemonicParsing="false" text="Generar">
+            <Button mnemonicParsing="false" onAction="#generateOfficesReport" text="Generar">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
