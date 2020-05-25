@@ -20,6 +20,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -32,6 +33,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -294,8 +296,13 @@ public class MainControllerGUI {
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == buttonTypeOne) {
 				addCompanyWindow(event);
-			} else if (result.get() == buttonTypeTwo) {
+				mainAccordion.setExpandedPane(administrationTitledPane);
+				addCompanyRadioButton.setSelected(true);
+			} 
+			else if (result.get() == buttonTypeTwo) {				
 				changeCompanyWindow();
+				mainAccordion.setExpandedPane(administrationTitledPane);
+				changeCompanyRadioButton.setSelected(true);
 			}
 
 		}
@@ -412,8 +419,12 @@ public class MainControllerGUI {
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == buttonTypeOne) {
 				addCompanyWindow(event);
+				mainAccordion.setExpandedPane(administrationTitledPane);
+				addCompanyRadioButton.setSelected(true);
 			} else if (result.get() == buttonTypeTwo) {
 				changeCompanyWindow();
+				mainAccordion.setExpandedPane(administrationTitledPane);
+				changeCompanyRadioButton.setSelected(true);
 			}
 
 		}
@@ -491,8 +502,12 @@ public class MainControllerGUI {
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == buttonTypeOne) {
 				addCompanyWindow(event);
+				mainAccordion.setExpandedPane(administrationTitledPane);
+				addCompanyRadioButton.setSelected(true);
 			} else if (result.get() == buttonTypeTwo) {
 				changeCompanyWindow();
+				mainAccordion.setExpandedPane(administrationTitledPane);
+				changeCompanyRadioButton.setSelected(true);
 			}
 
 		}
@@ -671,8 +686,12 @@ public class MainControllerGUI {
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == buttonTypeOne) {
 				addCompanyWindow(event);
+				mainAccordion.setExpandedPane(administrationTitledPane);
+				addCompanyRadioButton.setSelected(true);
 			} else if (result.get() == buttonTypeTwo) {
 				changeCompanyWindow();
+				mainAccordion.setExpandedPane(administrationTitledPane);
+				changeCompanyRadioButton.setSelected(true);
 			}
 
 		}
@@ -752,8 +771,12 @@ public class MainControllerGUI {
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == buttonTypeOne) {
 				addCompanyWindow(event);
+				mainAccordion.setExpandedPane(administrationTitledPane);
+				addCompanyRadioButton.setSelected(true);
 			} else if (result.get() == buttonTypeTwo) {
 				changeCompanyWindow();
+				mainAccordion.setExpandedPane(administrationTitledPane);
+				changeCompanyRadioButton.setSelected(true);
 			}
 
 		}
@@ -858,8 +881,12 @@ public class MainControllerGUI {
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == buttonTypeOne) {
 				addCompanyWindow(event);
+				mainAccordion.setExpandedPane(administrationTitledPane);
+				addCompanyRadioButton.setSelected(true);
 			} else if (result.get() == buttonTypeTwo) {
 				changeCompanyWindow();
+				mainAccordion.setExpandedPane(administrationTitledPane);
+				changeCompanyRadioButton.setSelected(true);
 			}
 
 		}
@@ -900,8 +927,12 @@ public class MainControllerGUI {
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == buttonTypeOne) {
 				addCompanyWindow(event);
+				mainAccordion.setExpandedPane(administrationTitledPane);
+				addCompanyRadioButton.setSelected(true);
 			} else if (result.get() == buttonTypeTwo) {
 				changeCompanyWindow();
+				mainAccordion.setExpandedPane(administrationTitledPane);
+				changeCompanyRadioButton.setSelected(true);
 			}
 
 		}
@@ -978,8 +1009,12 @@ public class MainControllerGUI {
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == buttonTypeOne) {
 				addCompanyWindow(event);
+				mainAccordion.setExpandedPane(administrationTitledPane);
+				addCompanyRadioButton.setSelected(true);
 			} else if (result.get() == buttonTypeTwo) {
 				changeCompanyWindow();
+				mainAccordion.setExpandedPane(administrationTitledPane);
+				changeCompanyRadioButton.setSelected(true);
 			}
 
 		}
@@ -987,13 +1022,37 @@ public class MainControllerGUI {
 
 	@FXML
 	void reportEmployeesWindow(ActionEvent event) throws IOException {
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("reportEmployee.fxml"));
+		try {
+			ccObject();
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("reportEmployee.fxml"));
 
-		fxmlLoader.setController(this);
-		Parent reportEmployee = fxmlLoader.load();
+			fxmlLoader.setController(this);
+			Parent reportEmployee = fxmlLoader.load();
 
-		mainPane.getChildren().clear();
-		mainPane.getChildren().add(reportEmployee);
+			mainPane.getChildren().clear();
+			mainPane.getChildren().add(reportEmployee);
+		} catch (WithoutCurrentCompanyException e) {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Advertencia");
+			alert.setHeaderText("Esta accion requiere una empresa actual.");
+			alert.setContentText("Elija una opccion:");
+
+			ButtonType buttonTypeOne = new ButtonType("Agregar nueva empresa");
+			ButtonType buttonTypeTwo = new ButtonType("Elegir una empresa existente");
+
+			alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo);
+
+			Optional<ButtonType> result = alert.showAndWait();
+			if (result.get() == buttonTypeOne) {
+				addCompanyWindow(event);
+				mainAccordion.setExpandedPane(administrationTitledPane);
+				addCompanyRadioButton.setSelected(true);
+			} else if (result.get() == buttonTypeTwo) {
+				changeCompanyWindow();
+				mainAccordion.setExpandedPane(administrationTitledPane);
+				changeCompanyRadioButton.setSelected(true);
+			}
+		}
 	}
 
 	@FXML
@@ -1022,8 +1081,12 @@ public class MainControllerGUI {
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == buttonTypeOne) {
 				addCompanyWindow(event);
+				mainAccordion.setExpandedPane(administrationTitledPane);
+				addCompanyRadioButton.setSelected(true);
 			} else if (result.get() == buttonTypeTwo) {
 				changeCompanyWindow();
+				mainAccordion.setExpandedPane(administrationTitledPane);
+				changeCompanyRadioButton.setSelected(true);
 			}
 
 		}
@@ -1055,8 +1118,12 @@ public class MainControllerGUI {
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == buttonTypeOne) {
 				addCompanyWindow(event);
+				mainAccordion.setExpandedPane(administrationTitledPane);
+				addCompanyRadioButton.setSelected(true);
 			} else if (result.get() == buttonTypeTwo) {
 				changeCompanyWindow();
+				mainAccordion.setExpandedPane(administrationTitledPane);
+				changeCompanyRadioButton.setSelected(true);
 			}
 
 		}
@@ -1089,8 +1156,12 @@ public class MainControllerGUI {
 			Optional<ButtonType> result = alert.showAndWait();
 			if (result.get() == buttonTypeOne) {
 				addCompanyWindow(event);
+				mainAccordion.setExpandedPane(administrationTitledPane);
+				addCompanyRadioButton.setSelected(true);
 			} else if (result.get() == buttonTypeTwo) {
 				changeCompanyWindow();
+				mainAccordion.setExpandedPane(administrationTitledPane);
+				changeCompanyRadioButton.setSelected(true);
 			}
 
 		}
@@ -1695,7 +1766,24 @@ public class MainControllerGUI {
 			alert.setHeaderText("Campos vacios");
 			alert.setContentText("Verifique que todos los campos este llenos!");
 			alert.showAndWait();
-		}
 
-	}
+    	}
+    		
+    }
+    
+    //MAIN WINDOW FIX
+    @FXML
+    private ToggleGroup mainToggleGroup;
+    
+    @FXML
+    private TitledPane administrationTitledPane;
+    
+    @FXML
+    private RadioButton addCompanyRadioButton;
+
+    @FXML
+    private RadioButton changeCompanyRadioButton;
+    
+    @FXML
+    private Accordion mainAccordion;
 }
