@@ -13,6 +13,8 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -22,44 +24,22 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="mainVBox" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
         <Menu mnemonicParsing="false" text="Archivo">
           <items>
-            <MenuItem mnemonicParsing="false" text="New" />
-            <MenuItem mnemonicParsing="false" text="Open…" />
-            <Menu mnemonicParsing="false" text="Open Recent" />
+            <MenuItem mnemonicParsing="false" onAction="#resetData" text="Reiniciar toda la informacion" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Close" />
-            <MenuItem mnemonicParsing="false" text="Save" />
-            <MenuItem mnemonicParsing="false" text="Save As…" />
-            <MenuItem mnemonicParsing="false" text="Revert" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Preferences…" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
+            <MenuItem mnemonicParsing="false" onAction="#exitApp" text="Salir" />
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Editar">
+        <Menu mnemonicParsing="false" text="Info">
           <items>
-            <MenuItem mnemonicParsing="false" text="Undo" />
-            <MenuItem mnemonicParsing="false" text="Redo" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Cut" />
-            <MenuItem mnemonicParsing="false" text="Copy" />
-            <MenuItem mnemonicParsing="false" text="Paste" />
-            <MenuItem mnemonicParsing="false" text="Delete" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Select All" />
-            <MenuItem mnemonicParsing="false" text="Unselect All" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Ayuda">
-          <items>
-            <MenuItem mnemonicParsing="false" onAction="#showCredits" text="About" />
+            <MenuItem mnemonicParsing="false" onAction="#showCredits" text="Creditos" />
           </items>
         </Menu>
       </menus>
@@ -144,20 +124,27 @@
           <content>
             <AnchorPane id="Content" fx:id="mainPane" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="439.0">
               <children>
-                <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="525.0" prefWidth="380.0" style="&#10;" text="Bienvenido" textAlignment="CENTER" wrapText="false">
+                <Label alignment="CENTER" layoutX="168.0" layoutY="26.0" style="&#10;" text="Bienvenido" textAlignment="CENTER" wrapText="false">
                            <font>
-                      <Font size="18.0" fx:id="x1" />
+                      <Font size="21.0" fx:id="x1" />
+                           </font></Label>
+                        <Text fx:id="infoTextLoading" fontSmoothingType="LCD" layoutX="41.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cargando archivos de la sesión anterior, por favor espere." textAlignment="CENTER" wrappingWidth="358.0">
+                           <font>
+                              <Font size="24.0" />
                            </font>
-                           <textFill>
-                      <Color blue="0.624" green="0.624" red="0.624" fx:id="x2" />
-                           </textFill></Label>
+                        </Text>
+                        <ImageView fx:id="loadingIcon" fitHeight="237.0" fitWidth="353.0" layoutX="98.0" layoutY="237.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@loadingIcon.png" />
+                           </image>
+                        </ImageView>
               </children>
             </AnchorPane>
           </content>
         </ScrollPane>
         <AnchorPane fx:id="detailsPane">
           <children>
-            <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" prefHeight="10.0" prefWidth="190.0" style="&#10;" text="Detalles" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+            <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" prefHeight="10.0" prefWidth="190.0" style="&#10;" text="Detalles" textAlignment="CENTER" wrapText="false" />
                   <Pane layoutY="399.0" prefHeight="150.0" prefWidth="222.0">
                      <children>
                         <Label layoutX="22.0" layoutY="14.0" text="Recuento:">

@@ -29,6 +29,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TableColumn;
@@ -38,13 +39,17 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import model.*;
-import thread.ThreadOne;
+import thread.*;
 
 public class MainControllerGUI {
 
@@ -244,6 +249,9 @@ public class MainControllerGUI {
 	@FXML
 	private Button removeEmployeeButton;
 
+	@FXML
+	private ImageView loadingIcon;
+
 	private LocalDateTime locaDate = LocalDateTime.now();
 
 	/**
@@ -258,7 +266,25 @@ public class MainControllerGUI {
 	public void initialize() {
 
 		new ThreadOne(this).start();
+		new ThreadTwo(this, theHolding).start();
 
+	}
+
+	public void loadingDataAnimation() {
+		loadingIcon.setRotate(loadingIcon.getRotate() + 0.5);
+	}
+
+	@FXML
+	void resetData(ActionEvent event) {
+
+	}
+
+	@FXML
+	private Text infoTextLoading;
+
+	public void cleanLoadingInfo() {
+		loadingIcon.setVisible(false);
+		infoTextLoading.setText("Todo cargado.\n\nListo para empezar");
 	}
 
 	public void ccObject() throws WithoutCurrentCompanyException {
@@ -1809,4 +1835,15 @@ public class MainControllerGUI {
 
 	@FXML
 	private Accordion mainAccordion;
+
+	@FXML
+	private VBox mainVBox;
+
+	@FXML
+	void exitApp(ActionEvent event) {
+
+		Stage stage = (Stage) mainVBox.getScene().getWindow();
+		stage.close();
+
+	}
 }
