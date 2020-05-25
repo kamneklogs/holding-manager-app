@@ -18,7 +18,6 @@ public class Company {
 	private double outcome;
 	private double taxes;
 	private double value;
-	private int branchOffices;
 
 	private Employee firstEmployee;// Binary search tree
 	private LegalRepresentative legalRepresentative;// Direct relation
@@ -786,14 +785,6 @@ public class Company {
 
 	public BranchOffice getFirstBranchOffice() {
 		return firstBranchOffice;
-	}
-
-	public int getBranchOffices() {
-		return branchOffices;
-	}
-
-	public void setBranchOffices(int branchOffices) {
-		this.branchOffices = branchOffices;
 	}
 	
 	public ArrayList<BranchOffice> branchOfficesToArrayList(){

@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import customExceptions.BranchOfficeNotFoundException;
 import customExceptions.ContractNotFoundException;
 import customExceptions.EmployeeNotFoundException;
 import customExceptions.WithoutCurrentCompanyException;
@@ -792,6 +793,7 @@ public class MainControllerGUI {
 				} else if (newBranchOfficeSimpleType.isSelected()) {
 					b = false;
 				} else {
+
 					throw new Exception();
 				}
 
@@ -803,7 +805,6 @@ public class MainControllerGUI {
 			}
 
 		} catch (Exception e) {
-
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Error");
 			alert.setHeaderText("Parametros incompletos");
@@ -847,6 +848,15 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	private TextField idBranchOfficeToRemove;
+
+	@FXML
+	private Button removeBranchOfficeButton;
+
+	@FXML
+	private Label infoBranchOfficeToRemove;
+
+	@FXML
 	void removeBranchOfficeWindow(ActionEvent event) throws IOException {
 
 		try {
@@ -877,6 +887,51 @@ public class MainControllerGUI {
 			}
 
 		}
+	}
+
+	@FXML
+	void searchBranchOfficeToRemove(ActionEvent event) {
+		try {
+			if (idBranchOfficeToRemove.getText() != "") {
+				if (theHolding.getCurrentCompany().findBranchOffice(idBranchOfficeToRemove.getText()) != null) {
+
+					infoBranchOfficeToRemove.setText("Sede encontrada!\n\nID: "
+							+ theHolding.getCurrentCompany().findBranchOffice(idBranchOfficeToRemove.getText()).getId()
+							+ "\nCiudad: " + theHolding.getCurrentCompany()
+									.findBranchOffice(idBranchOfficeToRemove.getText()).getCity());
+					removeBranchOfficeButton.setDisable(true);
+
+				} else {
+					throw new BranchOfficeNotFoundException(idBranchOfficeToRemove.getText());
+				}
+			} else {
+				throw new Exception();
+			}
+		} catch (BranchOfficeNotFoundException e) {
+
+			infoBranchOfficeToRemove.setVisible(true);
+
+		} catch (Exception e) {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Advertencia");
+			alert.setHeaderText("Advertencia");
+			alert.setContentText("Parametros incompletos, revise e intente nuevamene");
+
+			alert.showAndWait();
+		}
+	}
+
+	@FXML
+	void removeBranchOffice(ActionEvent event) throws BranchOfficeNotFoundException, IOException {
+		theHolding.getCurrentCompany().removeBranchOffice(idBranchOfficeToRemove.getText());
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Confirmacion");
+		alert.setHeaderText("Proceso exitoso");
+		alert.setContentText("La oficiona con ID " + idBranchOfficeToRemove.getText() + " fue eliminada exitosamente.");
+
+		alert.showAndWait();
+
+		removeBranchOfficeWindow(event);
 	}
 
 	@FXML
