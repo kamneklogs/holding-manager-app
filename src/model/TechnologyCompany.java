@@ -20,7 +20,7 @@ public class TechnologyCompany extends Company implements TechnologyTaxRelief {
     
     @Override
     public void substractTaxes() {
-
+    	setTaxes(getTaxes()*(1-TECHNOLOGY_TAX_RELIEF));		
     }
 
 }
