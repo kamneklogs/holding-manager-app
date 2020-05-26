@@ -8,7 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Random;
+//import java.util.Random;
 
 import customExceptions.BranchOfficeAlreadyExistException;
 import customExceptions.BranchOfficeNotFoundException;
@@ -83,8 +83,7 @@ public class Company {
 			
 			current = firstContract;
 
-			while (current.getNextContract() != null) {
-				System.out.println("addwhile");
+			while (current.getNextContract() != null) {				
 				current = current.getNextContract();
 
 			}
@@ -164,12 +163,10 @@ public class Company {
 			int mid = middleLength;
 			int high = length;
 
-			while (low <= high) {
-				System.out.println("find while2");
+			while (low <= high) {				
 				mid = (low + high) / 2;
 				for (int i = low; i < mid; i++) {
-					middleContract = middleContract.getNextContract();
-					System.out.println("find while3");
+					middleContract = middleContract.getNextContract();					
 				}
 
 				if (id.compareTo(middleContract.getId()) == 0) {
@@ -322,11 +319,12 @@ public class Company {
 	 */
 	public BranchOffice findBranchOffice(String id) {
 
-		if (new Random().nextInt() > 0) {
+		/*if (new Random().nextInt() > 0) {
 			insertionSortBranchOffices();
 		} else {
 			selectionSortBranchOffices();
-		}
+		}*/
+		insertionSortBranchOffices();
 
 		if (firstBranchOffice == null) {
 			return null;
@@ -336,7 +334,7 @@ public class Company {
 
 			while (current.getNextOffice() != null) {
 				length++;
-				current.getNextOffice();
+				current = current.getNextOffice();
 			}
 
 			int middleLength = length / 2;
@@ -370,37 +368,43 @@ public class Company {
 	public void insertionSortBranchOffices() {
 		if (firstBranchOffice != null && firstBranchOffice.getNextOffice() != null) {
 			BranchOffice current = firstBranchOffice;
-			while (current.getNextOffice() != null) {
+			while (current != null) {				
 				BranchOffice toInsert = current;
 				BranchOffice next = current.getNextOffice();
 				BranchOffice temp = current;
-				while (temp.getPreOffice() != null && temp.compareTo(temp.getPreOffice()) < 0) {
+				
+				while (temp.getPreOffice() != null && toInsert.compareTo(temp.getPreOffice()) < 0) {					
 					temp = temp.getPreOffice();
 				}
-
-				if (temp == firstBranchOffice) {
-					if (toInsert.getNextOffice() == null) {
-						toInsert.getPreOffice().setNextOffice(null);
-					} else {
-						toInsert.getPreOffice().setNextOffice(toInsert.getNextOffice());
-						toInsert.getNextOffice().setPreOffice(toInsert.getPreOffice());
+				if(toInsert != firstBranchOffice && temp != current) {
+					if (temp == firstBranchOffice) {
+						if (toInsert.getNextOffice() == null) {
+							toInsert.getPreOffice().setNextOffice(null);
+						}
+						else {
+							toInsert.getPreOffice().setNextOffice(toInsert.getNextOffice());
+							toInsert.getNextOffice().setPreOffice(toInsert.getPreOffice());												
+						}
+						toInsert.setPreOffice(null);
+						toInsert.setNextOffice(firstBranchOffice);
+						firstBranchOffice.setPreOffice(toInsert);
+	
+						firstBranchOffice = toInsert;
 					}
-					toInsert.setPreOffice(null);
-					toInsert.setNextOffice(firstBranchOffice);
-					firstBranchOffice.setPreOffice(toInsert);
-
-					firstBranchOffice = toInsert;
-				} else {
-					if (toInsert.getNextOffice() == null) {
-						toInsert.getPreOffice().setNextOffice(null);
-					} else {
-						toInsert.getPreOffice().setNextOffice(toInsert.getNextOffice());
-						toInsert.getNextOffice().setPreOffice(toInsert.getPreOffice());
+					else {
+						if (toInsert.getNextOffice() == null) {
+							toInsert.getPreOffice().setNextOffice(null);
+						}
+						else {						
+							toInsert.getPreOffice().setNextOffice(toInsert.getNextOffice());
+							toInsert.getNextOffice().setPreOffice(toInsert.getPreOffice());
+							
+						}
+						toInsert.setPreOffice(temp.getPreOffice());
+						toInsert.setNextOffice(temp);
+						temp.setPreOffice(toInsert);
+						toInsert.getPreOffice().setNextOffice(toInsert);
 					}
-					toInsert.setPreOffice(temp.getPreOffice());
-					toInsert.setNextOffice(temp);
-					temp.setPreOffice(toInsert);
-					toInsert.getPreOffice().setNextOffice(toInsert);
 				}
 				current = next;
 			}
@@ -413,13 +417,14 @@ public class Company {
 	public void selectionSortBranchOffices() {
 		if (firstBranchOffice != null && firstBranchOffice.getNextOffice() != null) {
 			BranchOffice current = firstBranchOffice;
-			while (current.getNextOffice() != null) {
+			while (current.getNextOffice() != null) {				
 				BranchOffice min = current;
 				BranchOffice temp = current;
-				while (temp.getNextOffice() != null) {
+				while (temp != null) {					
 					if (temp.compareTo(min) < 0) {
 						min = temp;
 					}
+					temp = temp.getNextOffice();
 				}
 
 				if (min != current) {
@@ -435,7 +440,8 @@ public class Company {
 							current.setNextOffice(null);
 
 							firstBranchOffice = min;
-						} else {
+						} 
+						else {
 							current.getPreOffice().setNextOffice(min);
 							current.getNextOffice().setPreOffice(min);
 							min.getPreOffice().setNextOffice(current);
@@ -446,31 +452,33 @@ public class Company {
 
 							current.setNextOffice(null);
 						}
-					} else {
+					} 
+					else {
 						if (current == firstBranchOffice) {
 							current.getNextOffice().setPreOffice(min);
 							min.getPreOffice().setNextOffice(current);
 							min.getNextOffice().setPreOffice(current);
-
+							
 							BranchOffice minNextOffice = min.getNextOffice();
 							min.setNextOffice(current.getNextOffice());
 							current.setNextOffice(minNextOffice);
-
+							
 							BranchOffice minPreOffice = min.getPreOffice();
 							min.setPreOffice(null);
 							current.setPreOffice(minPreOffice);
-
+	
 							firstBranchOffice = min;
-						} else {
+						} 
+						else {
 							current.getPreOffice().setNextOffice(min);
 							current.getNextOffice().setPreOffice(min);
 							min.getPreOffice().setNextOffice(current);
 							min.getNextOffice().setPreOffice(current);
-
+	
 							BranchOffice minNextOffice = min.getNextOffice();
 							min.setNextOffice(current.getNextOffice());
 							current.setNextOffice(minNextOffice);
-
+	
 							BranchOffice minPreOffice = min.getPreOffice();
 							min.setPreOffice(current.getPreOffice());
 							current.setPreOffice(minPreOffice);
