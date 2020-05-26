@@ -51,7 +51,9 @@ public class Company {
 		this.taxes = taxes;
 		this.value = value;
 		
-		new File("data/companies/" + nit + "").mkdir();				
+		new File("data/companies").mkdir();		
+		new File("data/companies/" + nit).mkdir();		
+		
 		try {
 			updateSave();
 		} 
@@ -78,10 +80,11 @@ public class Company {
 			firstContract = newContract;
 
 		} else if (findContract(newContract.getId()) == null) {
+			
 			current = firstContract;
 
 			while (current.getNextContract() != null) {
-
+				System.out.println("addwhile");
 				current = current.getNextContract();
 
 			}
@@ -142,16 +145,16 @@ public class Company {
 	 * @return Found contract, null if not found
 	 */
 	public Contract findContract(String id) {
-		bubbleSortContracts();
+		bubbleSortContracts();		
 		if (firstContract == null) {
 			return null;
 		} else {
-			int length = 1;
+			int length = 0;
 			Contract current = firstContract;
 
-			while (current.getNextContract() != null) {
+			while (current != null) {				
 				length++;
-				current.getNextContract();
+				current = current.getNextContract();				
 			}
 
 			int middleLength = length / 2;
@@ -162,9 +165,11 @@ public class Company {
 			int high = length;
 
 			while (low <= high) {
+				System.out.println("find while2");
 				mid = (low + high) / 2;
 				for (int i = low; i < mid; i++) {
 					middleContract = middleContract.getNextContract();
+					System.out.println("find while3");
 				}
 
 				if (id.compareTo(middleContract.getId()) == 0) {
@@ -183,15 +188,16 @@ public class Company {
 	 * Sorts contracts using id as criteria.
 	 */
 	public void bubbleSortContracts() {
-		if (firstContract != null && firstContract.getNextContract() != null) {
+		
+		if (firstContract != null && firstContract.getNextContract() != null) {			
 			boolean exchange = true;
-			while (exchange) {
+			while (exchange) {					
 				exchange = false;
 				Contract prev = null;
 				Contract current = firstContract;
 				Contract next = firstContract.getNextContract();
-				while (current.getNextContract() != null) {
-					if (current.compareTo(current.getNextContract()) > 0) {
+				while (current.getNextContract() != null) {					
+					if (current.compareTo(current.getNextContract()) > 0) {						
 						if (current == firstContract) {
 							if (next.getNextContract() == null) {
 								next.setNextContract(current);
@@ -226,12 +232,11 @@ public class Company {
 							next.getNextContract().setPreContract(current);
 							next.setNextContract(current);
 						}
-						prev = current;
-						current = next;
-						next = next.getNextContract();
-
 						exchange = true;
 					}
+					prev = current;
+					current = next;
+					next = next.getNextContract();
 				}
 			}
 		}
@@ -895,6 +900,23 @@ public class Company {
 
 	public void setFirstContract(Contract firstContract) {
 		this.firstContract = firstContract;
+	}
+
+	public void deleteSave() {
+		File file = new File("data/companies/" + nit + "/attributes.txt");
+		file.delete();
+		
+		file = new File("data/companies/" + nit +"/employees.dat");
+		file.delete();
+		
+		file = new File("data/companies/" + nit +"/contracts.dat");
+		file.delete();
+		
+		file = new File("data/companies/" + nit +"/branch_offices.dat");
+		file.delete();
+		
+		file = new File("data/companies/" + nit);
+		file.delete();
 	}
 	
 }
