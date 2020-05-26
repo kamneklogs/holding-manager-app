@@ -62,6 +62,15 @@ public class Holding {
 		stateCharge = true;
 	}
 
+	public Holding(String n, double v, boolean b) {
+		name = n;
+		value = v;
+		totalTCompanies = 0;
+		totalFCompanies = 0;
+		totalECompanies = 0;
+
+	}
+
 	/**
 	 * 
 	 * @param c
@@ -69,15 +78,16 @@ public class Holding {
 	public void addCompany(Company c) {
 		if (firstCompany == null) {
 			firstCompany = c;
+
 		} else {
 			addCompany(firstCompany, c);
-		}		
+		}
 		try {
-			if(stateCharge) {
+			if (stateCharge) {
 				value += c.getValue();
 				addNitToFile(c.getNit());
 				c.updateSave();
-			}						
+			}
 		} catch (IOException e) {
 			// SHOULD NOT GET IN HERE
 		}
@@ -153,15 +163,19 @@ public class Holding {
 	 * @param nit
 	 */
 	public void sellCompany(String nit, double value) {
-		this.value += value - searchCompany(nit).getValue();
-		Company c = searchCompany(nit);
-		removeCompany(c);
-		c.deleteSave();
-		try {
-			removeNitFromFile(nit);			
-		} catch (IOException e) {
-			// SHOULD NOT GET IN HERE
+		if (searchCompany(nit) != null) {
+			this.value += value - searchCompany(nit).getValue();
+			System.out.println();
+			Company c = searchCompany(nit);
+			removeCompany(c);
+			c.deleteSave();
+			try {
+				removeNitFromFile(nit);
+			} catch (IOException e) {
+				// SHOULD NOT GET IN HERE
+			}
 		}
+
 	}
 
 	/**
@@ -169,6 +183,7 @@ public class Holding {
 	 * @param toRemove
 	 */
 	public void removeCompany(Company toRemove) {
+		System.out.println(toRemove.getName());
 		if (toRemove != null) {
 			if (toRemove.getRight() == null && toRemove.getLeft() == null) {
 				if (toRemove == firstCompany) {
@@ -219,11 +234,13 @@ public class Holding {
 				current.getRight().setFather(current);
 				current.getLeft().setFather(current);
 
-				if (toRemove.getFather().getRight() == toRemove) {
-					current.getFather().setRight(current);
+				if (toRemove.getFather() != null) {
+					if (toRemove.getFather().getRight() == toRemove) {
+						current.getFather().setRight(current);
 
-				} else {
-					current.getFather().setLeft(current);
+					} else {
+						current.getFather().setLeft(current);
+					}
 				}
 
 				current = null;
@@ -433,8 +450,10 @@ public class Holding {
 
 			BufferedReader br2 = new BufferedReader(new FileReader("data/companies/" + nit + "/attributes.txt"));
 
-			String name = br2.readLine();System.out.println(name);
-			nit = br2.readLine();System.out.println(nit);
+			String name = br2.readLine();
+			System.out.println(name);
+			nit = br2.readLine();
+			System.out.println(nit);
 			double income = Double.parseDouble(br2.readLine());
 			double outcome = Double.parseDouble(br2.readLine());
 			double taxes = Double.parseDouble(br2.readLine());
