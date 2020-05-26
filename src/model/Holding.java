@@ -165,7 +165,7 @@ public class Holding {
 	public void sellCompany(String nit, double value) {
 		if (searchCompany(nit) != null) {
 			this.value += value - searchCompany(nit).getValue();
-			System.out.println();
+			
 			Company c = searchCompany(nit);
 			removeCompany(c);
 			c.deleteSave();
@@ -183,7 +183,7 @@ public class Holding {
 	 * @param toRemove
 	 */
 	public void removeCompany(Company toRemove) {
-		System.out.println(toRemove.getName());
+		
 		if (toRemove != null) {
 			if (toRemove.getRight() == null && toRemove.getLeft() == null) {
 				if (toRemove == firstCompany) {
@@ -451,9 +451,9 @@ public class Holding {
 			BufferedReader br2 = new BufferedReader(new FileReader("data/companies/" + nit + "/attributes.txt"));
 
 			String name = br2.readLine();
-			System.out.println(name);
+			
 			nit = br2.readLine();
-			System.out.println(nit);
+			
 			double income = Double.parseDouble(br2.readLine());
 			double outcome = Double.parseDouble(br2.readLine());
 			double taxes = Double.parseDouble(br2.readLine());
