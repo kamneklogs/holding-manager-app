@@ -58,10 +58,9 @@
             <Button mnemonicParsing="false" onAction="#contractsGenerateReport" text="Generar" />
             <TableView fx:id="contractsTableView" prefHeight="295.0" prefWidth="430.0">
               <columns>
-                <TableColumn fx:id="contractNameColumn" prefWidth="95.0" text="Nombre" />
-                <TableColumn fx:id="contractIdColumn" prefWidth="98.0" text="ID" />
-                  <TableColumn fx:id="contractStartDateColumn" prefWidth="105.0" text="Fecha de Inicio" />
-                  <TableColumn fx:id="contractEndDateColumn" prefWidth="131.0" text="Fecha de Finalización" />
+                <TableColumn fx:id="contractIdColumn" prefWidth="123.0" text="ID" />
+                  <TableColumn fx:id="contractStartDateColumn" prefWidth="150.0" text="Fecha de Inicio" />
+                  <TableColumn fx:id="contractEndDateColumn" prefWidth="156.0" text="Fecha de Finalización" />
               </columns>
             </TableView>
          </children>

@@ -1580,10 +1580,7 @@ public class MainControllerGUI {
 	private CheckBox contractsScreenCheckBox;
 
 	@FXML
-	private TableView<Contract> contractsTableView;
-
-	@FXML
-	private TableColumn<Contract, String> contractNameColumn;
+	private TableView<Contract> contractsTableView;	
 
 	@FXML
 	private TableColumn<Contract, String> contractIdColumn;
@@ -1641,8 +1638,7 @@ public class MainControllerGUI {
 							contractsScreenCheckBox.isSelected());
 					if (contractsScreenCheckBox.isSelected()) {
 						contractsTableView.setItems(observableContracts);
-
-						contractNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+						
 						contractIdColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
 						contractStartDateColumn.setCellValueFactory(new PropertyValueFactory<>("startDate"));
 						contractEndDateColumn.setCellValueFactory(new PropertyValueFactory<>("finishDate"));

@@ -17,7 +17,7 @@
       </Label>
       <TextField fx:id="idForSearchBranchOffice" layoutX="103.0" layoutY="136.0" />
       <Button layoutX="274.0" layoutY="136.0" mnemonicParsing="false" onAction="#runSearchBrandOffice" text="Buscar" />
-      <Label layoutX="65.0" layoutY="141.0" text="ID:" />
+      <Label layoutX="65.0" layoutY="141.0" prefHeight="17.0" prefWidth="24.0" text="ID:" />
       <Label fx:id="addressForSearchBrand" layoutX="171.0" layoutY="273.0" />
       <Label fx:id="idForSearchBrand" layoutX="171.0" layoutY="328.0" />
    </children>

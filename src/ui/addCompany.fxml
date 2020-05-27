@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="430.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="545.0" prefWidth="430.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Pane prefHeight="62.0" prefWidth="430.0">
          <children>
@@ -80,7 +80,7 @@
                         <ToggleGroup fx:id="newCompanyTypeToggleGroup" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="tecnologiaTypeRadioButton" mnemonicParsing="false" text="Tecnologia" toggleGroup="$newCompanyTypeToggleGroup">
+                  <RadioButton fx:id="tecnologiaTypeRadioButton" mnemonicParsing="false" text="Tecnología" toggleGroup="$newCompanyTypeToggleGroup">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
