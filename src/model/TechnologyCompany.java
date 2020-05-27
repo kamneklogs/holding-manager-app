@@ -33,10 +33,17 @@ public class TechnologyCompany extends Company implements TechnologyTaxRelief {
 	}
     
     @Override
+    /**
+     * 
+     */
     public void substractTaxes() {
     	setTaxes(getTaxes()*(1-TECHNOLOGY_TAX_RELIEF));		
     }
     
+    /**
+     * 
+     * @throws IOException
+     */
     public void updateSave() throws IOException {	
 		super.updateSave();
 		BufferedWriter bw = new BufferedWriter(new FileWriter("data/companies/" + getNit() +"/attributes.txt"));

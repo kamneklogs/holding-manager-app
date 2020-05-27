@@ -7,11 +7,20 @@ import java.util.Arrays;
 
 public class EmployeeReportGeneral extends Report {
 
+	/**
+	 * 
+	 * @param toCsv
+	 * @param toTxt
+	 * @param company
+	 */
     public EmployeeReportGeneral(boolean toCsv, boolean toTxt, Company company) {
 		super(toCsv, toTxt, company);		
 	}
     
 	@Override
+	/**
+	 * 
+	 */
 	public String generateReport() {
 		Employee employee = getCompany().getFirstEmployee();
 		if(employee != null){

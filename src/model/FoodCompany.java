@@ -33,10 +33,17 @@ public class FoodCompany extends Company implements FoodTaxRelief {
 	}
 
 	@Override
+	/**
+	 * 
+	 */
 	public void substractTaxes() {
 		setTaxes(getTaxes()*(1-FOOD_TAX_RELIEF));			
 	}
 	
+	/**
+	 * 
+	 * @throws IOException
+	 */
 	public void updateSave() throws IOException {	
 		super.updateSave();
 		BufferedWriter bw = new BufferedWriter(new FileWriter("data/companies/" + getNit() +"/attributes.txt"));

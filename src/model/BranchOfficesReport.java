@@ -5,12 +5,21 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class BranchOfficesReport extends Report {
-
+	
+	/**
+	 * 
+	 * @param toCsv
+	 * @param toTxt
+	 * @param company
+	 */
 	public BranchOfficesReport(boolean toCsv, boolean toTxt, Company company) {
 		super(toCsv, toTxt, company);		
 	}
 
 	@Override
+	/**
+	 * 
+	 */
 	public String generateReport() {
 		if(getCompany().getFirstBranchOffice() != null) {
 			String report = "";

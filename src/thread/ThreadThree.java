@@ -20,6 +20,9 @@ public class ThreadThree extends Thread {
     }
 
     @Override
+    /**
+     * 
+     */
     public void run() {
 
         while (!theHolding.isStateCharge()) {

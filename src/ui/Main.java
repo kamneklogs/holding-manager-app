@@ -14,6 +14,10 @@ public class Main extends Application {
 	private Holding theHolding;
 	private MainControllerGUI theMainControllerGUI;
 
+	/**
+	 * 
+	 * @throws IOException
+	 */
 	public Main() throws IOException {
 	
 		theHolding = new Holding(Holding.NAME, 12000000);
@@ -21,6 +25,10 @@ public class Main extends Application {
 
 	}
 
+	/**
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 
 		launch(args);
@@ -28,6 +36,9 @@ public class Main extends Application {
 	}
 
 	@Override
+	/**
+	 * 
+	 */
 	public void start(Stage primaryStage) throws Exception {
 
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("mainWindow.fxml"));

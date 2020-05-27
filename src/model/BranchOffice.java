@@ -73,33 +73,36 @@ public class BranchOffice implements Comparable<BranchOffice>, Serializable {
     }
 
     /**
-     * @return the right
+     * @return preOffice
      */
     public BranchOffice getPreOffice() {
         return preOffice;
     }
 
     /**
-     * @param right the right to set
+     * @param preOffice the new previous office to set
      */
-    public void setPreOffice(BranchOffice right) {
-        this.preOffice = right;
+    public void setPreOffice(BranchOffice preOffice) {
+        this.preOffice = preOffice;
     }
 
     /**
-     * @return the left
+     * @return the next office
      */
     public BranchOffice getNextOffice() {
         return nextOffice;
     }
 
     /**
-     * @param left the left to set
+     * @param nextOffice the next office to set
      */
-    public void setNextOffice(BranchOffice left) {
-        this.nextOffice = left;
+    public void setNextOffice(BranchOffice nextOffice) {
+        this.nextOffice = nextOffice;
     }
 
+    /**
+     * 
+     */
     public int compareTo(BranchOffice anotherBranchOffice) {
         if (id.compareTo(anotherBranchOffice.id) > 0) {
             return 1;
@@ -109,7 +112,11 @@ public class BranchOffice implements Comparable<BranchOffice>, Serializable {
             return 0;
         }
     }
-
+    
+    /**
+     * 
+     * @param eResponsable the new responsable employee
+     */
 	public void setResponsableEmployee(Employee eResponsable) {
 		this.responsableEmployee = eResponsable;
 		

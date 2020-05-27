@@ -9,11 +9,21 @@ public class EmployeeReportDetailed extends Report {
 	
 	private String id;
 
+	/**
+	 * 
+	 * @param toCsv
+	 * @param toTxt
+	 * @param company
+	 * @param id
+	 */
 	public EmployeeReportDetailed(boolean toCsv, boolean toTxt, Company company, String id) {
 		super(toCsv, toTxt, company);		
 	}
     
 	@Override
+	/**
+	 * 
+	 */
 	public String generateReport() {
 		Employee employee = getCompany().findEmployee(id);
 		if(employee != null) {

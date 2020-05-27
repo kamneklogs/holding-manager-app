@@ -9,11 +9,21 @@ import java.util.ArrayList;
 public class ContractReportDetailed extends Report {
 	private String id;
 
+	/**
+	 * 
+	 * @param toCsv
+	 * @param toTxt
+	 * @param company
+	 * @param id
+	 */
 	public ContractReportDetailed(boolean toCsv, boolean toTxt, Company company, String id) {
 		super(toCsv, toTxt, company);
 	}
 
 	@Override
+	/**
+	 * 
+	 */
 	public String generateReport() {
 		if (getCompany().findContract(id) != null) {
 			String report = "";

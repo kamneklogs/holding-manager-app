@@ -173,6 +173,12 @@ public class Company {
 		}
 	}
 	
+	/**
+	 * Return the middle contract given the start and end of the area to search, end should not be null.
+	 * @param start
+	 * @param end
+	 * @return the middle contract
+	 */
 	private Contract getMiddleContract(Contract start, Contract end) {		
 		if(start != null && start.getNextContract() != null) {
 			
@@ -200,6 +206,7 @@ public class Company {
 			return null;
 		}		
 	}
+	
 	/**
 	 * Sorts contracts using id as criteria.
 	 */
@@ -372,10 +379,10 @@ public class Company {
 	}
 	
 	/**
-	 * 
+	 * Return the middle contract given the start and end of the area to search, end should not be null.
 	 * @param start
 	 * @param end
-	 * @return
+	 * @return middle branch office
 	 */
 	private BranchOffice getMiddleBranchOffice(BranchOffice start, BranchOffice end) {		
 		if(start != null && start.getNextOffice() != null) {
@@ -897,6 +904,10 @@ public class Company {
 		return firstBranchOffice;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public ArrayList<BranchOffice> branchOfficesToArrayList(){
 		ArrayList<BranchOffice> offices = new ArrayList<>();
 		BranchOffice current = firstBranchOffice;
@@ -910,11 +921,21 @@ public class Company {
 		
 		return offices;
 	}
-
+	
+	/**
+	 * 
+	 * @return
+	 */
 	public ArrayList<Employee> employeesToArrayList() {
 		return employeesToArrayListRecursive(firstEmployee, new ArrayList<Employee>());
 	}
-	
+		
+	/**
+	 * 
+	 * @param employee
+	 * @param employeesList
+	 * @return
+	 */
 	private ArrayList<Employee> employeesToArrayListRecursive(Employee employee, ArrayList<Employee> employeesList) {
 		if(employee == null) {
 			return employeesList;
@@ -927,6 +948,10 @@ public class Company {
 		}		
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public ArrayList<Contract> contractsToArrayList() {
 		ArrayList<Contract> contracts = new ArrayList<>();
 		Contract current = firstContract;
@@ -939,19 +964,36 @@ public class Company {
 		}
 		return contracts;
 	}
-
+	
+	/**
+	 * 
+	 * @param income
+	 */
 	public void setIncome(double income) {
 		this.income = income;
 	}
-
+	
+	/**
+	 * 
+	 * @param outcome
+	 */
 	public void setOutcome(double outcome) {
 		this.outcome = outcome;
 	}
 
+	/**
+	 * 
+	 * @param taxes
+	 */
 	public void setTaxes(double taxes) {
 		this.taxes = taxes;
 	}
 	
+	/**
+	 * 
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
 	public void updateSave() throws FileNotFoundException, IOException {		
 		BufferedWriter bw = new BufferedWriter(new FileWriter("data/companies/" + nit +"/attributes.txt"));
 		bw.write(name + "\n" + nit + "\n" + income + "\n" + outcome + "\n" + taxes + "\n" + value);
@@ -969,23 +1011,42 @@ public class Company {
 		oos.writeObject(firstBranchOffice);
 		oos.close();
 	}
-
+	
+	/**
+	 * 
+	 * @param firstEmployee
+	 */
 	public void setFirstEmployee(Employee firstEmployee) {
 		this.firstEmployee = firstEmployee;		
 	}
 
+	/**
+	 * 
+	 * @param legalRepresentative
+	 */
 	public void setLegalRepresentative(LegalRepresentative legalRepresentative) {
 		this.legalRepresentative = legalRepresentative;		
 	}
 
+	/**
+	 * 
+	 * @param firstBranchOffice
+	 */
 	public void setFirstBranchOffice(BranchOffice firstBranchOffice) {
 		this.firstBranchOffice = firstBranchOffice;		
 	}
-
+	
+	/**
+	 * 
+	 * @param firstContract
+	 */
 	public void setFirstContract(Contract firstContract) {
 		this.firstContract = firstContract;
 	}
-
+	
+	/**
+	 * 
+	 */
 	public void deleteSave() {
 		File file = new File("data/companies/" + nit + "/attributes.txt");
 		file.delete();

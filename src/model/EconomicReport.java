@@ -6,11 +6,20 @@ import java.io.IOException;
 
 public class EconomicReport extends Report {
 
+	/**
+	 * 
+	 * @param toCsv
+	 * @param toTxt
+	 * @param company
+	 */
     public EconomicReport(boolean toCsv, boolean toTxt, Company company) {
     	super(toCsv,toTxt,company);           
     }    
 
 	@Override
+	/**
+	 * 
+	 */
 	public String generateReport() {
 		String report = "";
 		Company currentCompany = getCompany();		

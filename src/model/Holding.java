@@ -63,6 +63,12 @@ public class Holding {
 		stateCharge = true;
 	}
 
+	/**
+	 * Created holding without saving its information, used only for testing purposes.
+	 * @param n
+	 * @param v
+	 * @param b
+	 */
 	public Holding(String n, double v, boolean b) {
 		name = n;
 		value = v;
@@ -358,6 +364,10 @@ public class Holding {
 		return new BranchOfficesReport(toCsv, toTxt, currentCompany).generateReport();
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public ArrayList<BranchOffice> getCurrentCompanyOffices() {
 		return currentCompany.branchOfficesToArrayList();
 	}
@@ -408,10 +418,18 @@ public class Holding {
 		return new ContractReportDetailed(toCsv, toTxt, currentCompany, id).generateReport();
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public ArrayList<Employee> getCurrentCompanyEmployees() {
 		return currentCompany.employeesToArrayList();
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public ArrayList<Contract> getCurrentCompanyContracts() {
 		return currentCompany.contractsToArrayList();
 	}
@@ -552,6 +570,11 @@ public class Holding {
 		}
 	}
 
+	/**
+	 * 
+	 * @param nit
+	 * @throws IOException
+	 */
 	private void addNitToFile(String nit) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader("data/companiesNIT.txt"));
 		ArrayList<String> nits = new ArrayList<>();
@@ -572,6 +595,11 @@ public class Holding {
 		br.close();
 	}
 
+	/**
+	 * 
+	 * @param nit
+	 * @throws IOException
+	 */
 	private void removeNitFromFile(String nit) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader("data/companiesNIT.txt"));
 		ArrayList<String> nits = new ArrayList<>();
@@ -632,30 +660,57 @@ public class Holding {
 		this.currentCompany = currentCompany;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public int getTotalTCompanies() {
 		return totalTCompanies;
 	}
 
+	/**
+	 * 
+	 * @param totalTCompanies
+	 */
 	public void setTotalTCompanies(int totalTCompanies) {
 		this.totalTCompanies = totalTCompanies;
 	}
-
+	/**
+	 * 
+	 * @return
+	 */
 	public int getTotalFCompanies() {
 		return totalFCompanies;
 	}
 
+	/**
+	 * 
+	 * @param totalFCompanies
+	 */
 	public void setTotalFCompanies(int totalFCompanies) {
 		this.totalFCompanies = totalFCompanies;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public int getTotalECompanies() {
 		return totalECompanies;
 	}
 
+	/**
+	 * 
+	 * @param totalECompanies
+	 */
 	public void setTotalECompanies(int totalECompanies) {
 		this.totalECompanies = totalECompanies;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean isStateCharge() {
 		return stateCharge;
 	}

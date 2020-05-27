@@ -6,10 +6,20 @@ import java.io.IOException;
 
 public class ContractReportGeneral extends Report {
 
+	/**
+	 * 
+	 * @param toCsv
+	 * @param toTxt
+	 * @param company
+	 */
 	public ContractReportGeneral(boolean toCsv, boolean toTxt, Company company) {
 		super(toCsv, toTxt, company);	
 	} 	  
+	
 	@Override
+	/**
+	 * 
+	 */
 	public String generateReport() {	
 		Contract contract = getCompany().getFirstContract();
 		if(contract != null) {

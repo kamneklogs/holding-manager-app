@@ -8,6 +8,16 @@ public class OcassionalWorkContract extends Contract {
 
 	public static final int MAX_RENEWALS = 2;
 
+	/**
+	 * 
+	 * @param id
+	 * @param description
+	 * @param clauses
+	 * @param amount
+	 * @param startDate
+	 * @param finishDate
+	 * @param radicationDate
+	 */
 	public OcassionalWorkContract(String id, String description, ArrayList<String> clauses, double amount,
 			LocalDate startDate, LocalDate finishDate, LocalDate radicationDate) {
 

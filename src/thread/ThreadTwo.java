@@ -20,6 +20,9 @@ public class ThreadTwo extends Thread {
     }
 
     @Override
+    /**
+     * 
+     */
     public void run() {
 
         while (!theHolding.isStateCharge()) {

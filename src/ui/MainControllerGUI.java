@@ -262,6 +262,9 @@ public class MainControllerGUI {
 
 	}
 
+	/**
+	 * 
+	 */
 	public void initialize() {
 
 		new ThreadOne(this).start();
@@ -270,11 +273,18 @@ public class MainControllerGUI {
 
 	}
 
+	/**
+	 * 
+	 */
 	public void loadingDataAnimation() {
 		loadingIcon.setRotate(loadingIcon.getRotate() + 0.5);
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 */
 	void resetData(ActionEvent event) {
 
 	}
@@ -282,11 +292,18 @@ public class MainControllerGUI {
 	@FXML
 	private Text infoTextLoading;
 
+	/**
+	 * 
+	 */
 	public void cleanLoadingInfo() {
 		loadingIcon.setVisible(false);
 		infoTextLoading.setText("Todo cargado.\n\nListo para empezar");
 	}
 
+	/**
+	 * 
+	 * @throws WithoutCurrentCompanyException
+	 */
 	public void ccObject() throws WithoutCurrentCompanyException {
 		if (theHolding.getCurrentCompany() == null) {
 			throw new WithoutCurrentCompanyException();
@@ -294,6 +311,10 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 */
 	void runSearchBrandOffice(ActionEvent event) {
 		BranchOffice branchOffice = theHolding.getCurrentCompany().findBranchOffice(idForSearchBranchOffice.getText());
 		if (branchOffice != null) {
@@ -310,6 +331,11 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	void addEmployeeWindow(ActionEvent event) throws IOException {
 
 		try {
@@ -349,21 +375,37 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 */
 	void jobEjecutive(ActionEvent event) {
 		jobNewEmpTF.setText("Ejecutivo");
 	}
-
+	
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 */
 	void jobOV(ActionEvent event) {
 		jobNewEmpTF.setText("Oficios Varios");
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 */
 	void jobOfficer(ActionEvent event) {
 		jobNewEmpTF.setText("Oficinista");
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 */
 	void saveNewEmployee(ActionEvent event) {
 		try {
 
@@ -433,6 +475,11 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	void removeEmployeeWindow(ActionEvent event) throws IOException {
 
 		try {
@@ -471,6 +518,10 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 */
 	void searchEmployeeToRemove(ActionEvent event) {
 		try {
 
@@ -518,6 +569,13 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 * @throws ContractNotFoundException
+	 * @throws EmployeeNotFoundException
+	 * @throws ImpossibleToRemoveEmployeeException
+	 */
 	void removeEmployee(ActionEvent event) throws ContractNotFoundException, EmployeeNotFoundException, ImpossibleToRemoveEmployeeException {
 
 		theHolding.removeContract(theHolding.findEmployee(idRemoveEmployee.getText()).getMyContract().getId());
@@ -526,6 +584,11 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	void addContractWindow(ActionEvent event) throws IOException {
 
 		try {
@@ -563,36 +626,64 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 */
 	void aprendizajeTypeContract(ActionEvent event) {
 		typeNewContract.setText(Contract.TYPES[4]);
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 */
 	void obraOLaborTypeContract(ActionEvent event) {
 		typeNewContract.setText(Contract.TYPES[2]);
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 */
 	void ocasionalTypeContract(ActionEvent event) {
 		typeNewContract.setText(Contract.TYPES[5]);
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 */
 	void prestacionSTypeContract(ActionEvent event) {
 		typeNewContract.setText(Contract.TYPES[3]);
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 */
 	void terminoFijoTypeContract(ActionEvent event) {
 		typeNewContract.setText(Contract.TYPES[1]);
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 */
 	void terminoIndefinidoTypeContract(ActionEvent event) {
 		typeNewContract.setText(Contract.TYPES[0]);
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 */
 	void saveClauseNewContract(ActionEvent event) {
 		if (clauses == null) {
 			clauses = new ArrayList<String>();
@@ -604,6 +695,10 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 */
 	void saveNewContract(ActionEvent event) {
 
 		try {
@@ -690,6 +785,10 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 */
 	void showCredits(ActionEvent event) {
 
 		Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -711,6 +810,11 @@ public class MainControllerGUI {
 	private Label infoContractToRemove;
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	void removeContractWindow(ActionEvent event) throws IOException {
 
 		try {
@@ -747,6 +851,10 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 */
 	void searchContractToRemove(ActionEvent event) {
 
 		try {
@@ -781,6 +889,12 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 * @throws ContractNotFoundException
+	 * @throws IOException
+	 */
 	void removeContract(ActionEvent event) throws ContractNotFoundException, IOException {
 		theHolding.getCurrentCompany().removeContract(idContractToRemove.getText());
 
@@ -795,6 +909,11 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	void addBranchOfficeWindow(ActionEvent event) throws IOException {
 
 		try {
@@ -832,6 +951,10 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 */
 	void saveBranchOfficeButton(ActionEvent event) {
 		try {
 
@@ -905,6 +1028,11 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	void searchBranchOfficeWindow(ActionEvent event) throws IOException {
 
 		try {
@@ -951,6 +1079,11 @@ public class MainControllerGUI {
 	private Label infoBranchOfficeToRemove;
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	void removeBranchOfficeWindow(ActionEvent event) throws IOException {
 
 		try {
@@ -988,6 +1121,10 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 */
 	void searchBranchOfficeToRemove(ActionEvent event) {
 		try {
 			if (idBranchOfficeToRemove.getText() != "") {
@@ -1020,6 +1157,12 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 * @throws BranchOfficeNotFoundException
+	 * @throws IOException
+	 */
 	void removeBranchOffice(ActionEvent event) throws BranchOfficeNotFoundException, IOException {
 		theHolding.getCurrentCompany().removeBranchOffice(idBranchOfficeToRemove.getText());
 		Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -1033,6 +1176,11 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	void branchOfficesReportWindow(ActionEvent event) throws IOException {
 
 		try {
@@ -1070,6 +1218,11 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	void reportEmployeesWindow(ActionEvent event) throws IOException {
 		try {
 			ccObject();
@@ -1105,6 +1258,11 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	void reportContractWindow(ActionEvent event) throws IOException {
 
 		try {
@@ -1142,6 +1300,11 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	void reportFinancialWindow(ActionEvent event) throws IOException {
 
 		try {
@@ -1179,6 +1342,11 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	void financialOptsWindow(ActionEvent event) throws IOException {
 
 		try {
@@ -1217,6 +1385,11 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	void addCompanyWindow(ActionEvent event) throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addCompany.fxml"));
 
@@ -1228,6 +1401,11 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	void saveNewCompany(ActionEvent event) throws IOException {
 
 		if (newCompanyTypeToggleGroup.getSelectedToggle() != null && newCompanyName.getText() != null
@@ -1302,6 +1480,9 @@ public class MainControllerGUI {
 
 	}
 
+	/**
+	 * 
+	 */
 	void updateCountCompanies() {
 		totalCompanies.setText(Integer.toString(
 				theHolding.getTotalECompanies() + theHolding.getTotalFCompanies() + theHolding.getTotalTCompanies()));
@@ -1311,6 +1492,9 @@ public class MainControllerGUI {
 		totalTCompanies.setText(Integer.toString(theHolding.getTotalTCompanies()));
 	}
 
+	/**
+	 * 
+	 */
 	public void updateTimeLabel() {
 
 		locaDate = LocalDateTime.now();
@@ -1322,6 +1506,11 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	void sellCompanyWindow(ActionEvent event) throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("sellCompany.fxml"));
 
@@ -1333,6 +1522,11 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 * @throws IOException
+	 */
 	void changeCompany(ActionEvent event) throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("changeCurrentCompany.fxml"));
 
@@ -1344,6 +1538,11 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	/**
+	 * 
+	 * 
+	 * @throws IOException
+	 */
 	void changeCompanyWindow() throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("changeCurrentCompany.fxml"));
 
@@ -1355,6 +1554,10 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 */
 	void searchCompany(ActionEvent event) {
 		Company result = theHolding.searchCompany(searchParameterCompany.getText());
 		infoFoundCompanyLabel.setVisible(true);
@@ -1368,6 +1571,10 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 */
 	void runChangeCurrentCompany(ActionEvent event) {
 		Company newCurrentCompany = theHolding.searchCompany(searchParameterCompany.getText());
 		theHolding.setCurrentCompany(newCurrentCompany);
@@ -1413,6 +1620,10 @@ public class MainControllerGUI {
 	private TableColumn<BranchOffice, String> officeAddressColumn;
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 */
 	void generateOfficesReport(ActionEvent event) {
 		if (!officeCsvCheckBox.isSelected() && !officeTxtCheckBox.isSelected() && !officeScreenCheckBox.isSelected()) {
 			Alert alert = new Alert(AlertType.ERROR);
@@ -1484,6 +1695,10 @@ public class MainControllerGUI {
 	private TableColumn<Employee, String> employeeTitleColumn;
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 */
 	void employeesGenerateReport(ActionEvent event) {
 		if (!employeesCsvCheckBox.isSelected() && !employeesTxtCheckBox.isSelected()
 				&& !employeesScreenCheckBox.isSelected()) {
@@ -1548,6 +1763,10 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 */
 	void employeesUpdateSearchButton(ActionEvent event) {
 		if (employeesParticularToggleButton.isSelected()) {
 			employeeIdTextField.setDisable(false);
@@ -1592,6 +1811,10 @@ public class MainControllerGUI {
 	private TableColumn<Contract, LocalDate> contractEndDateColumn;
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 */
 	void contractsGenerateReport(ActionEvent event) {
 		if (!contractsCsvCheckBox.isSelected() && !contractsTxtCheckBox.isSelected()
 				&& !contractsScreenCheckBox.isSelected()) {
@@ -1654,6 +1877,10 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 */
 	void contractsUpdateIdField(ActionEvent event) {
 		if (contractsParticularToggleButton.isSelected()) {
 			contractsIdTextField.setDisable(false);
@@ -1677,6 +1904,10 @@ public class MainControllerGUI {
 	private Label economicalReportContent;
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 */
 	void economicalGenerateReport(ActionEvent event) {
 		if (!economicalCsvCheckBox.isSelected() && !economicalTxtCheckBox.isSelected()
 				&& !economicalScreenCheckBox.isSelected()) {
@@ -1705,6 +1936,10 @@ public class MainControllerGUI {
 	private BorderPane chartsBorderPane;
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 */
 	void modifyIncome(ActionEvent event) {
 		try {
 			double newIncome = Double.parseDouble(incomeUpdateTextField.getText());
@@ -1725,6 +1960,10 @@ public class MainControllerGUI {
 	}
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 */
 	void modifyOutcome(ActionEvent event) {
 		try {
 			double newOutcome = Double.parseDouble(outcomeUpdateTextField.getText());
@@ -1746,6 +1985,9 @@ public class MainControllerGUI {
 	}
 
 	@SuppressWarnings("unchecked")
+	/**
+	 * 
+	 */
 	public void initializeChart() {
 		final CategoryAxis xAxis = new CategoryAxis();
 		final NumberAxis yAxis = new NumberAxis();
@@ -1776,6 +2018,10 @@ public class MainControllerGUI {
 	private TextField sellValueTextField;
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 */
 	void sellCompany(ActionEvent event) {
 		String nit = sellCompanyNitTextField.getText();
 		String valueStr = sellValueTextField.getText();
@@ -1846,6 +2092,10 @@ public class MainControllerGUI {
 	private VBox mainVBox;
 
 	@FXML
+	/**
+	 * 
+	 * @param event
+	 */	
 	void exitApp(ActionEvent event) {
 
 		Stage stage = (Stage) mainVBox.getScene().getWindow();

@@ -52,6 +52,9 @@ public abstract class Contract implements Comparable<Contract>, Serializable {
 	}
 
 	@Override
+	/**
+	 * 
+	 */
 	public int compareTo(Contract anotherContract) {
 		if (id.compareTo(anotherContract.getId()) > 0) {
 			return 1;
@@ -61,71 +64,139 @@ public abstract class Contract implements Comparable<Contract>, Serializable {
 			return 0;
 		}
 	}
-
+	
+	/**
+	 * 
+	 * @return
+	 */
 	public String getId() {
 		return id;
 	}
-
+	
+	/**
+	 * 
+	 * @return
+	 */
 	public String getDescription() {
 		return description;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public ArrayList<String> getClauses() {
 		return clauses;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public double getAmount() {
 		return amount;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public LocalDate getStartDate() {
 		return startDate;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public LocalDate getFinishDate() {
 		return finishDate;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public LocalDate getRadicationDate() {
 		return radicationDate;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public Employee getEmployee() {
 		return employee;
 	}
 
+	/**
+	 * 
+	 * @param employee
+	 */
 	public void setEmployee(Employee employee) {
 		this.employee = employee;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public int getActualRenewals() {
 		return actualRenewals;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public int getRenewalsLimit() {
 		return renewalsLimit;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public Contract getPreContract() {
 		return preContract;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public Contract getNextContract() {
 		return nextContract;
 	}
 
+	/**
+	 * 
+	 * @param description
+	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
+	/**
+	 * 
+	 * @param finishDate
+	 */
 	public void setFinishDate(LocalDate finishDate) {
 		this.finishDate = finishDate;
 	}
 
+	/**
+	 * 
+	 * @param preContract
+	 */
 	public void setPreContract(Contract preContract) {
 		this.preContract = preContract;
 	}
 
+	/**
+	 * 
+	 * @param nextContract
+	 */
 	public void setNextContract(Contract nextContract) {
 		this.nextContract = nextContract;
 	}

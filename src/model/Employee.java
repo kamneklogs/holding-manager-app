@@ -129,14 +129,26 @@ public class Employee implements Serializable{
         this.father = father;
     }
 
+    /**
+     * 
+     * @return
+     */
     public int getWorkingHoursPerWeek() {
         return workingHoursPerWeek;
     }
 
+    /**
+     * 
+     * @param workingHoursPerWeek
+     */
     public void setWorkingHoursPerWeek(int workingHoursPerWeek) {
         this.workingHoursPerWeek = workingHoursPerWeek;
     }
 
+    /**
+     * 
+     * @param contract
+     */
 	public void setContract(Contract contract) {
 		this.myContract = contract;
 		
