@@ -8,14 +8,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-//import java.util.Random;
-
+import java.util.Random;
 import customExceptions.BranchOfficeAlreadyExistException;
 import customExceptions.BranchOfficeNotFoundException;
 import customExceptions.ContractAlreadyExistException;
 import customExceptions.ContractNotFoundException;
 import customExceptions.EmployeeAlreadyExistsException;
 import customExceptions.EmployeeNotFoundException;
+import customExceptions.ImpossibleToRemoveEmployeeException;
 
 public class Company {
 
@@ -144,43 +144,62 @@ public class Company {
 	 * @return Found contract, null if not found
 	 */
 	public Contract findContract(String id) {
+		
 		bubbleSortContracts();		
-		if (firstContract == null) {
+		
+		if (firstContract == null) {			
 			return null;
 		} else {
-			int length = 0;
-			Contract current = firstContract;
-
-			while (current != null) {				
-				length++;
-				current = current.getNextContract();				
-			}
-
-			int middleLength = length / 2;
-
-			Contract middleContract = firstContract;
-			int low = 0;
-			int mid = middleLength;
-			int high = length;
-
-			while (low <= high) {				
-				mid = (low + high) / 2;
-				for (int i = low; i < mid; i++) {
-					middleContract = middleContract.getNextContract();					
+			Contract start = firstContract;
+			
+			Contract end = firstContract;						
+			while(end.getNextContract() != null) {
+				end = end.getNextContract();
+			}		
+			
+			while(start != null && end != null && start.compareTo(end) <= 0) {
+				Contract middle = getMiddleContract(start,end);
+				if(id.compareTo(middle.getId()) < 0) {
+					end = middle.getPreContract();
 				}
-
-				if (id.compareTo(middleContract.getId()) == 0) {
-					return middleContract;
-				} else if (id.compareTo(middleContract.getId()) < 0) {
-					high = mid - 1;
-				} else {
-					low = mid + 1;
+				else if(id.compareTo(middle.getId()) > 0) {
+					start = middle.getNextContract();
 				}
+				else {
+					return middle;
+				}					
 			}
 			return null;
 		}
 	}
+	
+	private Contract getMiddleContract(Contract start, Contract end) {		
+		if(start != null && start.getNextContract() != null) {
+			
+			//Find list length
+			int length;
+			Contract current = start;
 
+			for (length = 1; current != end ; length++) {
+				current = current.getNextContract();
+			}
+			
+			//Gets element in the middle
+			int halfLength = length/2; 
+			current = start;
+			for (int i = 0; i < halfLength; i++) {
+				current = current.getNextContract();
+			}
+			
+			return current;			
+		}
+		else if(start.getNextContract() == null) {
+			return start;
+		}
+		else {
+			return null;
+		}		
+	}
 	/**
 	 * Sorts contracts using id as criteria.
 	 */
@@ -318,50 +337,75 @@ public class Company {
 	 * @return
 	 */
 	public BranchOffice findBranchOffice(String id) {
-
-		/*if (new Random().nextInt() > 0) {
+		
+		if (new Random().nextInt() > 0) {
 			insertionSortBranchOffices();
 		} else {
 			selectionSortBranchOffices();
-		}*/
-		insertionSortBranchOffices();
-
-		if (firstBranchOffice == null) {
+		}
+		
+		if (firstBranchOffice == null) {			
 			return null;
-		} else {
-			int length = 1;
-			BranchOffice current = firstBranchOffice;
-
-			while (current.getNextOffice() != null) {
-				length++;
-				current = current.getNextOffice();
-			}
-
-			int middleLength = length / 2;
-
-			BranchOffice middleOffice = firstBranchOffice;
-			int low = 0;
-			int mid = middleLength;
-			int high = length;
-
-			while (low <= high) {
-				mid = (low + high) / 2;
-				for (int i = low; i < mid; i++) {
-					middleOffice = middleOffice.getNextOffice();
+		} 
+		else {
+			BranchOffice start = firstBranchOffice;
+			
+			BranchOffice end = firstBranchOffice;						
+			while(end.getNextOffice() != null) {
+				end = end.getNextOffice();
+			}		
+			
+			while(start != null && end != null && start.compareTo(end) <= 0) {
+				BranchOffice middle = getMiddleBranchOffice(start,end);
+				if(id.compareTo(middle.getId()) < 0) {
+					end = middle.getPreOffice();
 				}
-
-				if (id.compareTo(middleOffice.getId()) == 0) {
-					return middleOffice;
-				} else if (id.compareTo(middleOffice.getId()) < 0) {
-					high = mid - 1;
-				} else {
-					low = mid + 1;
+				else if(id.compareTo(middle.getId()) > 0) {
+					start = middle.getNextOffice();
 				}
+				else {
+					return middle;
+				}					
 			}
 			return null;
 		}
 	}
+	
+	/**
+	 * 
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	private BranchOffice getMiddleBranchOffice(BranchOffice start, BranchOffice end) {		
+		if(start != null && start.getNextOffice() != null) {
+			
+			//Find list length
+			int length;
+			BranchOffice current = start;
 
+			for (length = 1; current != end ; length++) {
+				current = current.getNextOffice();
+			}
+			
+			//Gets element in the middle
+			int halfLength = length/2; 
+			current = start;
+			for (int i = 0; i < halfLength; i++) {
+				current = current.getNextOffice();
+			}
+			
+			return current;			
+		}
+		else if(start.getNextOffice() == null) {
+			return start;
+		}
+		else {
+			return null;
+		}		
+	}
+	
+	
 	/**
 	 * 
 	 */
@@ -414,22 +458,23 @@ public class Company {
 	/**
 	 * 
 	 */
-	public void selectionSortBranchOffices() {
+	public void selectionSortBranchOffices() {		
 		if (firstBranchOffice != null && firstBranchOffice.getNextOffice() != null) {
 			BranchOffice current = firstBranchOffice;
 			while (current.getNextOffice() != null) {				
 				BranchOffice min = current;
-				BranchOffice temp = current;
+				BranchOffice temp = current;			
+				
 				while (temp != null) {					
 					if (temp.compareTo(min) < 0) {
 						min = temp;
 					}
-					temp = temp.getNextOffice();
+					temp = temp.getNextOffice();					
 				}
 
-				if (min != current) {
-					if (min.getNextOffice() == null) {
-						if (current == firstBranchOffice) {
+				if (min != current) {					
+					if (min.getNextOffice() == null) {					
+						if (current == firstBranchOffice && current.getNextOffice() != min) {
 							current.getNextOffice().setPreOffice(min);
 							min.getPreOffice().setNextOffice(current);
 
@@ -437,10 +482,24 @@ public class Company {
 							current.setPreOffice(min.getPreOffice());
 
 							min.setPreOffice(null);
-							current.setNextOffice(null);
-
+							current.setNextOffice(null);	
 							firstBranchOffice = min;
 						} 
+						else if(current == firstBranchOffice && current.getNextOffice() == min) {
+							current.setPreOffice(min);
+							min.setNextOffice(current);
+
+							min.setPreOffice(null);
+							current.setNextOffice(null);
+							firstBranchOffice = min;
+						}
+						else if(current != firstBranchOffice && current.getNextOffice() == min) {
+							min.setPreOffice(current.getPreOffice());
+							current.getPreOffice().setNextOffice(min);
+							current.setPreOffice(min);
+							min.setNextOffice(current);							
+							current.setNextOffice(null);						
+						}	
 						else {
 							current.getPreOffice().setNextOffice(min);
 							current.getNextOffice().setPreOffice(min);
@@ -454,7 +513,7 @@ public class Company {
 						}
 					} 
 					else {
-						if (current == firstBranchOffice) {
+						if (current == firstBranchOffice && current.getNextOffice() != min) {
 							current.getNextOffice().setPreOffice(min);
 							min.getPreOffice().setNextOffice(current);
 							min.getNextOffice().setPreOffice(current);
@@ -465,10 +524,34 @@ public class Company {
 							
 							BranchOffice minPreOffice = min.getPreOffice();
 							min.setPreOffice(null);
-							current.setPreOffice(minPreOffice);
-	
+							current.setPreOffice(minPreOffice);		
 							firstBranchOffice = min;
 						} 
+						else if(current == firstBranchOffice && current.getNextOffice() == min) {
+							BranchOffice preOfficeCurrent = current.getPreOffice();
+							BranchOffice nextOfficeMin = min.getNextOffice();
+							
+							preOfficeCurrent.setNextOffice(min);
+							nextOfficeMin.setPreOffice(current);
+							
+							current.setPreOffice(min);
+							current.setNextOffice(nextOfficeMin);
+							min.setNextOffice(current);
+							min.setPreOffice(preOfficeCurrent);		
+							firstBranchOffice = min;
+						}
+						else if(current != firstBranchOffice && current.getNextOffice() == min) {
+							BranchOffice preOfficeCurrent = current.getPreOffice();
+							BranchOffice nextOfficeMin = min.getNextOffice();
+							
+							preOfficeCurrent.setNextOffice(min);
+							nextOfficeMin.setPreOffice(current);
+							
+							current.setPreOffice(min);
+							current.setNextOffice(nextOfficeMin);
+							min.setNextOffice(current);
+							min.setPreOffice(preOfficeCurrent);	
+						}
 						else {
 							current.getPreOffice().setNextOffice(min);
 							current.getNextOffice().setPreOffice(min);
@@ -483,7 +566,7 @@ public class Company {
 							min.setPreOffice(current.getPreOffice());
 							current.setPreOffice(minPreOffice);
 						}
-					}
+					}					
 				}
 				current = min.getNextOffice();
 			}
@@ -537,11 +620,15 @@ public class Company {
 	/**
 	 * 
 	 * @param id
+	 * @throws ImpossibleToRemoveEmployeeException 
 	 */
-	public void removeEmployee(String id) throws EmployeeNotFoundException {
+	public void removeEmployee(String id) throws EmployeeNotFoundException, ImpossibleToRemoveEmployeeException {
 
 		Employee toRemove = findEmployee(id);
 
+		if(toRemove == firstEmployee) {
+			throw new ImpossibleToRemoveEmployeeException("El empleado que ha intentado remover es el representante legal, no puede ser removido!");
+		}
 		if (toRemove != null) {
 
 			if (toRemove.getRight() == null && toRemove.getLeft() == null) {
@@ -604,8 +691,8 @@ public class Company {
 
 				if (toRemove.getFather().getRight() == toRemove) {
 					current.getFather().setRight(current);
-
-				} else {
+				} 
+				else {
 					current.getFather().setLeft(current);
 				}
 
@@ -627,9 +714,11 @@ public class Company {
 	public Employee findEmployee(String id) {
 		if (firstEmployee == null) {
 			return null;
-		} else if (firstEmployee.getId().equals(id)) {
+		}
+		else if (firstEmployee.getId().equals(id)) {
 			return firstEmployee;
-		} else {
+		}
+		else {
 			return findEmployee(firstEmployee, id);
 		}
 
@@ -643,39 +732,26 @@ public class Company {
 	 */
 	private Employee findEmployee(Employee current, String id) {
 
-		if (current == null) {
-
-			return null;
-
-		} else if (current.getId().equals(id)) {
-
+		if (current.getId().equals(id)) {
 			return current;
-
-		} else if (current.getId().compareTo(id) > 0) {
-
+		}
+		else if (current.getId().compareTo(id) > 0) {
+			
 			if (current.getLeft() == null) {
-
 				return null;
-
-			} else {
-
-				return findEmployee(current.getLeft(), id);
-
 			}
-
-		} else {
-
-			if (current.getId().equals(id)) {
-
-				return current;
-
-			} else {
-
+			else {
+				return findEmployee(current.getLeft(), id);
+			}			
+		}
+		else {
+			if (current.getRight() == null) {
+				return null;
+			} 
+			else {
 				return findEmployee(current.getRight(), id);
-
 			}
 		}
-
 	}
 
 	/**

@@ -47,7 +47,7 @@ public class ContractReportDetailed extends Report {
 			String employeeName = contract.getEmployee().getName();
 
 			if (isToCsv()) {
-				report += "empresa,empleado,nombre,id,tipo,descripciï¿½n,clausulas,cantidad,fecha_inicio,fecha_fin,fecha_radicaciï¿½n,renovaciones_actuales,limite_de_renovaciones\n";
+				report += "empresa,empleado,nombre,id,tipo,descripción,clausulas,cantidad,fecha_inicio,fecha_fin,fecha_radicaciï¿½n,renovaciones_actuales,limite_de_renovaciones\n";
 				report += employeeName + "," + id + "," + type + "," + description + "," + clauses.toString() + ",$"
 						+ amount + "," + (startDate != null ? startDate.toString() : "N/A") + ","
 						+ (finishDate != null ? finishDate.toString() : "N/A") + ","
@@ -56,7 +56,7 @@ public class ContractReportDetailed extends Report {
 
 				try {
 					BufferedWriter bw = new BufferedWriter(
-							new FileWriter("data/Reporte_Contrato_" + description + "_" + id + ".csv"));
+							new FileWriter("reports/Reporte_Contrato_" + description + "_" + id + ".csv"));
 					bw.write(report);
 					bw.close();
 				} catch (IOException e) {
@@ -68,12 +68,12 @@ public class ContractReportDetailed extends Report {
 			report = "REPORTE DE CONTRATO " + id +  "\n";
 			report += "ID: " + id + "\n";
 			report += "Tipo: " + type + "\n";
-			report += "Descripciï¿½n: " + description + "\n";
+			report += "Descripción: " + description + "\n";
 			report += "Clausulas: " + clauses.toString() + "\n";
 			report += "Cantidad: $" + amount + "\n";
 			report += "Fecha de Inicio: " + (startDate != null ? startDate.toString() : "N/A") + "\n";
-			report += "Fecha de terminaciï¿½n: " + (finishDate != null ? finishDate.toString() : "N/A") + "\n";
-			report += "Fecha de radicaciï¿½n: " + (radicationDate != null ? radicationDate.toString() : "N/A") + "\n";
+			report += "Fecha de terminación: " + (finishDate != null ? finishDate.toString() : "N/A") + "\n";
+			report += "Fecha de radicación: " + (radicationDate != null ? radicationDate.toString() : "N/A") + "\n";
 			report += "Renovaciones actuales: " + actualRenewals + "\n";
 			report += "Limite de renovaciones: " + renewalsLimit + "\n";
 
@@ -81,7 +81,7 @@ public class ContractReportDetailed extends Report {
 
 				try {
 					BufferedWriter bw = new BufferedWriter(
-							new FileWriter("data/Reporte_Contrato_" + description + "_" + id + ".txt"));
+							new FileWriter("reports/Reporte_Contrato_" + description + "_" + id + ".txt"));
 					bw.write(report);
 					bw.close();
 				} catch (IOException e) {

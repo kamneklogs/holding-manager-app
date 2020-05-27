@@ -17,6 +17,7 @@ import customExceptions.ContractAlreadyExistException;
 import customExceptions.ContractNotFoundException;
 import customExceptions.EmployeeAlreadyExistsException;
 import customExceptions.EmployeeNotFoundException;
+import customExceptions.ImpossibleToRemoveEmployeeException;
 
 public class Holding {
 
@@ -311,8 +312,9 @@ public class Holding {
 	 * 
 	 * @param id
 	 * @throws EmployeeNotFoundException
+	 * @throws ImpossibleToRemoveEmployeeException 
 	 */
-	public void removeEmployee(String id) throws EmployeeNotFoundException {
+	public void removeEmployee(String id) throws EmployeeNotFoundException, ImpossibleToRemoveEmployeeException {
 		currentCompany.removeEmployee(id);
 	}
 

@@ -27,7 +27,7 @@ public class ContractReportGeneral extends Report {
 				}
 				
 				try {
-					BufferedWriter bw = new BufferedWriter(new FileWriter("data/Reporte_Contratos_" +  companyName + ".csv"));
+					BufferedWriter bw = new BufferedWriter(new FileWriter("reports/Reporte_Contratos_" +  companyName + ".csv"));
 					bw.write(report);
 					bw.close();
 				} 
@@ -48,7 +48,7 @@ public class ContractReportGeneral extends Report {
 					contract = contract.getNextContract();
 				}
 				try {
-					BufferedWriter bw = new BufferedWriter(new FileWriter("data/Reporte_Contratos_" +  companyName + ".txt"));
+					BufferedWriter bw = new BufferedWriter(new FileWriter("reports/Reporte_Contratos_" +  companyName + ".txt"));
 					bw.write(report);
 					bw.close();
 				} 

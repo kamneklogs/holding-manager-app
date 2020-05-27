@@ -34,7 +34,7 @@ public class EmployeeReportDetailed extends Report {
 						+ (employee instanceof LegalRepresentative? Arrays.toString(((LegalRepresentative)employee).getJobTitles()):"") + "," + weeklyHours;
 				
 				try {
-					BufferedWriter bw = new BufferedWriter(new FileWriter("data/Reporte_Empleado_" + name + "_" + id + "_" +  companyName + ".csv"));
+					BufferedWriter bw = new BufferedWriter(new FileWriter("reports/Reporte_Empleado_" + name + "_" + id + "_" +  companyName + ".csv"));
 					bw.write(report);
 					bw.close();
 				} 
@@ -54,7 +54,7 @@ public class EmployeeReportDetailed extends Report {
 			
 			if(isToTxt()) {				
 				try {
-					BufferedWriter bw = new BufferedWriter(new FileWriter("data/Reporte_Empleado_" + name + "_" + id + "_" +  companyName + ".txt"));
+					BufferedWriter bw = new BufferedWriter(new FileWriter("reports/Reporte_Empleado_" + name + "_" + id + "_" +  companyName + ".txt"));
 					bw.write(report);
 					bw.close();
 				} 

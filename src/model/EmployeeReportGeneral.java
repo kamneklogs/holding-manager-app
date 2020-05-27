@@ -22,7 +22,7 @@ public class EmployeeReportGeneral extends Report {
 				report += "name,id,phone_number,salary,job_title(s)\n";
 				report += obtainInfoCSV(employee,"");
 				try {
-					BufferedWriter bw = new BufferedWriter(new FileWriter("data/Reporte_Empleados_" + companyName + ".csv"));
+					BufferedWriter bw = new BufferedWriter(new FileWriter("reports/Reporte_Empleados_" + companyName + ".csv"));
 					bw.write(report);
 					bw.close();
 				} 
@@ -35,7 +35,7 @@ public class EmployeeReportGeneral extends Report {
 				report = "REPORTE GENERAL DE EMPLEADOS PARA LA EMPRESA " + companyName + "\n";
 				report += obtainInfo(employee,"");
 				try {
-					BufferedWriter bw = new BufferedWriter(new FileWriter("data/Reporte_Empleados_" + companyName + ".txt"));
+					BufferedWriter bw = new BufferedWriter(new FileWriter("reports/Reporte_Empleados_" + companyName + ".txt"));
 					bw.write(report);
 					bw.close();
 				} 

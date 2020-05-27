@@ -26,7 +26,7 @@ public class BranchOfficesReport extends Report {
 				}
 				
 				try {
-					BufferedWriter bw = new BufferedWriter(new FileWriter("data/Reporte_Sedes_" + name + ".csv"));
+					BufferedWriter bw = new BufferedWriter(new FileWriter("reports/Reporte_Sedes_" + name + ".csv"));
 					bw.write(report);
 					bw.close();
 				} 
@@ -44,7 +44,7 @@ public class BranchOfficesReport extends Report {
 					current = current.getNextOffice();
 				}
 				try {
-					BufferedWriter bw = new BufferedWriter(new FileWriter("data/Reporte_Sedes_" + name + ".txt"));
+					BufferedWriter bw = new BufferedWriter(new FileWriter("reports/Reporte_Sedes_" + name + ".txt"));
 					bw.write(report);
 					bw.close();
 				} 

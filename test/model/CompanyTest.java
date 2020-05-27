@@ -6,11 +6,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 import customExceptions.BranchOfficeAlreadyExistException;
+import customExceptions.BranchOfficeNotFoundException;
 //import customExceptions.BranchOfficeNotFoundException;
 import customExceptions.ContractAlreadyExistException;
 import customExceptions.ContractNotFoundException;
 import customExceptions.EmployeeAlreadyExistsException;
 import customExceptions.EmployeeNotFoundException;
+import customExceptions.ImpossibleToRemoveEmployeeException;
 
 class CompanyTest {
 
@@ -257,6 +259,8 @@ private Company company;
 			fail("Exception Expected");
 		} catch (EmployeeNotFoundException e) {
 			
+		} catch (ImpossibleToRemoveEmployeeException e) {
+			fail("UnexpectedException");
 		}
 		assertNull(company.getFirstEmployee());
 	}
@@ -268,6 +272,8 @@ private Company company;
 			fail("Exception Expected");
 		} catch (EmployeeNotFoundException e) {
 			
+		} catch (ImpossibleToRemoveEmployeeException e) {
+			fail("UnexpectedException");
 		}
 		assertEquals("1234",company.getFirstEmployee().getId());
 	}
@@ -278,8 +284,9 @@ private Company company;
 			company.removeEmployee("1234");			
 		} catch (EmployeeNotFoundException e) {
 			fail("Unexpected exception");
-		}
-		assertNull(company.getFirstEmployee());
+		} catch (ImpossibleToRemoveEmployeeException e) {
+			assertTrue(true);
+		}		
 	}
 	@Test
 	void testRemoveEmployee4() {
@@ -289,6 +296,8 @@ private Company company;
 			fail("Exception Expected");
 		} catch (EmployeeNotFoundException e) {
 			
+		} catch (ImpossibleToRemoveEmployeeException e) {
+			fail("UnexpectedException");
 		}
 		assertEquals("1234",company.getFirstEmployee().getId());
 	}
@@ -300,6 +309,8 @@ private Company company;
 			fail("Expected exception");
 		} catch (EmployeeNotFoundException e) {
 			
+		} catch (ImpossibleToRemoveEmployeeException e) {
+			fail("UnexpectedException");
 		}
 		assertEquals("1234",company.getFirstEmployee().getId());
 	}
@@ -311,49 +322,44 @@ private Company company;
 			fail("Exception Expected");
 		} catch (EmployeeNotFoundException e) {
 			
+		} catch (ImpossibleToRemoveEmployeeException e) {
+			fail("UnexpectedException");
 		}
 		assertEquals("1234",company.getFirstEmployee().getId());
 	}
+	
 	@Test
 	void testRemoveEmployee7() {
-		setUpEmployees4();
-		try {
-			company.removeEmployee("1234");
-		} catch (EmployeeNotFoundException e) {
-			fail("Unexpected exception");
-		}
-		assertEquals("1111",company.getFirstEmployee().getId());
-		assertEquals("0000",company.getFirstEmployee().getLeft().getId());
-		assertEquals("2598",company.getFirstEmployee().getRight().getId());
-	}
-	@Test
-	void testRemoveEmployee8() {
 		setUpEmployees4();
 		try {
 			company.removeEmployee("1111");
 		} catch (EmployeeNotFoundException e) {
 			fail("Unexpected exception");
+		} catch (ImpossibleToRemoveEmployeeException e) {
+			fail("UnexpectedException");
 		}
 		assertEquals("1234",company.getFirstEmployee().getId());
 		assertEquals("2598",company.getFirstEmployee().getRight().getId());
 		assertEquals("0000",company.getFirstEmployee().getLeft().getId());
 		assertNull(company.getFirstEmployee().getLeft().getRight());
 	}
+	
 	@Test
-	void testRemoveEmployee9() {
+	void testRemoveEmployee8() {
 		setUpEmployees4();
 		try {
 			company.removeEmployee("0000");
 		} catch (EmployeeNotFoundException e) {
 			fail("Unexpected exception");
+		} catch (ImpossibleToRemoveEmployeeException e) {
+			fail("UnexpectedException");
 		}
 		assertEquals("1234",company.getFirstEmployee().getId());
 		assertEquals("2598",company.getFirstEmployee().getRight().getId());
 		assertEquals("1111",company.getFirstEmployee().getLeft().getId());
 		assertNull(company.getFirstEmployee().getLeft().getRight());
 		assertNull(company.getFirstEmployee().getLeft().getLeft());
-	}	
-	
+	}		
 	
 	@Test
 	void testAddContract1() {
@@ -433,19 +439,48 @@ private Company company;
 		Contract c = company.findContract("C2598");
 		assertEquals("C2598",c.getId());		
 	}
+	
 	@Test
 	void testFindContract6() {
+		setUpContracts3();
+		Contract c = company.findContract("C1234");
+		assertEquals("C1234",c.getId());		
+	}
+	
+	@Test
+	void testFindContract7() {
 		setUpContracts4();
 		Contract c = company.findContract("C2222");
 		assertNull(c);
 	}
 	
 	@Test
-	void testFindContract7() {
+	void testFindContract8() {
 		setUpContracts4();
 		Contract c = company.findContract("C0000");
 		assertEquals("C0000",c.getId());
 	}
+	
+	@Test
+	void testFindContract9() {
+		setUpContracts4();
+		Contract c = company.findContract("C1111");
+		assertEquals("C1111",c.getId());
+	}
+	
+	@Test
+	void testFindContract10() {
+		setUpContracts4();
+		Contract c = company.findContract("C1234");
+		assertEquals("C1234",c.getId());
+	}
+	
+	@Test
+	void testFindContract11() {
+		setUpContracts4();
+		Contract c = company.findContract("C2598");
+		assertEquals("C2598",c.getId());
+	}	
 	
 	@Test
 	void testRemoveContract1() {
@@ -516,9 +551,9 @@ private Company company;
 		} catch (ContractNotFoundException e) {
 			
 		}		
-		assertEquals("C1234",company.getFirstContract().getId());			
-		assertEquals("C2598",company.getFirstContract().getNextContract().getId());
-		assertEquals("C0000",company.getFirstContract().getNextContract().getNextContract().getId());	
+		assertEquals("C0000",company.getFirstContract().getId());			
+		assertEquals("C1234",company.getFirstContract().getNextContract().getId());
+		assertEquals("C2598",company.getFirstContract().getNextContract().getNextContract().getId());	
 		assertEquals("C1111",company.getFirstContract().getNextContract().getNextContract().getNextContract().getId());	
 		assertNull(company.getFirstContract().getNextContract().getNextContract().getNextContract().getNextContract());
 	}
@@ -531,100 +566,249 @@ private Company company;
 		} catch (ContractNotFoundException e) {
 			fail("Unexpected exception");
 		}		
-		assertEquals("C1234",company.getFirstContract().getId());	
+		assertEquals("C0000",company.getFirstContract().getId());	
+		assertEquals("C1234",company.getFirstContract().getNextContract().getId());
+		assertEquals("C2598",company.getFirstContract().getNextContract().getNextContract().getId());	
+		assertNull(company.getFirstContract().getNextContract().getNextContract().getNextContract());
+	}
+	
+	@Test
+	void testRemoveContract8() {
+		setUpContracts4();
+		try {
+			company.removeContract("C1234");				
+		} catch (ContractNotFoundException e) {
+			fail("Unexpected exception");
+		}		
+		assertEquals("C0000",company.getFirstContract().getId());	
 		assertEquals("C2598",company.getFirstContract().getNextContract().getId());
-		assertEquals("C0000",company.getFirstContract().getNextContract().getNextContract().getId());	
+		assertEquals("C1111",company.getFirstContract().getNextContract().getNextContract().getId());	
 		assertNull(company.getFirstContract().getNextContract().getNextContract().getNextContract());
 	}
 	
 	@Test
 	void testAddBranchOffice1() {
-		fail("not implemented");
+		setUpBranchOffices1();
+		try {
+			company.addBranchOffice(new BranchOffice(null, null, "O2222", false, null));
+		} catch (BranchOfficeAlreadyExistException e) {
+			fail("Unexpected Exception");
+		}
+		assertEquals("O2222",company.getFirstBranchOffice().getId());
 	}
 	
 	@Test
 	void testAddBranchOffice2() {
-		fail("not implemented");
+		setUpBranchOffices2();
+		try {
+			company.addBranchOffice(new BranchOffice(null, null, "O2222", false, null));
+		} catch (BranchOfficeAlreadyExistException e) {
+			fail("Unexpected Exception");
+		}
+		assertEquals("O2222",company.getFirstBranchOffice().getNextOffice().getId());
 	}
 	
 	@Test
 	void testAddBranchOffice3() {
-		fail("not implemented");
+		setUpBranchOffices3();
+		try {
+			company.addBranchOffice(new BranchOffice(null, null, "O2222", false, null));
+		} catch (BranchOfficeAlreadyExistException e) {
+			fail("Unexpected Exception");
+		}
+		assertEquals("O2222",company.getFirstBranchOffice().getNextOffice().getNextOffice().getId());
 	}
 	
 	@Test
 	void testAddBranchOffice4() {
-		fail("not implemented");
+		setUpBranchOffices4();
+		try {
+			company.addBranchOffice(new BranchOffice(null, null, "O2222", false, null));
+		} catch (BranchOfficeAlreadyExistException e) {
+			fail("Unexpected Exception");
+		}
+		assertEquals("O2222",company.getFirstBranchOffice().getNextOffice().getNextOffice().getNextOffice().getNextOffice().getId());	
 	}
 	
 	@Test
 	void testFindBranchOffice1() {
-		fail("not implemented");
+		setUpBranchOffices1();
+		BranchOffice branchOffice = company.findBranchOffice("O2222");
+		assertNull(branchOffice);
 	}
 	
 	@Test
 	void testFindBranchOffice2() {
-		fail("not implemented");
+		setUpBranchOffices2();
+		BranchOffice branchOffice = company.findBranchOffice("O2222");
+		assertNull(branchOffice);
 	}
 	
 	@Test
 	void testFindBranchOffice3() {
-		fail("not implemented");
+		setUpBranchOffices2();
+		BranchOffice branchOffice = company.findBranchOffice("O1234");
+		assertEquals("O1234",branchOffice.getId());
 	}
 	
 	@Test
 	void testFindBranchOffice4() {
-		fail("not implemented");
+		setUpBranchOffices3();
+		BranchOffice branchOffice = company.findBranchOffice("O2222");
+		assertNull(branchOffice);
 	}
 	
 	@Test
 	void testFindBranchOffice5() {
-		fail("not implemented");
+		setUpBranchOffices3();
+		BranchOffice branchOffice = company.findBranchOffice("O2598");
+		assertEquals("O2598",branchOffice.getId());
 	}
 	
 	@Test
 	void testFindBranchOffice6() {
-		fail("not implemented");
+		setUpBranchOffices3();
+		BranchOffice branchOffice = company.findBranchOffice("O1234");
+		assertEquals("O1234",branchOffice.getId());
 	}
 	
 	@Test
 	void testFindBranchOffice7() {
-		fail("not implemented");
+		setUpBranchOffices4();
+		BranchOffice branchOffice = company.findBranchOffice("O2222");
+		assertNull(branchOffice);
+	}
+	
+	@Test
+	void testFindBranchOffice8() {
+		setUpBranchOffices4();
+		BranchOffice branchOffice = company.findBranchOffice("O0000");
+		assertEquals("O0000",branchOffice.getId());
+	}
+	
+	@Test
+	void testFindBranchOffice9() {
+		setUpBranchOffices4();
+		BranchOffice branchOffice = company.findBranchOffice("O1111");
+		assertEquals("O1111",branchOffice.getId());
+	}
+	
+	@Test
+	void testFindBranchOffice10() {
+		setUpBranchOffices4();
+		BranchOffice branchOffice = company.findBranchOffice("O1234");
+		assertEquals("O1234",branchOffice.getId());
+	}
+	
+	@Test
+	void testFindBranchOffice11() {
+		setUpBranchOffices4();
+		BranchOffice branchOffice = company.findBranchOffice("O2598");
+		assertEquals("O2598",branchOffice.getId());
 	}
 	
 	@Test
 	void testRemoveBranchOffice1() {
-		fail("not implemented");
+		setUpBranchOffices1();
+		try {
+			company.removeBranchOffice("O2222");
+			fail("Expected exception");
+		} catch (BranchOfficeNotFoundException e) {
+			
+		}		
+		assertNull(company.getFirstBranchOffice());
 	}
 	
 	@Test
 	void testRemoveBranchOffice2() {
-		fail("not implemented");
+		setUpBranchOffices2();
+		try {
+			company.removeBranchOffice("O2222");
+			fail("Expected exception");
+		} catch (BranchOfficeNotFoundException e) {
+			
+		}		
+		assertEquals("O1234",company.getFirstBranchOffice().getId());
 	}
 	
 	@Test
-	void testRemoveBranchOffice3() {
-		fail("not implemented");
+	void testBranchOffice3() {
+		setUpBranchOffices2();
+		try {
+			company.removeBranchOffice("O1234");			
+		} catch (BranchOfficeNotFoundException e) {
+			fail("Unexpected exception");
+		}		
+		assertNull(company.getFirstBranchOffice());
 	}
 	
 	@Test
-	void testRemoveBranchOffice4() {
-		fail("not implemented");
+	void testRemoveBranchOffices4() {
+		setUpBranchOffices3();
+		try {
+			company.removeBranchOffice("O2222");
+			fail("Expected exception");	
+		} catch (BranchOfficeNotFoundException e) {
+		
+		}				
+		assertEquals("O1234",company.getFirstBranchOffice().getId());
+		assertEquals("O2598",company.getFirstBranchOffice().getNextOffice().getId());
 	}
 	
 	@Test
-	void testRemoveBranchOffice5() {
-		fail("not implemented");
+	void testRemoveBranchOffices5() {
+		setUpBranchOffices3();
+		try {
+			company.removeBranchOffice("O1234");				
+		} catch (BranchOfficeNotFoundException e) {
+			fail("Unexpected exception");
+		}		
+		assertEquals("O2598",company.getFirstBranchOffice().getId());
+		assertNull(company.getFirstBranchOffice().getNextOffice());
 	}
 	
 	@Test
-	void testRemoveBranchOffice6() {
-		fail("not implemented");
+	void testRemoveBranchOffices6() {
+		setUpBranchOffices4();
+		try {
+			company.removeBranchOffice("O2222");	
+			fail("Expected exception");
+		} catch (BranchOfficeNotFoundException e) {
+			
+		}		
+		assertEquals("O0000",company.getFirstBranchOffice().getId());			
+		assertEquals("O1234",company.getFirstBranchOffice().getNextOffice().getId());
+		assertEquals("O2598",company.getFirstBranchOffice().getNextOffice().getNextOffice().getId());	
+		assertEquals("O1111",company.getFirstBranchOffice().getNextOffice().getNextOffice().getNextOffice().getId());	
+		assertNull(company.getFirstBranchOffice().getNextOffice().getNextOffice().getNextOffice().getNextOffice());
 	}
 	
 	@Test
 	void testRemoveBranchOffice7() {
-		fail("not implemented");
+		setUpBranchOffices4();
+		try {
+			company.removeBranchOffice("O1111");				
+		} catch (BranchOfficeNotFoundException e) {
+			fail("Unexpected exception");
+		}		
+		assertEquals("O0000",company.getFirstBranchOffice().getId());	
+		assertEquals("O1234",company.getFirstBranchOffice().getNextOffice().getId());
+		assertEquals("O2598",company.getFirstBranchOffice().getNextOffice().getNextOffice().getId());	
+		assertNull(company.getFirstBranchOffice().getNextOffice().getNextOffice().getNextOffice());
+	}
+	
+	@Test
+	void testRemoveBranchOffice8() {
+		setUpBranchOffices4();
+		try {
+			company.removeBranchOffice("O1234");				
+		} catch (BranchOfficeNotFoundException e) {
+			fail("Unexpected exception");
+		}		
+		assertEquals("O0000",company.getFirstBranchOffice().getId());	
+		assertEquals("O2598",company.getFirstBranchOffice().getNextOffice().getId());
+		assertEquals("O1111",company.getFirstBranchOffice().getNextOffice().getNextOffice().getId());	
+		assertNull(company.getFirstBranchOffice().getNextOffice().getNextOffice().getNextOffice());
 	}
 	
 	@Test
@@ -691,7 +875,7 @@ private Company company;
 	
 	@Test
 	void testSelectionSortBranchOffices4() {
-		setUpBranchOffices5();
+		setUpBranchOffices5();		
 		company.selectionSortBranchOffices();
 		assertEquals("O1234",company.getFirstBranchOffice().getId());
 		assertEquals("O2598",company.getFirstBranchOffice().getNextOffice().getId());

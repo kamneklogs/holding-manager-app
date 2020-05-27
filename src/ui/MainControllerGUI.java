@@ -10,6 +10,7 @@ import customExceptions.BranchOfficeAlreadyExistException;
 import customExceptions.BranchOfficeNotFoundException;
 import customExceptions.ContractNotFoundException;
 import customExceptions.EmployeeNotFoundException;
+import customExceptions.ImpossibleToRemoveEmployeeException;
 import customExceptions.WithoutCurrentCompanyException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -497,7 +498,17 @@ public class MainControllerGUI {
 
 			alert.showAndWait();
 
-		} catch (Exception e) {
+		}
+		catch(ImpossibleToRemoveEmployeeException e){
+			Alert alert = new Alert(AlertType.WARNING);
+
+			alert.setTitle("Advertencia");
+			alert.setHeaderText("No se puede remover el representante legal!");
+			alert.setContentText(e.getMessage());
+
+			alert.showAndWait();
+		}
+		catch (Exception e) {
 			Alert alert = new Alert(AlertType.ERROR);
 
 			alert.setTitle("Error");
@@ -507,7 +518,7 @@ public class MainControllerGUI {
 	}
 
 	@FXML
-	void removeEmployee(ActionEvent event) throws ContractNotFoundException, EmployeeNotFoundException {
+	void removeEmployee(ActionEvent event) throws ContractNotFoundException, EmployeeNotFoundException, ImpossibleToRemoveEmployeeException {
 
 		theHolding.removeContract(theHolding.findEmployee(idRemoveEmployee.getText()).getMyContract().getId());
 		theHolding.removeEmployee(idRemoveEmployee.getText());

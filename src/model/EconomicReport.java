@@ -24,7 +24,7 @@ public class EconomicReport extends Report {
 		
 		if(isToCsv()) {			 
 			try {
-				BufferedWriter bw = new BufferedWriter(new FileWriter("data/Reporte_Economico_" + name + ".csv"));
+				BufferedWriter bw = new BufferedWriter(new FileWriter("reports/Reporte_Economico_" + name + ".csv"));
 				bw.write("nombre,nit,ingresos,egresos,valor,impuestos");
 				bw.newLine();
 				bw.write(name + "," + nit + ",$" + income + ",$" + outcome + ",$" + value + "," + taxes + "%");				
@@ -40,7 +40,7 @@ public class EconomicReport extends Report {
 		
 		if(isToTxt()) {
 			try {
-				BufferedWriter bw = new BufferedWriter(new FileWriter("data/Reporte_Economico_" + name + ".txt"));
+				BufferedWriter bw = new BufferedWriter(new FileWriter("reports/Reporte_Economico_" + name + ".txt"));
 				bw.write(report);							
 				bw.close();				
 			} catch (IOException e) {				
