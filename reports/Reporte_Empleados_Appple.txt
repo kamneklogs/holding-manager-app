@@ -1,0 +1,21 @@
+REPORTE GENERAL DE EMPLEADOS PARA LA EMPRESA Appple
+Name: Juan
+Id: 123
+Phone Number: 122312
+Salary: 123321.0
+Job title: Ejecutivo
+Name: Juan
+Id: 123
+Phone Number: 122312
+Salary: 123321.0
+Job title: Ejecutivo
+Name: Juan
+Id: 123
+Phone Number: 122312
+Salary: 123321.0
+Job title: Ejecutivo
+Name: Juan
+Id: 123
+Phone Number: 122312
+Salary: 123321.0
+Job title: Ejecutivo

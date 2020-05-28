@@ -1,0 +1,21 @@
+REPORTE GENERAL DE EMPLEADOS PARA LA EMPRESA Apple
+Name: Juan
+Id: 123
+Phone Number: 317xxxxxx
+Salary: 5000000.0
+Job title: Ejecutivo
+Name: Juan
+Id: 123
+Phone Number: 317xxxxxx
+Salary: 5000000.0
+Job title: Ejecutivo
+Name: Juan
+Id: 123
+Phone Number: 317xxxxxx
+Salary: 5000000.0
+Job title: Ejecutivo
+Name: Juan
+Id: 123
+Phone Number: 317xxxxxx
+Salary: 5000000.0
+Job title: Ejecutivo
