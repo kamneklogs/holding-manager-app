@@ -15,7 +15,17 @@ Video showing problem analysis, solution design and functioning program. Youtube
 ### 5. Program Screenshots
 Some screenshots of the program:
 
-Pending screenshots
+<img src="docs/images/gif(3).gif" width = 600>
+<img src="docs/images/1.PNG" width = 600>
+<img src="docs/images/2.PNG" width = 600>
+<img src="docs/images/3.PNG" width = 600>
+<img src="docs/images/4.PNG" width = 600>
+<img src="docs/images/5.PNG" width = 600>
+<img src="docs/images/6.PNG" width = 600>
+<img src="docs/images/7.PNG" width = 600>
+<img src="docs/images/8.PNG" width = 600>
+<img src="docs/images/9.PNG" width = 600>
+<img src="docs/images/10.PNG" width = 600>
 
 ### 6. Developers
 - https://github.com/kamneklogs
